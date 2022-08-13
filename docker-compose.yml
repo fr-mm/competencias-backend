@@ -18,7 +18,11 @@ services:
     env_file:
       - ./.env.dev
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    volumes:
+      - ./api:/code/api
+      - ./competencias_backend:/code/competencias_backend
 
   db:
     image: postgres:14.4-alpine
@@ -27,6 +31,8 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env.dev
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q"]
 
 volumes:
   postgres_data:
