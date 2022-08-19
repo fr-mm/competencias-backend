@@ -58,6 +58,22 @@ independente e isolada do mundo externo, ou seja, não pode importar nada de for
 Faremos isso para isolar nossa lógica de negócio da infraestrutura. Devemos discutir
 como organiza-la e documentar nossas decisões nesse arquivo README. Nosso trabalho 
 aconotecerá nessa camada, na maior parte do tempo.
+
+#### testes
+Aqui ficam os testes do projeto. É de extrema importância que tudo seja testado.
+Antes de submeter qualquer alteração é preciso rodar os testes e verificar
+que todos estão passando. A estrutura desse diretório é a seguinte:
+
+- #### fabricas  
+Aqui ficam guardadas as fábricas de teste. Elas existem para facilitar a testagem.
+
+- #### integracao  
+Testes de integração têm o objetivo de testar a aplicação como um todo, 
+com todas as partes integradas
+
+- #### unitarios
+Testes unitários têm o objetivo de testar cada mínima parte de forma isolada.
+Cada classe, método e função devem ser testados exaustivamente.
 <br><br>
 
 #### .env.dev
