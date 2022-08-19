@@ -3,7 +3,7 @@ version: '3.10'
 services:
   web:
     image: "competencias_backend:dev"
-
+    container_name: web
     build:
       target: development_build
       context: .
@@ -28,6 +28,7 @@ services:
 
   db:
     image: postgres:14.4-alpine
+    container_name: db
     user: postgres
     restart: unless-stopped
     volumes:
