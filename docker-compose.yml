@@ -24,6 +24,7 @@ services:
       - ./api:/code/api
       - ./dominio:/code/dominio
       - ./competencias_backend:/code/competencias_backend
+      - ./testes:/code/testes
 
   db:
     image: postgres:14.4-alpine
