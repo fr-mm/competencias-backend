@@ -21,7 +21,7 @@ services:
       db:
         condition: service_healthy
     volumes:
-      - ./api:/code/api
+      - ./aplicacao:/code/aplicacao
       - ./dominio:/code/dominio
       - ./competencias_backend:/code/competencias_backend
       - ./testes:/code/testes
