@@ -38,7 +38,13 @@ Versões compatíveis dessas dependências precisam estar instaladas para rodar 
 O Docker irá instalar essas dependências
 - [Poetry 1.1.14](https://python-poetry.org/blog/announcing-poetry-1.1.14/) (gerenciador de pacotes)
 - [Django 4.1](https://docs.djangoproject.com/en/4.1/releases/4.1/) (framework web)
+- [Django Rest Framework 3.13.1](https://www.django-rest-framework.org/community/release-notes/#313x-series) (framework REST API)
 - [PostgreSQL 14.4](https://www.postgresql.org/docs/current/release-14-4.html) (banco de dados)
+- [psycopg2-binary 2.9.3](https://pypi.org/project/psycopg2-binary/) (requisito do PostgreSQL) 
+- [Pytest 7.1.2](https://docs.pytest.org/en/7.1.x/) (framework de testes)
+- [Pytest Django 4.5.2](https://pytest-django.readthedocs.io/en/latest/) (plugin para testar aplicação Django com Pytest)
+- [Mockito 1.3.5](https://pypi.org/project/mockito/) (framework para mock e spy em testes)
+- [Factory Boy 3.2.1](https://factoryboy.readthedocs.io/en/stable/) (ferramentas para criar fábricas de teste)
 
 ### Estrutura
 #### api
