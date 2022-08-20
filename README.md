@@ -82,11 +82,9 @@ Aqui ficam as configurações gerais do Django. A princípio não vamos mexer aq
 ### dominio
 Nessa camada vamos descrever nossa lógica de negócio em python puro. Ela deve ser
 independente e isolada do mundo externo, ou seja, não pode importar nada de fora.
-Faremos isso para isolar nossa lógica de negócio da infraestrutura. Devemos discutir
+Faremos isso para isolar nossa lógica de negócio da lógica de infraestrutura. Devemos discutir
 como organiza-la e documentar nossas decisões nesse arquivo README. Nosso trabalho 
-aconotecerá nessa camada, na maior parte do tempo. A estrutura desse diretório
-é fruto de nossas decisões, e pode mudar caso julguemos conveniente. 
-A princípio teremos:
+aconotecerá nessa camada na maior parte do tempo. A princípio, nela temos:
 
 - #### casos_de_uso
 Aqui ficam classes que representam os casos de uso definidos na modelagem.
