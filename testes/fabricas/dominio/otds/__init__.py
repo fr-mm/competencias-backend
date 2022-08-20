@@ -1,0 +1,2 @@
+from testes.fabricas.dominio.otds.fabrica_teste_otd_entrada_caso_de_uso_criar_docente import FabricaTesteOTDEntradaCasoDeUsoCriarDocente
+from testes.fabricas.dominio.otds.fabrica_teste_otd_saida_caso_de_uso_criar_docente import FabricaTesteOTDSaidaCasoDeUsoCriarDocente
