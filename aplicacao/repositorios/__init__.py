@@ -1,0 +1,1 @@
+from aplicacao.repositorios.repositorio_docente import RepositorioDocente
