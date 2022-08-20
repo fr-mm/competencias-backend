@@ -1,2 +1,0 @@
-from testes.fabricas.objetos_de_valor.fabrica_teste_id_de_docente import FabricaTesteIdDeDocente
-from testes.fabricas.objetos_de_valor.fabrica_teste_nome_de_docente import FabricaTesteNomeDeDocente
