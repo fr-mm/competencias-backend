@@ -12,3 +12,7 @@ class RepositorioAbstratoDocente(ABC):
     @abstractmethod
     def salvar(self, docente: Docente) -> None:
         pass
+
+    @abstractmethod
+    def deletar_por_id(self, id_: IdDeDocente) -> None:
+        pass
