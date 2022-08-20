@@ -1,0 +1,1 @@
+from testes.fabricas.entidades.fabrica_teste_docente import FabricaTesteDocente
