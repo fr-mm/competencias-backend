@@ -101,7 +101,9 @@ entidades aqui descritas.
 
 - #### erros
 Nossos erros customizados. Um erro não é necessariamente um bug. Erros são
-esperados e carregam informações, e serão tratados pelo sistema. 
+esperados e carregam informações, e serão tratados pelo sistema. Todos os
+erros de domínio devem herdar da classe ErroDeDominio, para que fique clara
+a separação entre nossos erros customizados e os demais.
 
 - #### objetos_de_valor
 São classes muito simples (@dataclass) que representam atributos de nossas entidades.
