@@ -103,6 +103,13 @@ entidades aqui descritas.
 Nossos erros customizados. Um erro não é necessariamente um bug. Erros são
 esperados e carregam informações, e serão tratados pelo sistema. 
 
+- #### objetos_de_valor
+São classes muito simples (@dataclass) que representam atributos de nossas entidades.
+Elas devem ser capazes de se auto-validar e se comparar. Por exemplo, numa etidade 'Pessoa'
+com um atributo 'nome', esse atributo não seria uma string, e sim o objeto de valor
+chamado 'NomeDePessoa'. Ao instanciar esse objeto, ele faria as validações necessárias
+e lançaria um erro caso o nome fosse inválido.
+
 - #### repositorios
 Repositórios são responsáveis por guardar objetos. 
 Aqui ficam classes abstratas (que cumprem o papel de interfaces) dos
