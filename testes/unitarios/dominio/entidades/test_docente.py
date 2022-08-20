@@ -20,3 +20,22 @@ class TestDocente(TestCase):
         docente = Docente(nome=nome_de_docente)
 
         self.assertIsInstance(docente.id, IdDeDocente)
+
+    def test_construir_QUANDO_id_informado_ENTAO_atribui_id(self) -> None:
+        nome = FabricaTesteNomeDeDocente.build().valor
+        id_ = FabricaTesteIdDeDocente.build().valor
+
+        docente = Docente.construir(
+            nome=nome,
+            id_=id_
+        )
+
+        self.assertEqual(docente.id.valor, id_)
+
+    def test_construir_QUANDO_id_nao_informado_ENTAO_atribui_id_gerado_nao_nulo(self) -> None:
+        nome = FabricaTesteNomeDeDocente.build().valor
+
+        docente = Docente.construir(
+            nome=nome
+        )
+        self.assertIsNotNone(docente.id.valor)

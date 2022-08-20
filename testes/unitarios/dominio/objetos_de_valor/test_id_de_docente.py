@@ -1,5 +1,5 @@
 from unittest import TestCase
-from uuid import uuid4, UUID
+from uuid import uuid4
 
 from dominio.objetos_de_valor import IdDeDocente
 
@@ -12,7 +12,7 @@ class TestIdDeDocente(TestCase):
 
         self.assertEqual(id_de_docente.valor, valor)
 
-    def test_init_QUANDO_valor_nao_informado_ENTAO_atribui_valor_autogerado(self) -> None:
+    def test_init_QUANDO_valor_nao_informado_ENTAO_atribui_valor_gerado_nao_nulo(self) -> None:
         id_de_docente = IdDeDocente()
 
-        self.assertIsInstance(id_de_docente.valor, UUID)
+        self.assertIsNotNone(id_de_docente.valor)
