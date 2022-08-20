@@ -1,0 +1,1 @@
+from dominio.repositorios.repositorio_abstrato_docente import RepositorioAbstratoDocente
