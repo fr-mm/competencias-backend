@@ -20,6 +20,6 @@ class ModeloDocente(models.Model):
 
     def para_entidade(self) -> Docente:
         return Docente.construir(
-            nome=self.nome,
-            id_=UUID(self.id)
+            nome=str(self.nome),
+            id_=UUID(str(self.id))
         )
