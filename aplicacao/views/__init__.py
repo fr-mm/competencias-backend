@@ -1,1 +1,1 @@
-from aplicacao.views.hello_world import hello_world
+from aplicacao.views.docentes_view import DocentesView

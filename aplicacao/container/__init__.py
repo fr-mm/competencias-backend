@@ -1,0 +1,1 @@
+from aplicacao.container.container_de_dependencias import container_de_dependencias, ContainerDeDependencias

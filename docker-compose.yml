@@ -25,6 +25,7 @@ services:
       - ./dominio:/code/dominio
       - ./competencias_backend:/code/competencias_backend
       - ./testes:/code/testes
+      - ./pytest.ini:/code/pytest.ini
 
   db:
     image: postgres:14.4-alpine
