@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from aplicacao.container import ContainerDeDependencias, container_de_dependencias
-from aplicacao.serializers import SerializerDocente, SerializerDocenteSemID
+from aplicacao.serializers import SerializerOTDCriarDocenteEntrada, SerializerOTDCriarDocenteSaida
 from dominio.otds import OTDEntradaCasoDeUsoCriarDocente
 
 
@@ -16,12 +16,12 @@ class DocentesView(APIView):
         super().__init__()
 
     def post(self, request: Request) -> Response:
-        serializer_entrada = SerializerDocenteSemID(data=request.data)
+        serializer_entrada = SerializerOTDCriarDocenteEntrada(data=request.data)
         try:
             serializer_entrada.is_valid(raise_exception=True)
             otd_entrada_criar_docente = OTDEntradaCasoDeUsoCriarDocente(**serializer_entrada.validated_data)
             otd_saida_criar_docente = self.__container.casos_de_uso.criar_docente.executar(otd_entrada_criar_docente)
-            serializer_saida = SerializerDocente(otd_saida_criar_docente)
+            serializer_saida = SerializerOTDCriarDocenteSaida(otd_saida_criar_docente)
 
             return Response(
                 data=serializer_saida.data,
