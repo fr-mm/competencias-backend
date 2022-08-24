@@ -19,10 +19,10 @@ class DocentesView(APIView):
         try:
             otd_entrada_criar_docente = SerializerOTDCriarDocenteEntrada.request_data_para_otd(request.data)
             otd_saida_criar_docente = self.__container.casos_de_uso.criar_docente.executar(otd_entrada_criar_docente)
-            serializer_saida = SerializerOTDCriarDocenteSaida(otd_saida_criar_docente)
+            response_data = SerializerOTDCriarDocenteSaida.otd_para_response_data(otd_saida_criar_docente)
 
             return Response(
-                data=serializer_saida.data,
+                data=response_data,
                 status=201,
                 content_type='json'
             )

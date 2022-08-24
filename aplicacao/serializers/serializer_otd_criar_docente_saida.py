@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from aplicacao.serializers.serializer_base import SerializerBase
+from aplicacao.serializers.serializer_base_otd_saida import SerializerBaseOTDSaida
 
 
-class SerializerOTDCriarDocenteSaida(SerializerBase):
+class SerializerOTDCriarDocenteSaida(SerializerBaseOTDSaida):
     id = serializers.UUIDField()
     nome = serializers.CharField(max_length=200)
