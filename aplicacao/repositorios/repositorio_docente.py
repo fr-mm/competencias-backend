@@ -5,12 +5,16 @@ from dominio.repositorios import RepositorioAbstratoDocente
 
 
 class RepositorioDocente(RepositorioAbstratoDocente):
+    def trazer(self) -> [Docente]:
+        modelos = ModeloDocente.objects.all()
+        return [modelo.para_entidade() for modelo in modelos]
+
     def trazer_por_id(self, id_: IdDeDocente) -> Docente:
         pass
 
     def salvar(self, docente: Docente) -> None:
-        modelo_docente = ModeloDocente.de_entidade(docente)
-        modelo_docente.save()
+        modelo = ModeloDocente.de_entidade(docente)
+        modelo.save()
 
     def deletar_por_id(self, id_: IdDeDocente) -> None:
         pass
