@@ -1,2 +1,3 @@
 from aplicacao.serializers.serializer_docente import SerializerDocente
 from aplicacao.serializers.serializer_docente_sem_id import SerializerDocenteSemID
+from aplicacao.serializers.serializer_otd_criar_docente_entrada import SerializerOTDCriarDocenteEntrada
