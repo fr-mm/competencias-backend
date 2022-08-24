@@ -1,7 +1,7 @@
 from rest_framework.serializers import Serializer
 
 
-class SerializerAbstrato(Serializer):
+class SerializerBase(Serializer):
     def update(self, instance, validated_data):
         pass
 

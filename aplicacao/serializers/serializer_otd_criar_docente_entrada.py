@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from rest_framework import serializers
 
-from aplicacao.serializers.serializer_abstrato import SerializerAbstrato
+from aplicacao.serializers.serializer_base import SerializerBase
 from dominio.otds import OTDEntradaCasoDeUsoCriarDocente
 
 
-class SerializerOTDCriarDocenteEntrada(SerializerAbstrato):
+class SerializerOTDCriarDocenteEntrada(SerializerBase):
     otd_class = OTDEntradaCasoDeUsoCriarDocente
     nome = serializers.CharField(max_length=200)
 
