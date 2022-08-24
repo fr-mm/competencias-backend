@@ -1,9 +1,10 @@
+from aplicacao.erros import ErroSerializerSemOTDAtribuido
 from aplicacao.serializers.serializer_base import SerializerBase
 
 
 class OTDClassNaoAtribuido:
     def __init__(self, **kwargs) -> None:
-        raise Exception('Classe de OTD não atribuída no serializer')
+        raise ErroSerializerSemOTDAtribuido()
 
 
 class SerializerBaseOTDEntrada(SerializerBase):
