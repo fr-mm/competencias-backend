@@ -1,6 +1,6 @@
 from typing import Any
 
-from aplicacao.serializers.serializer_base import SerializerBase
+from aplicacao.serializers.base.serializer_base import SerializerBase
 
 
 class SerializerBaseOTDSaida(SerializerBase):

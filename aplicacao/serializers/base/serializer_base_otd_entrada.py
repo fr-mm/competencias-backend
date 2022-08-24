@@ -3,8 +3,8 @@ from typing import Dict
 from rest_framework.exceptions import ValidationError
 
 from aplicacao.erros import ErroDeSerializacao
-from aplicacao.serializers.otd_class_nao_atribuida import OTDClass
-from aplicacao.serializers.serializer_base import SerializerBase
+from aplicacao.serializers.base.otd_class_nao_atribuida import OTDClass
+from aplicacao.serializers.base.serializer_base import SerializerBase
 
 
 class SerializerBaseOTDEntrada(SerializerBase):

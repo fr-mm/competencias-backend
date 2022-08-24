@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from aplicacao.serializers.serializer_base_otd_saida import SerializerBaseOTDSaida
+from aplicacao.serializers.base import SerializerBaseOTDSaida
 
 
 class SerializerOTDCriarDocenteSaida(SerializerBaseOTDSaida):

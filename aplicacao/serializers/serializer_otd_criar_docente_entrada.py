@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from rest_framework import serializers
 
-from aplicacao.serializers.serializer_base_otd_entrada import SerializerBaseOTDEntrada
+from aplicacao.serializers.base import SerializerBaseOTDEntrada
 from dominio.otds import OTDEntradaCasoDeUsoCriarDocente
 
 
