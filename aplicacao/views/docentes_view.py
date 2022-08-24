@@ -16,9 +16,8 @@ class DocentesView(APIView):
         super().__init__()
 
     def post(self, request: Request) -> Response:
-        serializer_entrada = SerializerOTDCriarDocenteEntrada(data=request.data)
         try:
-            otd_entrada_criar_docente = serializer_entrada.para_otd()
+            otd_entrada_criar_docente = SerializerOTDCriarDocenteEntrada.request_data_para_otd(request.data)
             otd_saida_criar_docente = self.__container.casos_de_uso.criar_docente.executar(otd_entrada_criar_docente)
             serializer_saida = SerializerOTDCriarDocenteSaida(otd_saida_criar_docente)
 

@@ -30,15 +30,12 @@ class TestSerializerBaseOTDEntrada(TestCase):
         self.assertFalse(resultlado)
 
     def test_para_otd_QUANDO_valido_ENTAO_retorna_otd_esperado(self) -> None:
-        serializer = self.serializer_class(data=self.request_data_valido)
-
-        otd_resultante = serializer.para_otd()
+        otd_resultante = self.serializer_class.request_data_para_otd(self.request_data_valido)
 
         self.assertEqual(otd_resultante, self.otd_entrada_valido)
 
     def test_para_otd_QUANDO_invalido_ENTAO_lanca_erro_de_serializacao(self) -> None:
         request_data = {}
-        serializer = self.serializer_class(data=request_data)
 
         with self.assertRaises(ErroDeSerializacao):
-            serializer.para_otd()
+            self.serializer_class.request_data_para_otd(request_data)

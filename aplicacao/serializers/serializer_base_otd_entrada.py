@@ -1,3 +1,5 @@
+from typing import Dict
+
 from rest_framework.exceptions import ValidationError
 
 from aplicacao.erros import ErroSerializerSemOTDAtribuido, ErroDeSerializacao
@@ -12,10 +14,13 @@ class OTDClass:
 class SerializerBaseOTDEntrada(SerializerBase):
     otd_class = OTDClass
 
-    def para_otd(self) -> otd_class:
+    @classmethod
+    def request_data_para_otd(cls, request_data: Dict) -> otd_class:
+        serializer = cls(data=request_data)
+
         try:
-            self.is_valid(raise_exception=True)
-            return self.otd_class(**self.validated_data)
+            serializer.is_valid(raise_exception=True)
+            return serializer.otd_class(**serializer.validated_data)
 
         except ValidationError:
             raise ErroDeSerializacao()
