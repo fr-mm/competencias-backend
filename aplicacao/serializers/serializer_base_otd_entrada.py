@@ -4,13 +4,13 @@ from aplicacao.erros import ErroSerializerSemOTDAtribuido, ErroDeSerializacao
 from aplicacao.serializers.serializer_base import SerializerBase
 
 
-class OTDClassNaoAtribuido:
+class OTDClass:
     def __init__(self, **kwargs) -> None:
         raise ErroSerializerSemOTDAtribuido()
 
 
 class SerializerBaseOTDEntrada(SerializerBase):
-    otd_class = OTDClassNaoAtribuido
+    otd_class = OTDClass
 
     def para_otd(self) -> otd_class:
         try:
