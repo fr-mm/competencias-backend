@@ -1,0 +1,2 @@
+class OTDBase:
+    pass
