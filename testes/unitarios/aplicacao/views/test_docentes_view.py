@@ -4,14 +4,14 @@ from mockito import mock
 from rest_framework.test import APITestCase
 
 from aplicacao.views import DocentesView
-from dominio.otds import OTDSaidaCasoDeUsoCriarDocente
-from testes.fabricas.dominio.otds import FabricaTesteOTDSaidaCasoDeUsoCriarDocente
+from dominio.otds import OTDCriarDocenteSaida
+from testes.fabricas.dominio.otds import FabricaTesteOTDCriarDocenteSaida
 
 
 class TestDocentesView(APITestCase):
     def setUp(self) -> None:
         self.url = f'https://localhost:8000'
-        self.otd_saida_criar_docente: OTDSaidaCasoDeUsoCriarDocente = FabricaTesteOTDSaidaCasoDeUsoCriarDocente.build()
+        self.otd_saida_criar_docente: OTDCriarDocenteSaida = FabricaTesteOTDCriarDocenteSaida.build()
         self.container = mock({
             'casos_de_uso': mock({
                 'criar_docente': mock({

@@ -4,7 +4,7 @@ from dominio.entidades import Docente
 
 
 @dataclass
-class OTDEntradaCasoDeUsoCriarDocente:
+class OTDCriarDocenteEntrada:
     nome: str
 
     def para_entidade(self) -> Docente:

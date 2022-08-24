@@ -3,9 +3,9 @@ from mockito import mock, unstub, when, verify
 
 from dominio.casos_de_uso import CasoDeUsoCriarDocente
 from dominio.entidades import Docente
-from dominio.otds import OTDEntradaCasoDeUsoCriarDocente, OTDSaidaCasoDeUsoCriarDocente
+from dominio.otds import OTDCriarDocenteEntrada, OTDCriarDocenteSaida
 from testes.fabricas.dominio.entidades import FabricaTesteDocente
-from testes.fabricas.dominio.otds import FabricaTesteOTDEntradaCasoDeUsoCriarDocente
+from testes.fabricas.dominio.otds import FabricaTesteOTDCriarDocenteEntrada
 
 
 class TestCasoDeUsoCriarDocente(TestCase):
@@ -24,7 +24,7 @@ class TestCasoDeUsoCriarDocente(TestCase):
         unstub()
 
     def test_executar_QUANDO_otd_entrada_fornecido_ENTAO_salva_docente_com_atributos_esperados_no_repositorio(self) -> None:
-        otd_entrada: OTDEntradaCasoDeUsoCriarDocente = FabricaTesteOTDEntradaCasoDeUsoCriarDocente.build()
+        otd_entrada: OTDCriarDocenteEntrada = FabricaTesteOTDCriarDocenteEntrada.build()
         when(otd_entrada).para_entidade().thenReturn(self.docente)
         when(self.repositorio_docente).salvar(self.docente)
 
@@ -33,12 +33,12 @@ class TestCasoDeUsoCriarDocente(TestCase):
         verify(self.repositorio_docente).salvar(self.docente)
 
     def test_executar_QUANDO_otd_entrada_fornecido_ENTAO_retorna_otd_saida_esperado(self) -> None:
-        otd_entrada: OTDEntradaCasoDeUsoCriarDocente = FabricaTesteOTDEntradaCasoDeUsoCriarDocente.build()
+        otd_entrada: OTDCriarDocenteEntrada = FabricaTesteOTDCriarDocenteEntrada.build()
         when(otd_entrada).para_entidade().thenReturn(self.docente)
 
         otd_saida = self.caso_de_uso_criar_docente.executar(otd_entrada)
 
-        otd_saida_esperado = OTDSaidaCasoDeUsoCriarDocente(
+        otd_saida_esperado = OTDCriarDocenteSaida(
             id=str(self.docente.id.valor),
             nome=self.docente.nome.valor
         )

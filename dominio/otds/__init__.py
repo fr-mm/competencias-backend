@@ -1,2 +1,2 @@
-from dominio.otds.otd_entrada_caso_de_uso_criar_docente import OTDEntradaCasoDeUsoCriarDocente
-from dominio.otds.otd_saida_caso_de_uso_criar_docente import OTDSaidaCasoDeUsoCriarDocente
+from dominio.otds.otd_criar_docente_entrada import OTDCriarDocenteEntrada
+from dominio.otds.otd_criar_docente_saida import OTDCriarDocenteSaida
