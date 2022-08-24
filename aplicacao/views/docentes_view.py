@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from aplicacao.container import ContainerDeDependencias, container_de_dependencias
+from aplicacao.erros import ErroDeSerializacao
 from aplicacao.serializers import SerializerOTDCriarDocenteEntrada, SerializerOTDCriarDocenteSaida
 
 
@@ -26,5 +27,5 @@ class DocentesView(APIView):
                 status=201,
                 content_type='json'
             )
-        except ValidationError:
+        except ErroDeSerializacao:
             return Response(status=400)
