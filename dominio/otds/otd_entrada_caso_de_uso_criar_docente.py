@@ -1,11 +1,10 @@
 from dataclasses import dataclass
 
-from dominio.otds.otd_base import OTDBase
 from dominio.entidades import Docente
 
 
 @dataclass
-class OTDEntradaCasoDeUsoCriarDocente(OTDBase):
+class OTDEntradaCasoDeUsoCriarDocente:
     nome: str
 
     def para_entidade(self) -> Docente:

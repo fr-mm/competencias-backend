@@ -2,12 +2,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from dominio.otds.otd_base import OTDBase
 from dominio.entidades import Docente
 
 
 @dataclass
-class OTDSaidaCasoDeUsoCriarDocente(OTDBase):
+class OTDSaidaCasoDeUsoCriarDocente:
     id: str
     nome: str
 
