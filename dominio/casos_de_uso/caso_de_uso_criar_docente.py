@@ -8,7 +8,7 @@ class CasoDeUsoCriarDocente:
     def __init__(self, repositorio_docente: RepositorioAbstratoDocente) -> None:
         self.__repositorio_docente = repositorio_docente
 
-    def executar(self, otd_entrada: OTDDocenteEmCriacao) -> OTDDocente:
-        docente = otd_entrada.para_entidade()
+    def executar(self, otd_docente_em_criacao: OTDDocenteEmCriacao) -> OTDDocente:
+        docente = otd_docente_em_criacao.para_entidade()
         self.__repositorio_docente.salvar(docente)
         return OTDDocente.de_entidade(docente)
