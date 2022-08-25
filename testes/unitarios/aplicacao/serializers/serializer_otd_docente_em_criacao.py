@@ -1,14 +1,14 @@
 from unittest import TestCase
 
 from aplicacao.erros import ErroDeSerializacao
-from aplicacao.serializers import SerializerOTDCriarDocenteEntrada
+from aplicacao.serializers import SerializerOTDDocenteEmCriacao
 from dominio.otds import OTDCriarDocenteEntrada
 from testes.fabricas.dominio.otds import FabricaTesteOTDCriarDocenteEntrada
 
 
-class TestSerializerBaseOTDEntrada(TestCase):
+class TestSerializerOTDDocenteEmCriacao(TestCase):
     def setUp(self) -> None:
-        self.serializer_class = SerializerOTDCriarDocenteEntrada
+        self.serializer_class = SerializerOTDDocenteEmCriacao
         self.otd_entrada_valido: OTDCriarDocenteEntrada = FabricaTesteOTDCriarDocenteEntrada.build()
         self.request_data_valido = {
             'nome': self.otd_entrada_valido.nome

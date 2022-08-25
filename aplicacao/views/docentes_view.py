@@ -1,10 +1,11 @@
+from rest_framework.exceptions import ValidationError
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from aplicacao.container import ContainerDeDependencias, container_de_dependencias
-from aplicacao.erros import ErroDeSerializacao
-from aplicacao.serializers import SerializerOTDCriarDocenteEntrada, SerializerOTDCriarDocenteSaida
+from aplicacao.serializers import SerializerOTDDocenteEmCriacao, SerializerOTDDocente
+from dominio.otds import OTDDocenteEmCriacao
 
 
 class DocentesView(APIView):
@@ -16,14 +17,16 @@ class DocentesView(APIView):
 
     def post(self, request: Request) -> Response:
         try:
-            otd_entrada_criar_docente = SerializerOTDCriarDocenteEntrada.request_data_para_otd(request.data)
-            otd_saida_criar_docente = self.__container.casos_de_uso.criar_docente.executar(otd_entrada_criar_docente)
-            response_data = SerializerOTDCriarDocenteSaida.otd_para_response_data(otd_saida_criar_docente)
+            serializer_otd_docente_em_criacao = SerializerOTDDocenteEmCriacao(data=request.data)
+            serializer_otd_docente_em_criacao.is_valid(raise_exception=True)
+            otd_docente_em_criacao = OTDDocenteEmCriacao(**serializer_otd_docente_em_criacao.validated_data)
+            otd_docente = self.__container.casos_de_uso.criar_docente.executar(otd_docente_em_criacao)
+            serializer_otd_docente = SerializerOTDDocente(otd_docente)
 
             return Response(
-                data=response_data,
+                data=serializer_otd_docente.data,
                 status=201,
                 content_type='json'
             )
-        except ErroDeSerializacao:
+        except ValidationError:
             return Response(status=400)
