@@ -2,9 +2,9 @@ from unittest import TestCase
 from urllib.request import Request
 from mockito import mock, when
 
-from testes.fabricas import FabricaTesteOTDDocente
+from testes.fabricas import FabricaTesteOTDDocente, FabricaTesteOTDDocenteEmCriacao
 from aplicacao.views import DocentesView
-from dominio.otds import OTDDocente
+from dominio.otds import OTDDocente, OTDDocenteEmCriacao
 
 
 class TestDocentesView(TestCase):
@@ -14,7 +14,7 @@ class TestDocentesView(TestCase):
         self.container = mock({
             'casos_de_uso': mock({
                 'criar_docente': mock({
-                    'executar': lambda otd_entrada: self.otd_docente
+                    'executar': lambda otd_entrada: None
                 }),
                 'trazer_docentes': mock({
                     'executar': lambda: None
@@ -33,7 +33,28 @@ class TestDocentesView(TestCase):
 
         self.assertEqual(response.status_code, 201)
 
-    def test_post_QUANDO_invalida_ENTAO_retorna_status_400(self) -> None:
+    def test_post_QUANDO_request_valida_ENTAO_retorna_response_contendo_docente_com_atributos_esperados(self) -> None:
+        otd_docente_em_criacao: OTDDocenteEmCriacao = FabricaTesteOTDDocenteEmCriacao.build()
+        data = {
+            'nome': otd_docente_em_criacao.nome
+        }
+        request = Request(self.url, data=data)
+        otd_docente_criado: OTDDocente = FabricaTesteOTDDocente.build(nome=otd_docente_em_criacao.nome)
+        when(self.container.casos_de_uso.criar_docente).executar(otd_docente_em_criacao).thenReturn(otd_docente_criado)
+
+        response = self.docentes_view.post(request)
+
+        atributos_resultantes = [
+            response.data['nome']
+        ]
+        atributos_esperados = [
+            otd_docente_em_criacao.nome
+        ]
+        self.assertEqual(atributos_resultantes, atributos_esperados)
+
+
+
+    def test_post_QUANDO_request_invalida_ENTAO_retorna_status_400(self) -> None:
         data = {
             'nome': ''
         }
