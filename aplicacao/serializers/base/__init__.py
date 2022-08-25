@@ -1,2 +1,0 @@
-from aplicacao.serializers.base.serializer_base_otd_entrada import SerializerBaseOTDEntrada
-from aplicacao.serializers.base.serializer_base_otd_saida import SerializerBaseOTDSaida

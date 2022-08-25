@@ -1,4 +1,2 @@
-from testes.fabricas.dominio.otds.fabrica_teste_otd_criar_docente_entrada import FabricaTesteOTDCriarDocenteEntrada
-from testes.fabricas.dominio.otds.fabrica_teste_otd_criar_docente_saida import FabricaTesteOTDCriarDocenteSaida
 from testes.fabricas.dominio.otds.fabrica_teste_otd_docente import FabricaTesteOTDDocente
 from testes.fabricas.dominio.otds.fabrica_teste_otd_docente_em_criacao import FabricaTesteOTDDocenteEmCriacao
