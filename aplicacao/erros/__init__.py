@@ -1,2 +1,0 @@
-from aplicacao.erros.erro_de_aplicacao import ErroDeAplicacao
-from aplicacao.erros.erro_serializer_sem_otd_atribuido import ErroSerializerSemOTDAtribuido
