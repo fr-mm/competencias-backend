@@ -1,10 +1,9 @@
 from unittest import TestCase
 
-from testes.fabricas.dominio.otds import FabricaTesteOTDDocente
-from testes.fabricas.dominio.entidades import FabricaTesteDocente
 from dominio.objetos_de_valor import IdDeDocente, NomeDeDocente
 from dominio.entidades import Docente
 from dominio.otds import OTDDocente
+from testes.fabricas import FabricaTesteOTDDocente, FabricaTesteDocente
 
 
 class TestOTDDocente(TestCase):
