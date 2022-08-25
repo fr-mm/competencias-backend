@@ -1,6 +1,14 @@
 # competencias-backend
 Backend do projeto de TCC do curso técninco de Desenvolvimento de Sistemas do SENAI Cetind.
 
+# Índice
+- [Sobre](#Sobre)
+- [Uso](#Uso)
+- [Dependências](#Dependências)
+- [Convenções](#Convenções)
+- [Estrutura](#Estrutura)
+
+# Sobre
 ## Objetivo
 Automatizar a planinlha de competência de docentes utilizada pelo SENAI.
 
@@ -19,27 +27,36 @@ permissão de administrador.
 Pelo Windows, rodar pelo Powershell iniciado como administrador ou usar
 a interface gráfica do Docker (Docker Desktop)
 
-Construir as imagens:
+### Construir as imagens
 ```
 docker compose build
 ```
-Ativar containers (acrescente `-d` ao final para rodar no plano de fundo):
+### Ativar containers 
+acrescente `-d` ao final para rodar no plano de fundo
 ```
 docker compose up
 ```
-Desativar containers:
+### Desativar containers
 ```
 docker compose down
 ```
+### Iniciar um terminal de dentro do container web
+```
+docker exec -it web bash
+```
+### Rodar testes
+No terminal do container web
+```
+pytest
+```
 
-# Sobre o projeto
-## Dependências
-### Externas
+# Dependências
+## Externas
 Versões compatíveis dessas dependências precisam estar instaladas para rodar o projeto.
 - [Python 3.10.6](https://python.org/downloads/release/python-3106/) (linguagem usada)
 - [Docker 20.10.17](https://docs.docker.com/engine/release-notes/#201017) (administra ambientes isolados)
 
-### Internas
+## Internas
 O Docker irá instalar essas dependências
 - [Poetry 1.1.14](https://python-poetry.org/blog/announcing-poetry-1.1.14/) (gerenciador de pacotes)
 - [Django 4.1](https://docs.djangoproject.com/en/4.1/releases/4.1/) (framework web)
@@ -51,66 +68,116 @@ O Docker irá instalar essas dependências
 - [Mockito 1.3.5](https://pypi.org/project/mockito/) (framework para mock e spy em testes)
 - [Factory Boy 3.2.1](https://factoryboy.readthedocs.io/en/stable/) (ferramentas para criar fábricas de teste)
 
-## Estrutura
-### apllicacao
+# Convenções
+## Cases
+### SNAKE_CASE_MAIUSCULO
+- constantes
+### PascalCase
+- classes
+### snake_case
+- todo o resto
+
+## Testes
+Não seguir qualquer uma dessas práticas fará com que o Pytest ignore o teste
+- O nome dos arquivos contento TestCase deve começar com test_
+- O nome das classes de teste (TestCase) devem começar com Test
+- O nome dos métodos de teste devem começar com test_
+
+## Nomes
+### Idioma
+Sempre em portugês sem acento, a menos quando referencia algo externo
+(nesse caso deve usar o nome original)
+
+### Formato
+- Começar o nome de uma classe sempre como O QUE ela é, seguido de DO QUE ela é
+- Não usar acento
+- Omitir a palavra 'de'
+#### Exemplos
+- Um modelo de docente deve chamar-se ModeloDocente
+- Uma fábrica de testes de modelo de docente deve chamar-se FabricaTesteModeloDocente
+
+### Imports
+Sempre que possível, organizar do mais externo (no topo) para o mais interno. 
+Dividir em três sessões separadas por um espaço:
+#### Topo
+`from __future__ import annotations`
+#### Meio
+Demais imports externos (não criados por nós)
+#### Abaixo
+Imports de nossas criações (dominio ou aplicacao)
+
+# Estrutura
+## apllicacao
 Essa camada é a ponte entre nosso domínio (ver abaixo) e a aplicação Django. É composta por:
 
-#### migrations
+### container
+No container ficam instanciadas classes que dependem de outras classes externas ao domínio,
+por exemplo: repositórios concretos, casos de uso.
+
+### migrations
 Migrações do banco de dados. Ao alterar a forma que as entidades são representadas 
 no banco de dados, fazemos as migrações (para atualizar o banco) rodando os
 comandos `python manage.py makemigrations` e `python manage.py migrate`
 (dentro do container do Docker)
 
-- #### models
+#### models
 Aqui ficam as representações das nossas entidades no banco de dados.
 
-- #### serializers
-Serializers são responsáveis por formatar as entidades em 
-JSON (Javascript Object Notation), formato usado pela API para
-comunicar os dados.
-- #### urls
+#### repositorios
+Aqui ficam os repositórios concretos que implementam os repositórios abstratos
+contidos no domínio
+
+#### serializers
+Serializers são responsáveis por converter entre OTD e JSON, traduzindo entre
+informações entre nossos casos de uso e a API.
+#### urls
 Contém as rotas da nossa API. Para evitar problemas caso um dia a
 API venha a mudar, devemos separar por versões. A princípio iremos 
 construir as rotas da apiv1 (versão 1 da API).
-- #### views
+#### views
 Aqui ficam as funções chamadas pelo sistema quando uma request
 for requisitada em uma rota. É onde fica a lógica da API.
 
-### competencias_backend
+## competencias_backend
 Aqui ficam as configurações gerais do Django. A princípio não vamos mexer aqui.
 
-### dominio
+## dominio
 Nessa camada vamos descrever nossa lógica de negócio em python puro. Ela deve ser
 independente e isolada do mundo externo, ou seja, não pode importar nada de fora.
 Faremos isso para isolar nossa lógica de negócio da lógica de infraestrutura. Devemos discutir
 como organiza-la e documentar nossas decisões nesse arquivo README. Nosso trabalho 
 aconotecerá nessa camada na maior parte do tempo. A princípio, nela temos:
 
-- #### casos_de_uso
+#### casos_de_uso
 Aqui ficam classes que representam os casos de uso definidos na modelagem.
 A lógica de negócios está centralizda aqui, e são essas classes que serão
 chamadas quando alguma tarefa for requisitada. Essas classes devem conter
 um único método público chamado 'executar'.
 
-- #### entidades
+#### entidades
 Essa é a fonte da verdade quantos às nossas entidades. Elas serão manipuladas
 ao realizar as tarefas, as outras representações são meramente reflexos das
 entidades aqui descritas.
 
-- #### erros
+#### erros
 Nossos erros customizados. Um erro não é necessariamente um bug. Erros são
 esperados e carregam informações, e serão tratados pelo sistema. Todos os
 erros de domínio devem herdar da classe ErroDeDominio, para que fique clara
 a separação entre nossos erros customizados e os demais.
 
-- #### objetos_de_valor
+#### objetos_de_valor
 São classes muito simples (@dataclass) que representam atributos de nossas entidades.
 Elas devem ser capazes de se auto-validar e se comparar. Por exemplo, numa etidade 'Pessoa'
 com um atributo 'nome', esse atributo não seria uma string, e sim o objeto de valor
 chamado 'NomeDePessoa'. Ao instanciar esse objeto, ele faria as validações necessárias
 e lançaria um erro caso o nome fosse inválido.
 
-- #### repositorios
+#### otds
+OTD (Objeto de Transferência de Dados) são a última fronteira entre o
+domínio e mundo externo. Casos de uso recebem e retornam OTDs.
+Serializers os traduzem.
+
+#### repositorios
 Repositórios são responsáveis por guardar objetos. 
 Aqui ficam classes abstratas (que cumprem o papel de interfaces) dos
 repositórios. As classes concretas serão implementadas na camada de aplicação,
@@ -118,33 +185,33 @@ pois irão lidar com questões da infraestrutura (banco de dados). Declaramos
 essas interfaces no domínio para que possamos fazer referência a elas sem
 'sujar' o domínio com lógica de infraestrutura.
 
-### testes
+## testes
 Aqui ficam os testes do projeto. É de extrema importância que tudo seja testado.
 Antes de submeter qualquer alteração é preciso rodar os testes e verificar
 que todos estão passando. A estrutura desse diretório é a seguinte:
 
-- #### fabricas  
+#### fabricas  
 Aqui ficam guardadas as fábricas de teste. Elas existem para facilitar a testagem.
 
-- #### integracao  
+#### integracao  
 Testes de integração têm o objetivo de testar a aplicação como um todo, 
 com todas as partes integradas
 
-- #### unitarios
+#### unitarios
 Testes unitários têm o objetivo de testar cada mínima parte de forma isolada.
 Cada classe, método e função devem ser testados exaustivamente.
 
-### .env.dev
+## .env.dev
 O Docker usa esse arquivo para definir as variáveis de ambiente.
 
-### .gitignore
+## .gitignore
 O Git usa esse arquivo para saber quais pastas e arquivos devem ser ignorados 
 pelo versionamento.
 
-### docker-compose.yml
+## docker-compose.yml
 Esse arquivo descreve os serviços, redes e volumes da aplicação Docker.
 
-### Dockerfile
+## Dockerfile
 É basicamente um script que o Docker usa para construir uma imagem.
 
 ### manage.py
@@ -155,9 +222,9 @@ comandos possíveis. Para rodar o servidor, por exemplo, usamos o comando
 ativar um container, mas para outras tarefas, como migraçã de banco de dados,
 iremos usá-lo manualmente (de dentro do container).
 
-### poetry.lock
+## poetry.lock
 Arquivo usado pelo Poetry para previnir atualizações indesejáveis das dependências,
 garantindo assim um ambiente estável e previsível.
 
-### pyproject.toml
+## pyproject.toml
 Arquivo usado pelo Poetry que contém informações do projeto e suas dependências.
