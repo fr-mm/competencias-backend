@@ -7,7 +7,7 @@ from testes.fabricas import FabricaTesteOTDDocente, FabricaTesteDocente
 
 
 class TestOTDDocente(TestCase):
-    def test_para_entidade_QUANDO_atributos_validos_ENTAO_retorna_docente_com_atributos_esperados(self) -> None:
+    def test_para_entidade_QUANDO_atributos_validos_ENTAO_retorna_docente_esperado(self) -> None:
         otd: OTDDocente = FabricaTesteOTDDocente.build()
 
         docente_resultante = otd.para_entidade()
@@ -18,7 +18,7 @@ class TestOTDDocente(TestCase):
         )
         self.assertEqual(docente_resultante, docente_esperado)
 
-    def test_de_entidade_QUANDO_entidade_informada_ENTAO_retorna_otd_com_atributos_esperados(self) -> None:
+    def test_de_entidade_QUANDO_entidade_informada_ENTAO_retorna_otd_esperado(self) -> None:
         docente: Docente = FabricaTesteDocente.build()
 
         otd = OTDDocente.de_entidade(docente)
