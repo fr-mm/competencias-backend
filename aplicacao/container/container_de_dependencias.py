@@ -15,6 +15,7 @@ class Repositorios(ContainerBase):
 
 class CasosDeUso(ContainerBase):
     criar_docente = CasoDeUsoCriarDocente(Repositorios.docentes)
+    trazer_docentes = CasoDeUsoCriarDocente(Repositorios.docentes)
 
 
 class ContainerDeDependencias(ContainerBase):

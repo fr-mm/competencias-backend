@@ -30,3 +30,13 @@ class DocentesView(APIView):
             )
         except ValidationError:
             return Response(status=400)
+
+    def get(self, _: Request) -> Response:
+        otds_docente = self.__container.casos_de_uso.trazer_docentes.executar()
+        serializer_otd_docente = SerializerOTDDocente(otds_docente, many=True)
+
+        return Response(
+            data=serializer_otd_docente.data,
+            status=201,
+            content_type='json'
+        )
