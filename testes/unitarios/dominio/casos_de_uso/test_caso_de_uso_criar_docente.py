@@ -11,9 +11,7 @@ class TestCasoDeUsoCriarDocente(TestCase):
     def setUp(self) -> None:
         self.docente: Docente = FabricaTesteDocente.build()
         self.repositorio_docente = mock({
-            'trazer_por_id': lambda id_: self.docente,
             'salvar': lambda docente: None,
-            'deletar_por_id': lambda id_: None
         })
         self.caso_de_uso_criar_docente = CasoDeUsoCriarDocente(
             repositorio_docente=self.repositorio_docente
