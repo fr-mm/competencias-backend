@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from aplicacao.repositorios import RepositorioDocente
-from dominio.casos_de_uso import CasoDeUsoCriarDocente
+from dominio.casos_de_uso import CasoDeUsoCriarDocente, CasoDeUsoTrazerDocentes
 
 
 @dataclass(frozen=True, init=False)
@@ -15,7 +15,7 @@ class Repositorios(ContainerBase):
 
 class CasosDeUso(ContainerBase):
     criar_docente = CasoDeUsoCriarDocente(Repositorios.docentes)
-    trazer_docentes = CasoDeUsoCriarDocente(Repositorios.docentes)
+    trazer_docentes = CasoDeUsoTrazerDocentes(Repositorios.docentes)
 
 
 class ContainerDeDependencias(ContainerBase):

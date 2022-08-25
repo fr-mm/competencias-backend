@@ -52,8 +52,6 @@ class TestDocentesView(TestCase):
         ]
         self.assertEqual(atributos_resultantes, atributos_esperados)
 
-
-
     def test_post_QUANDO_request_invalida_ENTAO_retorna_status_400(self) -> None:
         data = {
             'nome': ''
@@ -64,12 +62,12 @@ class TestDocentesView(TestCase):
 
         self.assertEqual(response.status_code, 400)
 
-    def test_get_QUANDO_chamado_ENTAO_retorna_status_201(self) -> None:
+    def test_get_QUANDO_chamado_ENTAO_retorna_status_200(self) -> None:
         request = Request(self.url)
 
         response = self.docentes_view.get(request)
 
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, 200)
 
     def test_get_QUANDO_chamado_ENTAO_retorna_respopnse_com_conteudo_esperado(self) -> None:
         otds_docente: [OTDDocente] = [FabricaTesteOTDDocente.build() for _ in range(2)]

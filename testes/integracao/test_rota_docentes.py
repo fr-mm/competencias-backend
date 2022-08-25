@@ -4,6 +4,7 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 
 from aplicacao.models import ModeloDocente
+from testes.fabricas import FabricaTesteModeloDocente
 
 
 class TestRotaDocentes(APITestCase):
@@ -59,3 +60,23 @@ class TestRotaDocentes(APITestCase):
         nome_resultante = conteudo['nome']
         nome_esperado = data['nome']
         self.assertEqual(nome_resultante, nome_esperado)
+
+    def test_get_QUANDO_chamado_ENTAO_retorna_status_200(self) -> None:
+        response = self.client.get(path=self.url)
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_QUANDO_docentes_existem_ENTAO_retorna_json_esperado(self) -> None:
+        modelos: [ModeloDocente] = [FabricaTesteModeloDocente.create() for _ in range(2)]
+
+        response = self.client.get(path=self.url)
+
+        json_resultante = json.loads(response.content)
+        json_esperado = [
+            {
+                'id': modelo.id,
+                'nome': modelo.nome
+            } for modelo in modelos
+        ]
+        self.assertEqual(json_resultante, json_esperado)
+

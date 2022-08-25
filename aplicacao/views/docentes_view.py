@@ -37,6 +37,6 @@ class DocentesView(APIView):
 
         return Response(
             data=serializer_otd_docente.data,
-            status=201,
+            status=200,
             content_type='json'
         )
