@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from aplicacao.container.container_de_dependencias import container_de_dependencias
+from aplicacao.container import container_de_dependencias
 from dominio.repositorios import RepositorioAbstratoDocente
 
 

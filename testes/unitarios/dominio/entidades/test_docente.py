@@ -1,7 +1,7 @@
 from unittest import TestCase
 
+from testes.fabricas import FabricaTesteNomeDeDocente, FabricaTesteIdDeDocente
 from dominio.entidades import Docente
-from testes.fabricas.dominio.objetos_de_valor import FabricaTesteIdDeDocente, FabricaTesteNomeDeDocente
 
 
 class TestDocente(TestCase):

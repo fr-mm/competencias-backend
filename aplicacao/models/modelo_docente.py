@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from uuid import UUID
-
 from django.db import models
 
 from dominio.entidades import Docente

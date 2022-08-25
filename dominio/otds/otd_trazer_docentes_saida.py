@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from dominio.entidades import Docente
 from dominio.otds.otd_docente import OTDDocente
+from dominio.entidades import Docente
 
 
 @dataclass

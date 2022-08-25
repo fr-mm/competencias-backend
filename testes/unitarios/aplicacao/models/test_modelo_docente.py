@@ -2,10 +2,9 @@ from uuid import UUID
 
 from django.test import TestCase
 
+from testes.fabricas import FabricaTesteDocente, FabricaTesteModeloDocente
 from aplicacao.models import ModeloDocente
 from dominio.entidades import Docente
-from testes.fabricas.aplicacao.models.fabrica_teste_modelo_docente import FabricaTesteModeloDocente
-from testes.fabricas.dominio.entidades import FabricaTesteDocente
 
 
 class TestModeloDocente(TestCase):

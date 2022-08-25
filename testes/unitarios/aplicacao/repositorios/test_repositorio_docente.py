@@ -1,9 +1,8 @@
 from django.test import TestCase
 
+from testes.fabricas import FabricaTesteModeloDocente, FabricaTesteDocente
 from aplicacao.models import ModeloDocente
 from aplicacao.repositorios import RepositorioDocente
-from testes.fabricas.aplicacao.models.fabrica_teste_modelo_docente import FabricaTesteModeloDocente
-from testes.fabricas.dominio.entidades import FabricaTesteDocente
 
 
 class TestRepositorioDocente(TestCase):

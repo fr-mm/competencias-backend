@@ -1,11 +1,10 @@
 from urllib.request import Request
-
 from mockito import mock
 from rest_framework.test import APITestCase
 
 from testes.fabricas import FabricaTesteOTDDocente
-from dominio.otds import OTDDocente
 from aplicacao.views import DocentesView
+from dominio.otds import OTDDocente
 
 
 class TestDocentesView(APITestCase):
