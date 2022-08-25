@@ -1,6 +1,11 @@
+from uuid import UUID
+
 from django.test import TestCase
 
-from testes.fabricas import FabricaTesteModeloDocente, FabricaTesteDocente
+from aplicacao.erros import ErroDocenteNaoEncontrado
+from dominio.entidades import Docente
+from dominio.objetos_de_valor import IdDeDocente, NomeDeDocente
+from testes.fabricas import FabricaTesteModeloDocente, FabricaTesteDocente, FabricaTesteIdDeDocente
 from aplicacao.models import ModeloDocente
 from aplicacao.repositorios import RepositorioDocente
 
@@ -23,3 +28,21 @@ class TestRepositorioDocente(TestCase):
         self.repositorio_docente.salvar(docente)
 
         ModeloDocente.objects.get(pk=docente.id.valor)
+
+    def test_trazer_por_id_QUANDO_docente_existe_ENTAO_retorna_docente(self) -> None:
+        modelo: ModeloDocente = FabricaTesteModeloDocente.create()
+        id_do_docente = IdDeDocente(UUID(modelo.id))
+
+        docente_resultante = self.repositorio_docente.trazer_por_id(id_do_docente)
+
+        docente_esperado = Docente(
+            id=id_do_docente,
+            nome=NomeDeDocente(modelo.nome)
+        )
+        self.assertEqual(docente_resultante, docente_esperado)
+
+    def test_trazer_por_id_QUANDO_docente_nao_existe_ENTAO_lanca(self) -> None:
+        id_de_docente: IdDeDocente = FabricaTesteIdDeDocente.build()
+
+        with self.assertRaises(ErroDocenteNaoEncontrado):
+            self.repositorio_docente.trazer_por_id(id_de_docente)
