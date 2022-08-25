@@ -78,10 +78,55 @@ O Docker irá instalar essas dependências
 - todo o resto
 
 ## Testes
-Não seguir qualquer uma dessas práticas fará com que o Pytest ignore o teste
-- O nome dos arquivos contento TestCase deve começar com test_
-- O nome das classes de teste (TestCase) devem começar com Test
-- O nome dos métodos de teste devem começar com test_
+### Estrutura de diretórios
+O diretório de testes unitários deve espelhar a estrutura que o projeto 
+(módulos dominio e aplicacao)
+
+### Convenções para o Pytest reconhecer os testes
+As três convenções abaixo servem para que os testes sejam identificados pelo Pytest:
+- O nome dos arquivos contento testes deve começar com `test_`
+- O nome das classes de teste deve começar com `Test`
+- O nome dos métodos de teste deve começar com `test_`
+
+### Estrutura de um teste
+#### Nome da classe
+Deve haveer uma classe de teste para cada classe a ser testada, de mesmo nome. A entidade `Docente`, por
+exemplo, será testada pela classe `TestDocente`
+
+#### Nome do método
+Deve ser dividido em três partes
+- O QUE: nome do método a ser testado
+- QUANDO: situação a ser testada
+- ENTAO: resultado esperado  
+
+Exemplo: queremos testar se o método `construir` do `Docente` cria e atribui uma nova `IdDeDocente` quando
+a `id` não é informada. O nome do teste seria:
+```
+class TestDocente(TestCase):
+    def test_construir_QUANDO_id_nao_informado_ENTAO_atribui_id_criado(self) -> None:
+```
+*Escrever QUANDO e ENTAO em maiúsculo mesmo
+
+#### Corpo do método
+Deve ser dividido em três partes separadas por uma linha em branco:
+- ATRIBUIR: construir o cenário do teste
+- AGIR: chamar o método a ser testado
+- AFIRMAR: comparar o resultado com o esperado
+
+Exemplo: queremos testar se o método `para_entidade` do `OTDDocente` retorna a entidade esperada
+(consideremos que `Docente` tenha um único atributo `nome`):
+```
+# ATRIBUIR
+otd_docente = OTDDocente(nome='Nome do Docente')
+
+# AGIR
+docente_resultante = otd_docente.para_entidade()
+
+# AFIRMAR
+docente_esperado = Docente(nome=otd.nome)
+self.assertEqual(docente_resultante, docente_esperado)
+```
+*Não incluir comentários
 
 ## Nomes
 ### Idioma
