@@ -22,7 +22,7 @@ class TestCasoDeUsoCriarDocente(TestCase):
 
     def test_executar_QUANDO_otd_entrada_fornecido_ENTAO_salva_docente_com_atributos_esperados_no_repositorio(self) -> None:
         otd_entrada: OTDDocenteEmCriacao = FabricaTesteOTDDocenteEmCriacao.build()
-        when(otd_entrada).para_entidade().thenReturn(self.docente)
+        when(OTDDocenteEmCriacao).para_entidade().thenReturn(self.docente)
         when(self.repositorio_docente).salvar(self.docente)
 
         self.caso_de_uso_criar_docente.executar(otd_entrada)
@@ -31,7 +31,7 @@ class TestCasoDeUsoCriarDocente(TestCase):
 
     def test_executar_QUANDO_otd_entrada_fornecido_ENTAO_retorna_otd_saida_esperado(self) -> None:
         otd_entrada: OTDDocenteEmCriacao = FabricaTesteOTDDocenteEmCriacao.build()
-        when(otd_entrada).para_entidade().thenReturn(self.docente)
+        when(OTDDocenteEmCriacao).para_entidade().thenReturn(self.docente)
 
         otd_saida = self.caso_de_uso_criar_docente.executar(otd_entrada)
 

@@ -6,7 +6,7 @@ from dominio.otds.otd_docente import OTDDocente
 from dominio.entidades import Docente
 
 
-@dataclass
+@dataclass(frozen=True)
 class OTDTrazerDocentesSaida:
     docentes: [OTDDocente]
 

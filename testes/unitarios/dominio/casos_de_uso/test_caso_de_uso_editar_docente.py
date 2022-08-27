@@ -24,7 +24,7 @@ class TestCasoDeUsoEditarDocente(TestCase):
     def test_executar_QUANDO_id_existe_ENTAO_salva_docente_no_repositorio(self) -> None:
         otd_docente: OTDDocente = FabricaTesteOTDDocente.build()
         docente: Docente = FabricaTesteDocente.build()
-        when(otd_docente).para_entidade().thenReturn(docente)
+        when(OTDDocente).para_entidade().thenReturn(docente)
         when(self.repositorio_docente).id_existe(docente.id).thenReturn(True)
         when(self.repositorio_docente).salvar(docente)
 
@@ -35,7 +35,7 @@ class TestCasoDeUsoEditarDocente(TestCase):
     def test_executar_QUANDO_id_nao_existe_ENTAO_lanca_erro_docente_nao_encontrado(self) -> None:
         otd_docente: OTDDocente = FabricaTesteOTDDocente.build()
         docente: Docente = FabricaTesteDocente.build()
-        when(otd_docente).para_entidade().thenReturn(docente)
+        when(OTDDocente).para_entidade().thenReturn(docente)
         when(self.repositorio_docente).id_existe(docente.id).thenReturn(False)
 
         with self.assertRaises(ErroDocenteNaoEncontrado):

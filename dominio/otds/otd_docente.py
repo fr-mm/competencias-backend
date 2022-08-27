@@ -6,7 +6,7 @@ from uuid import UUID
 from dominio.entidades import Docente
 
 
-@dataclass
+@dataclass(frozen=True)
 class OTDDocente:
     id: UUID
     nome: str

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from dominio.entidades import Docente
 
 
-@dataclass
+@dataclass(frozen=True)
 class OTDDocenteEmCriacao:
     nome: str
 
