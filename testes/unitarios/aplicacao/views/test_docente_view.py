@@ -1,12 +1,10 @@
 from unittest import TestCase
 from urllib.request import Request
 from uuid import uuid4
-
 from mockito import mock, when
 
-from dominio.erros import ErroDocenteNaoEncontrado
-from dominio.objetos_de_valor import IdDeDocente
 from aplicacao.views import DocenteView
+from dominio.erros import ErroDocenteNaoEncontrado
 
 
 class TestDocenteView(TestCase):
