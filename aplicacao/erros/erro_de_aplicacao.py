@@ -1,2 +1,0 @@
-class ErroDeAplicacao(Exception):
-    pass

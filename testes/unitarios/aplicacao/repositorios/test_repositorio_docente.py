@@ -2,7 +2,6 @@ from uuid import UUID
 
 from django.test import TestCase
 
-from aplicacao.erros import ErroDocenteNaoEncontrado
 from dominio.entidades import Docente
 from dominio.objetos_de_valor import IdDeDocente, NomeDeDocente
 from testes.fabricas import FabricaTesteModeloDocente, FabricaTesteDocente, FabricaTesteIdDeDocente
@@ -40,12 +39,6 @@ class TestRepositorioDocente(TestCase):
             nome=NomeDeDocente(modelo.nome)
         )
         self.assertEqual(docente_resultante, docente_esperado)
-
-    def test_trazer_por_id_QUANDO_docente_nao_existe_ENTAO_lanca(self) -> None:
-        id_de_docente: IdDeDocente = FabricaTesteIdDeDocente.build()
-
-        with self.assertRaises(ErroDocenteNaoEncontrado):
-            self.repositorio_docente.trazer_por_id(id_de_docente)
 
     def test_id_existe_QUANDO_id_existe_ENTAO_retorna_true(self) -> None:
         modelo_docente: ModeloDocente = FabricaTesteModeloDocente.create()

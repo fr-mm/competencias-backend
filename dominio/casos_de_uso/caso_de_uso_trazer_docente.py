@@ -1,9 +1,9 @@
 from uuid import UUID
 
-from dominio.erros import ErroDocenteNaoEncontrado
-from dominio.objetos_de_valor import IdDeDocente
 from dominio.otds import OTDDocente
+from dominio.erros import ErroDocenteNaoEncontrado
 from dominio.repositorios import RepositorioAbstratoDocente
+from dominio.objetos_de_valor import IdDeDocente
 
 
 class CasoDeUsoTrazerDocente:

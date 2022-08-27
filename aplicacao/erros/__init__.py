@@ -1,2 +1,0 @@
-from aplicacao.erros.erro_de_aplicacao import ErroDeAplicacao
-from aplicacao.erros.erro_docente_nao_encontrado import ErroDocenteNaoEncontrado

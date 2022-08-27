@@ -4,13 +4,9 @@ from uuid import uuid4
 
 from mockito import mock, when
 
-from aplicacao.erros import ErroDocenteNaoEncontrado
-from dominio.entidades import Docente
+from dominio.erros import ErroDocenteNaoEncontrado
 from dominio.objetos_de_valor import IdDeDocente
-from testes.fabricas import FabricaTesteOTDDocente, FabricaTesteOTDDocenteEmCriacao, FabricaTesteIdDeDocente, \
-    FabricaTesteDocente
 from aplicacao.views import DocenteView
-from dominio.otds import OTDDocente, OTDDocenteEmCriacao
 
 
 class TestDocenteView(TestCase):
@@ -36,7 +32,7 @@ class TestDocenteView(TestCase):
     def test_get_QUANDO_docente_nao_encontrado_ENTAO_retorna_status_404(self) -> None:
         request = Request(self.url)
         id_ = uuid4()
-        erro_docente_nao_encontrado = ErroDocenteNaoEncontrado(IdDeDocente(id_))
+        erro_docente_nao_encontrado = ErroDocenteNaoEncontrado(id_)
         when(self.container.casos_de_uso.trazer_docente).executar(id_).thenRaise(erro_docente_nao_encontrado)
 
         response = self.docente_view.get(request, id_)

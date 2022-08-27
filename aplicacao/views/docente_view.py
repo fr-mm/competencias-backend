@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from aplicacao.container import ContainerDeDependencias, container_de_dependencias
-from aplicacao.erros import ErroDocenteNaoEncontrado
 from aplicacao.serializers import SerializerOTDDocente
+from dominio.erros import ErroDocenteNaoEncontrado
 
 
 class DocenteView(APIView):
