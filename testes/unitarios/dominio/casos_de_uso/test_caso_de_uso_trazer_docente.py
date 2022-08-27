@@ -11,7 +11,7 @@ from dominio.entidades import Docente
 class TestCasoDeUsoTrazerDocentes(TestCase):
     def setUp(self) -> None:
         self.repositorio_docente = mock({
-            'trazer_por_id': lambda id_: None,
+            'trazer_por_id': None,
         })
         self.caso_de_uso_trazer_docente = CasoDeUsoTrazerDocente(
             repositorio_docente=self.repositorio_docente

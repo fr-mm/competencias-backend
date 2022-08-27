@@ -11,8 +11,8 @@ from dominio.entidades import Docente
 class TestCasoDeUsoEditarDocente(TestCase):
     def setUp(self) -> None:
         self.repositorio_docente = mock({
-            'id_existe': lambda id_: None,
-            'salvar': lambda docente: None
+            'id_existe': None,
+            'salvar': None
         })
         self.caso_de_uso = CasoDeUsoEditarDocente(
             repositorio_docente=self.repositorio_docente

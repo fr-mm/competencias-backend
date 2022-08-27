@@ -11,7 +11,7 @@ class TestCasoDeUsoCriarDocente(TestCase):
     def setUp(self) -> None:
         self.docente: Docente = FabricaTesteDocente.build()
         self.repositorio_docente = mock({
-            'salvar': lambda docente: None,
+            'salvar': None,
         })
         self.caso_de_uso_criar_docente = CasoDeUsoCriarDocente(
             repositorio_docente=self.repositorio_docente
@@ -31,6 +31,7 @@ class TestCasoDeUsoCriarDocente(TestCase):
 
     def test_executar_QUANDO_otd_entrada_fornecido_ENTAO_retorna_otd_saida_esperado(self) -> None:
         otd_entrada: OTDDocenteEmCriacao = FabricaTesteOTDDocenteEmCriacao.build()
+        when(self.repositorio_docente).salvar(...)
         when(OTDDocenteEmCriacao).para_entidade().thenReturn(self.docente)
 
         otd_saida = self.caso_de_uso_criar_docente.executar(otd_entrada)
