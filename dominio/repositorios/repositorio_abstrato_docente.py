@@ -20,3 +20,7 @@ class RepositorioAbstratoDocente(ABC):
     @abstractmethod
     def deletar_por_id(self, id_: IdDeDocente) -> None:
         pass
+
+    @abstractmethod
+    def id_existe(self, id_: IdDeDocente) -> bool:
+        pass

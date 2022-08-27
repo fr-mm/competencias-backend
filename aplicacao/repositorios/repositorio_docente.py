@@ -23,3 +23,6 @@ class RepositorioDocente(RepositorioAbstratoDocente):
 
     def deletar_por_id(self, id_: IdDeDocente) -> None:
         pass
+
+    def id_existe(self, id_: IdDeDocente) -> bool:
+        return ModeloDocente.objects.filter(pk=id_.valor).exists()

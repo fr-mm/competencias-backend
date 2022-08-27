@@ -46,3 +46,18 @@ class TestRepositorioDocente(TestCase):
 
         with self.assertRaises(ErroDocenteNaoEncontrado):
             self.repositorio_docente.trazer_por_id(id_de_docente)
+
+    def test_id_existe_QUANDO_id_existe_ENTAO_retorna_true(self) -> None:
+        modelo_docente: ModeloDocente = FabricaTesteModeloDocente.create()
+        id_do_docente = IdDeDocente(modelo_docente.id)
+
+        reultado = self.repositorio_docente.id_existe(id_do_docente)
+
+        self.assertTrue(reultado)
+
+    def test_id_existe_QUANDO_id_nao_existe_ENTAO_retorna_false(self) -> None:
+        id_do_docente: IdDeDocente = FabricaTesteIdDeDocente.build()
+
+        resultado = self.repositorio_docente.id_existe(id_do_docente)
+
+        self.assertFalse(resultado)
