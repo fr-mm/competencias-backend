@@ -1,5 +1,6 @@
 from uuid import UUID
 
+from dominio.erros import ErroDocenteNaoEncontrado
 from dominio.objetos_de_valor import IdDeDocente
 from dominio.otds import OTDDocente
 from dominio.repositorios import RepositorioAbstratoDocente
@@ -13,5 +14,8 @@ class CasoDeUsoTrazerDocente:
 
     def executar(self, id_: UUID) -> OTDDocente:
         id_de_docente = IdDeDocente(id_)
-        docente = self.__repositorio_docente.trazer_por_id(id_de_docente)
-        return OTDDocente.de_entidade(docente)
+        if self.__repositorio_docente.id_existe(id_de_docente):
+            docente = self.__repositorio_docente.trazer_por_id(id_de_docente)
+            return OTDDocente.de_entidade(docente)
+        else:
+            raise ErroDocenteNaoEncontrado(id_)
