@@ -9,5 +9,5 @@ class FabricaTesteDocente(factory.Factory):
         model = Docente
 
     nome = factory.SubFactory(FabricaTesteNomeDeDocente)
-    id = factory.SubFactory(FabricaTesteIdDeDocente)
+    id_ = factory.SubFactory(FabricaTesteIdDeDocente)
     ativo = factory.Faker('boolean')

@@ -39,18 +39,23 @@ class TestRepositorioDocente(TestCase):
 
         ModeloDocente.objects.get(pk=docente.id.valor)
 
-    def test_trazer_por_id_QUANDO_docente_existe_ENTAO_retorna_docente(self) -> None:
+    def test_trazer_por_id_QUANDO_docente_existe_ENTAO_retorna_docente_com_atributos_esperados(self) -> None:
         modelo: ModeloDocente = FabricaTesteModeloDocente.create()
         id_do_docente = IdDeDocente(UUID(modelo.id))
 
-        docente_resultante = self.repositorio_docente.trazer_por_id(id_do_docente)
+        docente = self.repositorio_docente.trazer_por_id(id_do_docente)
 
-        docente_esperado = Docente(
-            id=id_do_docente,
-            nome=NomeDeDocente(modelo.nome),
-            ativo=modelo.ativo
-        )
-        self.assertEqual(docente_resultante, docente_esperado)
+        atributos_resultantes = [
+            docente.id,
+            docente.nome,
+            docente.ativo
+        ]
+        atributos_esperados = [
+            IdDeDocente(UUID(modelo.id)),
+            NomeDeDocente(modelo.nome),
+            modelo.ativo
+        ]
+        self.assertEqual(atributos_resultantes, atributos_esperados)
 
     def test_trazer_por_id_QUANDO_docente_nao_existe_ENTAO_lanca_erro_docente_nao_encontrado(self) -> None:
         id_do_docente: IdDeDocente = FabricaTesteIdDeDocente.build()
