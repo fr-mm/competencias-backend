@@ -16,8 +16,8 @@ class TestDocentesView(TestCase):
                 'criar_docente': mock({
                     'executar': lambda otd_entrada: None
                 }),
-                'trazer_docentes': mock({
-                    'executar': lambda: None
+                'filtrar_docentes': mock({
+                    'executar': lambda ativo: None
                 })
             })
         })
@@ -62,16 +62,16 @@ class TestDocentesView(TestCase):
 
         self.assertEqual(response.status_code, 400)
 
-    def test_get_QUANDO_chamado_ENTAO_retorna_status_200(self) -> None:
+    def test_get_QUANDO_request_recebida_ENTAO_retorna_status_200(self) -> None:
         request = Request(self.url)
 
         response = self.docentes_view.get(request)
 
         self.assertEqual(response.status_code, 200)
 
-    def test_get_QUANDO_chamado_ENTAO_retorna_respopnse_com_conteudo_esperado(self) -> None:
-        otds_docente: [OTDDocente] = [FabricaTesteOTDDocente.build() for _ in range(2)]
-        when(self.container.casos_de_uso.trazer_docentes).executar().thenReturn(otds_docente)
+    def test_get_QUANDO_request_recebida_ENTAO_retorna_respopnse_com_docentes_ativos(self) -> None:
+        otds_docente: [OTDDocente] = [FabricaTesteOTDDocente.build(ativo=True) for _ in range(2)]
+        when(self.container.casos_de_uso.filtrar_docentes).executar(ativo=True).thenReturn(otds_docente)
         request = Request(self.url)
 
         response = self.docentes_view.get(request)
@@ -79,8 +79,11 @@ class TestDocentesView(TestCase):
         response_data_esperado = [
             {
                 'id': otd.id,
-                'nome': otd.nome
+                'nome': otd.nome,
+                'ativo': otd.ativo
             } for otd in otds_docente
         ]
+        print(response.data)
+        print(response_data_esperado)
         self.assertEqual(response.data, response_data_esperado)
 

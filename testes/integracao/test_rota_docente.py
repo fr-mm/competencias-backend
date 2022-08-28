@@ -28,7 +28,7 @@ class TestRotaDocente(APITestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_get_QUANDO_id_existe_ENTAO_retorna_payload_esperado(self) -> None:
-        modelo_docente: ModeloDocente = FabricaTesteModeloDocente.create()
+        modelo_docente: ModeloDocente = FabricaTesteModeloDocente.create(ativo=True)
         url = self.contruir_url(id_=modelo_docente.id)
 
         response = self.client.get(path=url)
@@ -36,7 +36,8 @@ class TestRotaDocente(APITestCase):
         payload_resultante = json.loads(response.content)
         payload_esperado = {
             'id': modelo_docente.id,
-            'nome': modelo_docente.nome
+            'nome': modelo_docente.nome,
+            'ativo': modelo_docente.ativo
         }
         self.assertEqual(payload_resultante, payload_esperado)
 

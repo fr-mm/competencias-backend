@@ -67,7 +67,8 @@ class TestRotaDocentes(APITestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_get_QUANDO_docentes_existem_ENTAO_retorna_json_esperado(self) -> None:
-        modelos: [ModeloDocente] = [FabricaTesteModeloDocente.create() for _ in range(2)]
+        modelos: [ModeloDocente] = [FabricaTesteModeloDocente.create(ativo=True) for _ in range(2)]
+        FabricaTesteModeloDocente.create(ativo=False)
 
         response = self.client.get(path=self.url)
 
@@ -75,7 +76,8 @@ class TestRotaDocentes(APITestCase):
         json_esperado = [
             {
                 'id': modelo.id,
-                'nome': modelo.nome
+                'nome': modelo.nome,
+                'ativo': modelo.ativo
             } for modelo in modelos
         ]
         self.assertEqual(json_resultante, json_esperado)

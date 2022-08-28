@@ -32,7 +32,7 @@ class DocentesView(APIView):
             return Response(status=400)
 
     def get(self, _: Request) -> Response:
-        otds_docente = self.__container.casos_de_uso.trazer_docentes.executar()
+        otds_docente = self.__container.casos_de_uso.filtrar_docentes.executar(ativo=True)
         serializer_otd_docente = SerializerOTDDocente(otds_docente, many=True)
 
         return Response(
