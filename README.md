@@ -29,7 +29,7 @@ http://localhost:8000/apiv1/
 - **GET**: lista todos os docentes ativos
 - **POST**: cria um novo docente a partir do request
 
-#### docente/{id}/
+#### docentes/{id}/
 - **GET**: retorna docente 
 - **POST**: atualiza docente de acordo com o payload da request
 - **DELETE**: desativa docente
