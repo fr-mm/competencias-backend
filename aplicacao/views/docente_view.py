@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from aplicacao.container import ContainerDeDependencias, container_de_dependencias
 from aplicacao.serializers import SerializerOTDDocente
 from dominio.erros import ErroDocenteNaoEncontrado
+from dominio.otds import OTDDocente
 
 
 class DocenteView(APIView):
@@ -25,6 +26,20 @@ class DocenteView(APIView):
                 data=serializer_otd_docente.data,
                 status=200,
                 content_type='json'
+            )
+        except ErroDocenteNaoEncontrado:
+            return Response(
+                status=404
+            )
+
+    def post(self, request: Request, _: UUID) -> Response:
+        try:
+            serializer_otd_docente = SerializerOTDDocente(data=request.data)
+            serializer_otd_docente.is_valid(raise_exception=True)
+            otd_docente = OTDDocente(**serializer_otd_docente.validated_data)
+            self.__container.casos_de_uso.editar_docente.executar(otd_docente)
+            return Response(
+                status=200
             )
         except ErroDocenteNaoEncontrado:
             return Response(

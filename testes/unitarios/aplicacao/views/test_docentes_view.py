@@ -74,12 +74,10 @@ class TestDocentesView(TestCase):
 
         response_data_esperado = [
             {
-                'id': otd.id,
+                'id': str(otd.id),
                 'nome': otd.nome,
                 'ativo': otd.ativo
             } for otd in otds_docente
         ]
-        print(response.data)
-        print(response_data_esperado)
         self.assertEqual(response.data, response_data_esperado)
 
