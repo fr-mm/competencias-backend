@@ -74,7 +74,7 @@ class TestRotaDocente(APITestCase):
 
         modelo_docente_depois = ModeloDocente.objects.get(pk=modelo_docente_antes.id)
         self.assertEqual(modelo_docente_depois.nome, nome_novo)
-        
+
     def test_post_QUANDO_id_nao_existe_ENTAO_retorna_status_404(self) -> None:
         url = self.construir_url_aleatoria()
         data = {
@@ -86,6 +86,21 @@ class TestRotaDocente(APITestCase):
         response = self.client.post(path=url, data=data)
 
         self.assertEqual(response.status_code, 404)
+
+    def test_post_QUANDO_sucesso_ENTAO_retorna_payload_esperado(self) -> None:
+        modelo_docente_antes: ModeloDocente = FabricaTesteModeloDocente.create(ativo=True)
+        url = self.contruir_url(id_=modelo_docente_antes.id)
+        data = {
+            'id': modelo_docente_antes.id,
+            'nome': modelo_docente_antes.nome,
+            'ativo': modelo_docente_antes.ativo
+        }
+
+        response = self.client.post(path=url, data=data)
+
+        payload_esperado = data
+        payload_esperado['id'] = str(payload_esperado['id'])
+        self.assertEqual(response.data, payload_esperado)
 
     def test_delete_QUANDO_id_existe_ENTAO_retorna_status_200(self) -> None:
         modelo_docente: ModeloDocente = FabricaTesteModeloDocente.create(ativo=True)

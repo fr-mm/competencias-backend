@@ -33,11 +33,14 @@ class DocenteView(APIView):
 
     def post(self, request: Request, id_: UUID) -> Response:
         try:
-            serializer_otd_docente = SerializerOTDDocente(data=request.data)
-            serializer_otd_docente.is_valid(raise_exception=True)
-            otd_docente = OTDDocente(**serializer_otd_docente.validated_data)
-            self.__container.casos_de_uso.editar_docente.executar(otd_docente)
+            serializer_otd_docente_entrada = SerializerOTDDocente(data=request.data)
+            serializer_otd_docente_entrada.is_valid(raise_exception=True)
+            otd_docente_entrada = OTDDocente(**serializer_otd_docente_entrada.validated_data)
+            otd_docente_saida = self.__container.casos_de_uso.editar_docente.executar(otd_docente_entrada)
+            serializer_otd_docente_saida = SerializerOTDDocente(otd_docente_saida)
+
             return Response(
+                data=serializer_otd_docente_saida.data,
                 status=200
             )
         except ErroDocenteNaoEncontrado:

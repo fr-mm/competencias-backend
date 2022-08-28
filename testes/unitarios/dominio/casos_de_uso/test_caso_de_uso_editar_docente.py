@@ -26,3 +26,13 @@ class TestCasoDeUsoEditarDocente(TestCase):
         self.caso_de_uso.executar(otd_docente)
 
         verify(self.repositorio_docente).salvar(docente)
+
+    def test_executar_QUANDO_sucesso_ENTAO_retorna_otd_docente_esperado(self) -> None:
+        otd_entrada: OTDDocente = FabricaTesteOTDDocente.build()
+        docente: Docente = FabricaTesteDocente.build()
+        when(OTDDocente).para_entidade().thenReturn(docente)
+        when(self.repositorio_docente).salvar(docente)
+
+        otd_saida = self.caso_de_uso.executar(otd_entrada)
+
+        self.assertEqual(otd_saida, otd_entrada)

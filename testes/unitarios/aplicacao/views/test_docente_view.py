@@ -1,6 +1,6 @@
 from unittest import TestCase
 from urllib.request import Request
-from uuid import uuid4
+from uuid import uuid4, UUID
 from mockito import mock, when, unstub
 
 from aplicacao.views import DocenteView
@@ -70,6 +70,22 @@ class TestDocenteView(TestCase):
         response = self.docente_view.post(request, otd_docente.id)
 
         self.assertEqual(response.status_code, 404)
+
+    def test_post_QUANDO_sucesso_ENTAO_retorna_payload_esperado(self) -> None:
+        otd_docente: OTDDocente = FabricaTesteOTDDocente.build()
+        data = {
+            'id': otd_docente.id,
+            'nome': otd_docente.nome,
+            'ativo': otd_docente.ativo
+        }
+        request = Request(self.url, data=data)
+        when(self.container.casos_de_uso.editar_docente).executar(otd_docente).thenReturn(otd_docente)
+
+        response = self.docente_view.post(request, otd_docente.id)
+
+        response_data_esperado = data
+        response_data_esperado['id'] = str(response_data_esperado['id'])
+        self.assertEqual(response.data, data)
 
     def test_delete_QUANDO_docente_encontrado_ENTAO_retorna_status_200(self) -> None:
         request = Request(self.url)
