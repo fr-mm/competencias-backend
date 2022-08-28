@@ -1,3 +1,2 @@
 from dominio.otds.otd_docente import OTDDocente
 from dominio.otds.otd_docente_em_criacao import OTDDocenteEmCriacao
-from dominio.otds.otd_trazer_docentes_saida import OTDTrazerDocentesSaida
