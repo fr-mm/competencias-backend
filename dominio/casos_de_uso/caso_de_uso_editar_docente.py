@@ -1,5 +1,4 @@
 from dominio.otds import OTDDocente
-from dominio.erros import ErroDocenteNaoEncontrado
 from dominio.repositorios import RepositorioAbstratoDocente
 
 
@@ -11,7 +10,5 @@ class CasoDeUsoEditarDocente:
 
     def executar(self, otd_docente: OTDDocente) -> None:
         docente = otd_docente.para_entidade()
-        if self.__repositorio_docente.id_existe(docente.id):
-            self.__repositorio_docente.salvar(docente)
-        else:
-            raise ErroDocenteNaoEncontrado(docente.id.valor)
+        self.__repositorio_docente.trazer_por_id(docente.id)
+        self.__repositorio_docente.salvar(docente)
