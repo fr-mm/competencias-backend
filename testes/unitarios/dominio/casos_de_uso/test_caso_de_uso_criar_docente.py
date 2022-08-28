@@ -10,9 +10,7 @@ from dominio.otds import OTDDocenteEmCriacao, OTDDocente
 class TestCasoDeUsoCriarDocente(TestCase):
     def setUp(self) -> None:
         self.docente: Docente = FabricaTesteDocente.build(ativo=True)
-        self.repositorio_docente = mock({
-            'salvar': None,
-        })
+        self.repositorio_docente = mock()
         self.caso_de_uso_criar_docente = CasoDeUsoCriarDocente(
             repositorio_docente=self.repositorio_docente
         )

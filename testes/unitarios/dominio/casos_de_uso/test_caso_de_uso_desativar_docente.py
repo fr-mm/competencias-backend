@@ -9,10 +9,7 @@ from testes.fabricas import FabricaTesteDocente
 
 class TestCasoDeUsoDesativarDocente(TestCase):
     def setUp(self) -> None:
-        self.repositorio_docente = mock({
-            'trazer_por_id': None,
-            'salvar': lambda docente: None
-        })
+        self.repositorio_docente = mock()
         self.caso_de_uso = CasoDeUsoDesativarDocente(
             repositorio_docente=self.repositorio_docente
         )
