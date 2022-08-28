@@ -17,19 +17,19 @@ class TestCasoDeUsoDesativarDocente(TestCase):
     def tearDown(self) -> None:
         unstub()
 
-    def test_executar_QUANDO_chamado_ENTAO_ativa_docente(self) -> None:
+    def test_executar_QUANDO_chamado_ENTAO_desativa_docente(self) -> None:
         docente: Docente = FabricaTesteDocente.build()
         when(self.repositorio_docente).trazer_por_id(docente.id).thenReturn(docente)
-        when(docente).ativar()
+        when(docente).desativar()
 
         self.caso_de_uso.executar(docente.id.valor)
 
-        verify(docente).ativar()
+        verify(docente).desativar()
 
     def test_excutar_QUANDO_chamado_ENTAO_salva_docente_no_repositorio(self) -> None:
         docente: Docente = FabricaTesteDocente.build()
         when(self.repositorio_docente).trazer_por_id(docente.id).thenReturn(docente)
-        when(docente).ativar()
+        when(docente).desativar()
         when(self.repositorio_docente).salvar(docente)
 
         self.caso_de_uso.executar(docente.id.valor)

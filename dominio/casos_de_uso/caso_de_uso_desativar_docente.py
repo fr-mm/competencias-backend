@@ -13,5 +13,5 @@ class CasoDeUsoDesativarDocente:
     def executar(self, id_: UUID) -> None:
         id_do_docente = IdDeDocente(id_)
         docente = self.__repositorio_docente.trazer_por_id(id_do_docente)
-        docente.ativar()
+        docente.desativar()
         self.__repositorio_docente.salvar(docente)
