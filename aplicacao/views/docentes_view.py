@@ -25,8 +25,7 @@ class DocentesView(APIView):
 
             return Response(
                 data=serializer_otd_docente.data,
-                status=201,
-                content_type='json'
+                status=201
             )
         except ValidationError:
             return Response(status=400)
@@ -37,6 +36,5 @@ class DocentesView(APIView):
 
         return Response(
             data=serializer_otd_docente.data,
-            status=200,
-            content_type='json'
+            status=200
         )

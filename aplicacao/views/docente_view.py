@@ -24,8 +24,7 @@ class DocenteView(APIView):
 
             return Response(
                 data=serializer_otd_docente.data,
-                status=200,
-                content_type='json'
+                status=200
             )
         except ErroDocenteNaoEncontrado:
             return Response(
