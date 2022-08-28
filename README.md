@@ -20,6 +20,20 @@ Automatizar a planinlha de competência de docentes utilizada pelo SENAI.
 - Francisco Mascrenhas
 - Rafael Vecchi
 
+# Rotas da API
+## Raiz (acessando do localhost)
+http://localhost:8000/apiv1/
+
+## Rotas
+#### docentes/
+- **GET**: lista todos os docentes ativos
+- **POST**: cria um novo docente a partir do request
+
+#### docente/{id}/
+- **GET**: retorna docente 
+- **POST**: atualiza docente de acordo com o payload da request
+- **DELETE**: desativa docente
+
 # Uso
 Pelo Linux, os comandos a seguir devem ser precedidos por `sudo` para dar
 permissão de administrador. 
