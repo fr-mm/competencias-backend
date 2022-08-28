@@ -1,7 +1,10 @@
+from random import getrandbits
 from unittest import TestCase
 
-from testes.fabricas import FabricaTesteNomeDeDocente, FabricaTesteIdDeDocente
+from testes.fabricas import FabricaTesteNomeDeDocente, FabricaTesteIdDeDocente, FabricaTesteDocente
+from dominio.erros import ErroAtivarDesativarDocente
 from dominio.entidades import Docente
+from dominio.objetos_de_valor import IdDeDocente, NomeDeDocente
 
 
 class TestDocente(TestCase):
@@ -31,3 +34,53 @@ class TestDocente(TestCase):
             nome=nome
         )
         self.assertTrue(docente.ativo)
+
+    def test_id_QUANDO_chamado_ENTAO_retorna_id_atribuido(self) -> None:
+        id_esperado: IdDeDocente = FabricaTesteIdDeDocente.build()
+        docente: Docente = FabricaTesteDocente.build(id_=id_esperado)
+
+        id_resultante = docente.id
+
+        self.assertEqual(id_resultante, id_esperado)
+
+    def test_nome_QUANDO_chamado_ENTAO_retorna_nome_atribuido(self) -> None:
+        nome_esperado: NomeDeDocente = FabricaTesteNomeDeDocente.build()
+        docente: Docente = FabricaTesteDocente.build(nome=nome_esperado)
+
+        nome_resultante = docente.nome
+
+        self.assertEqual(nome_resultante, nome_esperado)
+
+    def test_ativo_QUANDOO_chamado_ENTAO_retorna_valor_atribuido(self) -> None:
+        valor_esperado = bool(getrandbits(1))
+        docente: Docente = FabricaTesteDocente.build(ativo=valor_esperado)
+
+        valor_resultante = docente.ativo
+
+        self.assertEqual(valor_resultante, valor_esperado)
+
+    def test_ativar_QUANDO_docente_esta_inativo_ENTAO_ativa_docente(self) -> None:
+        docente: Docente = FabricaTesteDocente.build(ativo=False)
+
+        docente.ativar()
+
+        self.assertTrue(docente.ativo)
+
+    def test_ativar_QUANDO_docente_esta_ativo_ENTAO_lanca_erro_ativar_desativar_docente(self) -> None:
+        docente: Docente = FabricaTesteDocente.build(ativo=True)
+
+        with self.assertRaises(ErroAtivarDesativarDocente):
+            docente.ativar()
+
+    def test_desativar_QUANDO_docente_esta_ativo_ENTAO_inativa_docente(self) -> None:
+        docente: Docente = FabricaTesteDocente.build(ativo=True)
+
+        docente.desativar()
+
+        self.assertFalse(docente.ativo)
+
+    def test_desativar_QUANDO_docente_esta_inativo_ENTAO_lanca_erro_ativar_desativar_docente(self) -> None:
+        docente: Docente = FabricaTesteDocente.build(ativo=False)
+
+        with self.assertRaises(ErroAtivarDesativarDocente):
+            docente.desativar()
