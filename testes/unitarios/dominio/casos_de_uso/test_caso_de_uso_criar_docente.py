@@ -9,7 +9,7 @@ from dominio.otds import OTDDocenteEmCriacao, OTDDocente
 
 class TestCasoDeUsoCriarDocente(TestCase):
     def setUp(self) -> None:
-        self.docente: Docente = FabricaTesteDocente.build()
+        self.docente: Docente = FabricaTesteDocente.build(ativo=True)
         self.repositorio_docente = mock({
             'salvar': None,
         })
@@ -38,6 +38,7 @@ class TestCasoDeUsoCriarDocente(TestCase):
 
         otd_saida_esperado = OTDDocente(
             id=self.docente.id.valor,
-            nome=self.docente.nome.valor
+            nome=self.docente.nome.valor,
+            ativo=self.docente.ativo
         )
         self.assertEqual(otd_saida, otd_saida_esperado)

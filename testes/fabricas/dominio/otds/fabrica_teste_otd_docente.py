@@ -9,3 +9,4 @@ class FabricaTesteOTDDocente(factory.Factory):
 
     id = factory.Faker('uuid4')
     nome = factory.Faker('name')
+    ativo = factory.Faker('boolean')

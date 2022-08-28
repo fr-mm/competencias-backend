@@ -13,13 +13,23 @@ class TestRepositorioDocente(TestCase):
     def setUp(self) -> None:
         self.repositorio_docente = RepositorioDocente()
 
-    def test_trazer_QUANDO_modelos_existem_ENTAO_traz_docentes(self) -> None:
+    def test_filtrar_QUANDO_nenhum_filtro_informado_ENTAO_retorna_todos_os_docentes(self) -> None:
         quantidade = 2
         [FabricaTesteModeloDocente.create() for _ in range(quantidade)]
 
-        docentes = self.repositorio_docente.trazer()
+        docentes = self.repositorio_docente.filtrar()
 
         self.assertEqual(len(docentes), quantidade)
+
+    def test_filtrar_QUANDO_filtrar_por_ativo_true_ENTAO_retorna_docentes_ativos(self) -> None:
+        modelos_docentes_ativos: [ModeloDocente] = [FabricaTesteModeloDocente.create(ativo=True) for _ in range(2)]
+        [FabricaTesteModeloDocente.create(ativo=False) for _ in range(2)]
+
+        docentes = self.repositorio_docente.filtrar(ativo=True)
+
+        ids_resultantes = [docente.id.valor for docente in docentes]
+        ids_esperados = [UUID(modelo.id) for modelo in modelos_docentes_ativos]
+        self.assertEqual(ids_resultantes, ids_esperados)
 
     def test_salvar_QUANDO_docente_informado_ENTAO_salva_docente(self) -> None:
         docente = FabricaTesteDocente.build()
@@ -36,7 +46,8 @@ class TestRepositorioDocente(TestCase):
 
         docente_esperado = Docente(
             id=id_do_docente,
-            nome=NomeDeDocente(modelo.nome)
+            nome=NomeDeDocente(modelo.nome),
+            ativo=modelo.ativo
         )
         self.assertEqual(docente_resultante, docente_esperado)
 

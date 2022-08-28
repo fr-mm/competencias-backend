@@ -5,8 +5,8 @@ from dominio.repositorios import RepositorioAbstratoDocente
 
 
 class RepositorioDocente(RepositorioAbstratoDocente):
-    def trazer(self) -> [Docente]:
-        modelos = ModeloDocente.objects.all()
+    def filtrar(self, **kwargs) -> [Docente]:
+        modelos = ModeloDocente.objects.filter(**kwargs)
         return [modelo.para_entidade() for modelo in modelos]
 
     def trazer_por_id(self, id_: IdDeDocente) -> Docente:

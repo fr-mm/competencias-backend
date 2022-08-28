@@ -9,5 +9,5 @@ class CasoDeUsoTrazerDocentes:
         self.__repositorio_docente = repositorio_docente
 
     def executar(self) -> [OTDDocente]:
-        docentes = self.__repositorio_docente.trazer()
+        docentes = self.__repositorio_docente.filtrar()
         return [OTDDocente.de_entidade(docente) for docente in docentes]

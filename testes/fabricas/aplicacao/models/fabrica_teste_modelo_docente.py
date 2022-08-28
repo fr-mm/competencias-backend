@@ -9,3 +9,4 @@ class FabricaTesteModeloDocente(factory.django.DjangoModelFactory):
 
     nome = factory.Faker('name')
     id = factory.Faker('uuid4')
+    ativo = factory.Faker('boolean')

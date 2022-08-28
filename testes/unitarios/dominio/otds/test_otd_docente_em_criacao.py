@@ -12,9 +12,11 @@ class TestOTDDocenteEmCriacao(TestCase):
         docente = otd.para_entidade()
 
         atributos_resultantes = [
-            docente.nome
+            docente.nome,
+            docente.ativo
         ]
         atributos_esperados = [
-            NomeDeDocente(otd.nome)
+            NomeDeDocente(otd.nome),
+            True
         ]
         self.assertEqual(atributos_resultantes, atributos_esperados)

@@ -23,3 +23,11 @@ class TestDocente(TestCase):
             nome=nome
         )
         self.assertIsNotNone(docente.id.valor)
+
+    def test_construir_QUANDO_ativo_nao_informado_ENTAO_atribui_true(self) -> None:
+        nome = FabricaTesteNomeDeDocente.build().valor
+
+        docente = Docente.construir(
+            nome=nome
+        )
+        self.assertTrue(docente.ativo)

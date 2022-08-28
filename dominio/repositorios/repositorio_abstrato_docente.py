@@ -6,7 +6,7 @@ from dominio.objetos_de_valor import IdDeDocente
 
 class RepositorioAbstratoDocente(ABC):
     @abstractmethod
-    def trazer(self) -> [Docente]:
+    def filtrar(self, **kwargs) -> [Docente]:
         pass
 
     @abstractmethod

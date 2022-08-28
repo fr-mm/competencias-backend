@@ -10,3 +10,4 @@ class FabricaTesteDocente(factory.Factory):
 
     nome = factory.SubFactory(FabricaTesteNomeDeDocente)
     id = factory.SubFactory(FabricaTesteIdDeDocente)
+    ativo = factory.Faker('boolean')

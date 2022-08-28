@@ -8,7 +8,7 @@ from dominio.otds import OTDDocente
 from dominio.entidades import Docente
 
 
-class TestCasoDeUsoTrazerDocentes(TestCase):
+class TestCasoDeUsoTrazerDocente(TestCase):
     def setUp(self) -> None:
         self.repositorio_docente = mock({
             'trazer_por_id': None,
@@ -29,7 +29,8 @@ class TestCasoDeUsoTrazerDocentes(TestCase):
 
         otd_esperado = OTDDocente(
             id=docente.id.valor,
-            nome=docente.nome.valor
+            nome=docente.nome.valor,
+            ativo=docente.ativo
         )
         self.assertEqual(otd_resultante, otd_esperado)
 

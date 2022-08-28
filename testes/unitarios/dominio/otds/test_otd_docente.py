@@ -14,7 +14,8 @@ class TestOTDDocente(TestCase):
 
         docente_esperado = Docente(
             id=IdDeDocente(otd.id),
-            nome=NomeDeDocente(otd.nome)
+            nome=NomeDeDocente(otd.nome),
+            ativo=otd.ativo
         )
         self.assertEqual(docente_resultante, docente_esperado)
 
@@ -25,6 +26,7 @@ class TestOTDDocente(TestCase):
 
         otd_esperado = OTDDocente(
             id=docente.id.valor,
-            nome=docente.nome.valor
+            nome=docente.nome.valor,
+            ativo=otd.ativo
         )
         self.assertEqual(otd, otd_esperado)

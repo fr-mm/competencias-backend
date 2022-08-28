@@ -21,14 +21,15 @@ class TestCasoDeUsoTrazerDocentes(TestCase):
 
     def test_executar_QUANDO_docentes_existem_ENTAO_retorna_otds_esperados(self) -> None:
         docentes: [Docente] = [FabricaTesteDocente.build() for _ in range(2)]
-        when(self.repositorio_docente).trazer().thenReturn(docentes)
+        when(self.repositorio_docente).filtrar().thenReturn(docentes)
 
         otds_resultantes = self.caso_de_uso_trazer_docentes.executar()
 
         otds_esperados = [
             OTDDocente(
                 id=docente.id.valor,
-                nome=docente.nome.valor
+                nome=docente.nome.valor,
+                ativo=docente.ativo
             ) for docente in docentes
         ]
         self.assertEqual(otds_resultantes, otds_esperados)
