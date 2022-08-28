@@ -13,12 +13,8 @@ class TestDocentesView(TestCase):
         self.otd_docente: OTDDocente = FabricaTesteOTDDocente.build()
         self.container = mock({
             'casos_de_uso': mock({
-                'criar_docente': mock({
-                    'executar': lambda otd_entrada: None
-                }),
-                'filtrar_docentes': mock({
-                    'executar': lambda ativo: None
-                })
+                'criar_docente': mock(),
+                'filtrar_docentes': mock()
             })
         })
         self.docentes_view = DocentesView(self.container)

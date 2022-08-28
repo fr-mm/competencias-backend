@@ -1,5 +1,4 @@
 from unittest import TestCase
-
 from mockito import mock, unstub, when, verify
 
 from dominio.casos_de_uso import CasoDeUsoDesativarDocente

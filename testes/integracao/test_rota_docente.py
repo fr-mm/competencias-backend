@@ -1,12 +1,11 @@
 import json
 from uuid import UUID
-
 from django.urls import reverse
 from rest_framework.test import APITestCase
 
+from testes.fabricas import FabricaTesteModeloDocente, FabricaTesteIdDeDocente
 from aplicacao.models import ModeloDocente
 from dominio.objetos_de_valor import IdDeDocente
-from testes.fabricas import FabricaTesteModeloDocente, FabricaTesteIdDeDocente
 
 
 class TestRotaDocente(APITestCase):

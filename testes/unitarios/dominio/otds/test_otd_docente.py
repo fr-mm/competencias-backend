@@ -1,5 +1,4 @@
 from unittest import TestCase
-from uuid import UUID
 
 from testes.fabricas import FabricaTesteOTDDocente, FabricaTesteDocente
 from dominio.otds import OTDDocente

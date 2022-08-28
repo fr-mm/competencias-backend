@@ -1,10 +1,9 @@
 import json
-
 from django.urls import reverse
 from rest_framework.test import APITestCase
 
-from aplicacao.models import ModeloDocente
 from testes.fabricas import FabricaTesteModeloDocente
+from aplicacao.models import ModeloDocente
 
 
 class TestRotaDocentes(APITestCase):

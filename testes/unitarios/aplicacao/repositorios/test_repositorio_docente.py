@@ -2,12 +2,11 @@ from uuid import UUID
 
 from django.test import TestCase
 
-from dominio.entidades import Docente
-from dominio.erros import ErroDocenteNaoEncontrado
-from dominio.objetos_de_valor import IdDeDocente, NomeDeDocente
 from testes.fabricas import FabricaTesteModeloDocente, FabricaTesteDocente, FabricaTesteIdDeDocente
 from aplicacao.models import ModeloDocente
 from aplicacao.repositorios import RepositorioDocente
+from dominio.erros import ErroDocenteNaoEncontrado
+from dominio.objetos_de_valor import IdDeDocente, NomeDeDocente
 
 
 class TestRepositorioDocente(TestCase):
