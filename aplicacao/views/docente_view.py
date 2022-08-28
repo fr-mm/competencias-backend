@@ -32,7 +32,7 @@ class DocenteView(APIView):
                 status=404
             )
 
-    def post(self, request: Request, _: UUID) -> Response:
+    def post(self, request: Request, id_: UUID) -> Response:
         try:
             serializer_otd_docente = SerializerOTDDocente(data=request.data)
             serializer_otd_docente.is_valid(raise_exception=True)
