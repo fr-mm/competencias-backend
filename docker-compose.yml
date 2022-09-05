@@ -26,6 +26,8 @@ services:
       - ./competencias_backend:/code/competencias_backend
       - ./testes:/code/testes
       - ./pytest.ini:/code/pytest.ini
+      - ./poetry.lock:/code/poetry.lock
+      - ./pyproject.toml:/code/pyproject.toml
 
   db:
     image: postgres:14.4-alpine
