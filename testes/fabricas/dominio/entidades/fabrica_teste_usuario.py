@@ -11,4 +11,4 @@ class FabricaTesteUsuario(factory.Factory):
     id_ = factory.SubFactory(FabricaTesteIdDeUsuario)
     nome = factory.SubFactory(FabricaTesteNomeDeUsuario)
     email = factory.SubFactory(FabricaTesteEmail)
-    ativo = factory.Faker('bool')
+    ativo = factory.Faker('boolean')
