@@ -1,1 +1,2 @@
 from testes.fabricas.dominio.entidades.fabrica_teste_docente import FabricaTesteDocente
+from testes.fabricas.dominio.entidades.fabrica_teste_usuario import FabricaTesteUsuario
