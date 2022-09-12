@@ -7,6 +7,7 @@ Backend do projeto de TCC do curso técninco de Desenvolvimento de Sistemas do S
 - [Dependências](#Dependências)
 - [Convenções](#Convenções)
 - [Estrutura](#Estrutura)
+- [Como desenvolver](#Como-desenvolver)
 
 # Sobre
 ## Objetivo
@@ -287,3 +288,35 @@ garantindo assim um ambiente estável e previsível.
 
 ## pyproject.toml
 Arquivo usado pelo Poetry que contém informações do projeto e suas dependências.
+
+# Como desenvolver
+## Criando um objeto de valor
+#### domínio
+- criar classe em `dominio/objetos_de_valor/`
+- criar testes (quando necessário) em `testes/unitarios/dominios/objetos_de_valor/`
+- criar fabrica teste em `testes/fabricas/dominio/objetos_de_valor/`
+- atualizar entidade que irá conter o objeto de valor criado em `dominio/entidades/`
+(ex: atualizar `Docente` para incluir `EmailDeDocente`)
+- atualizar fabrica teste da entidade modificada em `testes/fabricas/dominio/entidades/`
+- atualizar testes da entidade modificada em `testes/unitarios/dominio/entidades/`
+- atualizar OTD da entidade para incluir novo objeto de valor em `dominio/otds/`
+- atualizar testes dos OTDs modificados em `testes/unitarios/dominio/otds/`
+#### aplicação
+- atualizar modelo da entidade em `aplicacao/models/`
+- atualizar testes do modelo modificado em `testes/unitarios/aplicacao/models/`
+- atualizar fabrica teste do modelo modificado em `testes/fabricas/aplicacao/models/`
+- migrar modelo atualizado para o banco de dados. Executar no terminal do Docker container: 
+`python manage.py makemigrations` e `python manage.py migrate`
+- atualizar serializer dos OTDs referentes à entidade modificada em `aplicacao/serializers/`
+
+
+
+
+
+
+
+
+
+
+
+
