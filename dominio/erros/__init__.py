@@ -3,3 +3,4 @@ from dominio.erros.erro_nome_de_docente import ErroNomeDeDocente
 from dominio.erros.erro_nome_muito_curto import ErroNomeMuitoCurto
 from dominio.erros.erro_docente_nao_encontrado import ErroDocenteNaoEncontrado
 from dominio.erros.erro_ao_ativar_ou_desativar_entidade import ErroAoAtivarOuDesativarEntidade
+from dominio.erros.erro_email_invalido import ErroEmailInvalido
