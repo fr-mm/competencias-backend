@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from dominio.erros import ErroNomeDeDocenteMuitoCurto
+from dominio.erros import ErroNomeMuitoCurto
 from dominio.objetos_de_valor import NomeDeDocente
 
 
@@ -31,8 +31,8 @@ class TestNomeDeDocente(TestCase):
 
         self.assertFalse(resultado)
 
-    def test_validar_tamanho_QUANDO_tamanho_invalido_ENTAO_lanca_erro_nome_de_docente_muito_curto(self) -> None:
+    def test_validar_tamanho_QUANDO_tamanho_invalido_ENTAO_lanca_erro_nome_muito_curto(self) -> None:
         valor_muito_curto = 'Og'
 
-        with self.assertRaises(ErroNomeDeDocenteMuitoCurto):
+        with self.assertRaises(ErroNomeMuitoCurto):
             NomeDeDocente(valor_muito_curto)

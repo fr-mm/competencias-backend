@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dominio.erros import ErroNomeDeDocenteMuitoCurto
+from dominio.erros import ErroNomeMuitoCurto
 
 
 class NomeDeDocente:
@@ -24,4 +24,4 @@ class NomeDeDocente:
     @staticmethod
     def __validar_tamanho(valor: str) -> None:
         if len(valor) < NomeDeDocente.__TAMANHO_MINIMO:
-            raise ErroNomeDeDocenteMuitoCurto(nome=valor, tamanho_minimo=NomeDeDocente.__TAMANHO_MINIMO)
+            raise ErroNomeMuitoCurto(nome=valor, tamanho_minimo=NomeDeDocente.__TAMANHO_MINIMO)
