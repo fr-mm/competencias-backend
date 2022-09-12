@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from uuid import UUID, uuid4
 
-from dominio.erros import ErroAtivarDesativarDocente
+from dominio.erros import ErroAoAtivarOuDesativarEntidade
 from dominio.objetos_de_valor import NomeDeDocente, IdDeDocente
 
 
@@ -49,7 +49,7 @@ class Docente:
 
     def __mudar_ativo_para(self, novo_valor: bool) -> None:
         if self.ativo is novo_valor:
-            raise ErroAtivarDesativarDocente(
+            raise ErroAoAtivarOuDesativarEntidade(
                 nome_do_docente=self.nome.valor,
                 id_do_docente=self.id.valor,
                 tentou_mudar_ativo_para=novo_valor

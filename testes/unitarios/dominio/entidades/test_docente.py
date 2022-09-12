@@ -2,7 +2,7 @@ from random import getrandbits
 from unittest import TestCase
 
 from testes.fabricas import FabricaTesteNomeDeDocente, FabricaTesteIdDeDocente, FabricaTesteDocente
-from dominio.erros import ErroAtivarDesativarDocente
+from dominio.erros import ErroAoAtivarOuDesativarEntidade
 from dominio.entidades import Docente
 from dominio.objetos_de_valor import IdDeDocente, NomeDeDocente
 
@@ -69,7 +69,7 @@ class TestDocente(TestCase):
     def test_ativar_QUANDO_docente_esta_ativo_ENTAO_lanca_erro_ativar_desativar_docente(self) -> None:
         docente: Docente = FabricaTesteDocente.build(ativo=True)
 
-        with self.assertRaises(ErroAtivarDesativarDocente):
+        with self.assertRaises(ErroAoAtivarOuDesativarEntidade):
             docente.ativar()
 
     def test_desativar_QUANDO_docente_esta_ativo_ENTAO_inativa_docente(self) -> None:
@@ -82,5 +82,5 @@ class TestDocente(TestCase):
     def test_desativar_QUANDO_docente_esta_inativo_ENTAO_lanca_erro_ativar_desativar_docente(self) -> None:
         docente: Docente = FabricaTesteDocente.build(ativo=False)
 
-        with self.assertRaises(ErroAtivarDesativarDocente):
+        with self.assertRaises(ErroAoAtivarOuDesativarEntidade):
             docente.desativar()
