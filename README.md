@@ -7,7 +7,7 @@ Backend do projeto de TCC do curso técninco de Desenvolvimento de Sistemas do S
 - [Dependências](#Dependências)
 - [Convenções](#Convenções)
 - [Estrutura](#Estrutura)
-- [Como desenvolver](#Como desenvolver)
+- [Como desenvolver](#Como-desenvolver)
 
 # Sobre
 ## Objetivo
