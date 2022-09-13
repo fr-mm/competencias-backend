@@ -1,2 +1,5 @@
 from aplicacao.serializers.serializer_otd_docente_em_criacao import SerializerOTDDocenteEmCriacao
 from aplicacao.serializers.serializer_otd_docente import SerializerOTDDocente
+from aplicacao.serializers.serializer_login import SerializerCadastroUsuario
+from aplicacao.serializers.serializer_modelo_usuario import SerializerModeloUsuario
+from aplicacao.serializers.serializer_cadastro_usuario import SerializerCadastroUsuario
