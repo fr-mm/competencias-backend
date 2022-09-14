@@ -8,6 +8,14 @@ from testes.fabricas import FabricaTesteUsuario, FabricaTesteModeloUsuario
 
 
 class TestModeloUsuario(TestCase):
+    def test_nome_setter_QUANDO_nome_informad_ENTAO_atribui_nome_a_username(self) -> None:
+        nome_novo = 'nome_novo'
+        modelo: ModeloUsuario = FabricaTesteModeloUsuario.build()
+
+        modelo.nome = nome_novo
+
+        self.assertEqual(modelo.username, nome_novo)
+
     def test_de_entidade_QUANDO_entidade_fornacida_ENTAO_retorna_modelo_com_atributos_esperados(self) -> None:
         entidade: Usuario = FabricaTesteUsuario.build()
 

@@ -7,6 +7,7 @@ from dominio.objetos_de_valor import IdDeDocente
 class RepositorioAbstratoDocente(ABC):
     @abstractmethod
     def filtrar(self, **kwargs) -> [Docente]:
+        """Filtros: TBD"""
         pass
 
     @abstractmethod
@@ -16,4 +17,5 @@ class RepositorioAbstratoDocente(ABC):
 
     @abstractmethod
     def salvar(self, docente: Docente) -> None:
+        """Salva Docente no banco de dados"""
         pass

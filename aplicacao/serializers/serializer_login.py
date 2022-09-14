@@ -1,10 +1,15 @@
 from django.contrib.auth import authenticate
+from knox.serializers import UserSerializer as KnoxUserSerializer
 from rest_framework import serializers
 
+from aplicacao.models import ModeloUsuario
 
-class SerializerCadastroUsuario(serializers):
-    username = serializers.CharField()
-    password = serializers.CharField()
+
+class SerializerLogin(KnoxUserSerializer):
+    class Meta:
+        model = ModeloUsuario
+        fields = ('id', 'username', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
 
     # TODO: tipar
     def validate(self, dados):

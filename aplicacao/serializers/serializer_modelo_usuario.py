@@ -1,9 +1,9 @@
-from rest_framework import serializers
+from knox.serializers import UserSerializer as KnoxUserSerializer
 
 from aplicacao.models import ModeloUsuario
 
 
-class SerializerModeloUsuario(serializers):
+class SerializerModeloUsuario(KnoxUserSerializer):
     class Meta:
         model = ModeloUsuario
         fields = ('id', 'username', 'email')

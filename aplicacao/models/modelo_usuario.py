@@ -3,7 +3,6 @@ from __future__ import annotations
 from uuid import UUID
 
 from django.contrib.auth.models import User
-from django.db import models
 
 from dominio.entidades import Usuario
 
