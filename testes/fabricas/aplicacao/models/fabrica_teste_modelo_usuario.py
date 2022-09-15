@@ -8,6 +8,6 @@ class FabricaTesteModeloUsuario(factory.Factory):
         model = ModeloUsuario
 
     id = factory.Faker('uuid4')
-    username = factory.Faker('name')
+    nome = factory.Faker('name')
     email = factory.Faker('email')
     is_active = factory.Faker('boolean')

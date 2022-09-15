@@ -1,0 +1,1 @@
+from aplicacao.managers.usuario_manager import UsuarioManager

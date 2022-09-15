@@ -6,4 +6,4 @@ from aplicacao.models import ModeloUsuario
 class SerializerModeloUsuario(KnoxUserSerializer):
     class Meta:
         model = ModeloUsuario
-        fields = ('id', 'username', 'email')
+        fields = ('id', 'nome', 'email')

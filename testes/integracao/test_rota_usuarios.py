@@ -11,7 +11,7 @@ class TestRotaUsuarios(APITestCase):
     def setUp(self) -> None:
         self.url = reverse('usuarios')
         self.payload_valido = {
-            'username': 'usuario_teste',
+            'nome': 'usuario teste',
             'email': FabricaTesteEmail.build().valor,
             'password': '123456'
         }
@@ -30,7 +30,7 @@ class TestRotaUsuarios(APITestCase):
             data=self.payload_valido
         )
 
-        ModeloUsuario.objects.get(username=self.payload_valido['username'])
+        ModeloUsuario.objects.get(nome=self.payload_valido['nome'])
 
     def test_post_QUANDO_payload_valido_ENTAO_retorna_dados_do_usuario_criado(self) -> None:
         response = self.client.post(
@@ -41,11 +41,11 @@ class TestRotaUsuarios(APITestCase):
         conteudo = json.loads(response.content)
         usuario = conteudo['usuario']
         dados_resultantes = [
-            usuario['username'],
+            usuario['nome'],
             usuario['email']
         ]
         dados_esperados = [
-            self.payload_valido['username'],
+            self.payload_valido['nome'],
             self.payload_valido['email']
         ]
         self.assertEqual(dados_resultantes, dados_esperados)

@@ -2,17 +2,16 @@ from __future__ import annotations
 
 from uuid import UUID
 
-from django.contrib.auth.models import User
-
+from aplicacao.models import UsuarioBase
 from dominio.entidades import Usuario
 
 
-class ModeloUsuario(User):
+class ModeloUsuario(UsuarioBase):
     @classmethod
     def de_entidade(cls, entidade: Usuario) -> ModeloUsuario:
         return cls(
             id=entidade.id.valor,
-            username=entidade.nome.valor,
+            nome=entidade.nome.valor,
             email=entidade.email.valor,
             is_active=entidade.ativo
         )
@@ -24,14 +23,6 @@ class ModeloUsuario(User):
             email=str(self.email),
             ativo=bool(self.is_active)
         )
-
-    @property
-    def nome(self) -> str:
-        return self.username
-
-    @nome.setter
-    def nome(self, nome: str) -> None:
-        self.username = nome
 
     @property
     def ativo(self) -> bool:
