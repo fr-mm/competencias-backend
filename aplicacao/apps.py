@@ -9,7 +9,5 @@ class AplicacaoConfig(AppConfig):
     label = 'aplicacao'
 
     def ready(self):
-        UsuarioBase = self.get_model('UsuarioBase')
-        pre_save.connect(receiver, sender='aplicacao.UsuarioBase')
         ModeloUsuario = self.get_model('ModeloUsuario')
         pre_save.connect(receiver, sender='aplicacao.ModeloUsuario')

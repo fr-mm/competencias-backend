@@ -2,11 +2,24 @@ from __future__ import annotations
 
 from uuid import UUID
 
-from aplicacao.models import UsuarioBase
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.utils.translation import gettext_lazy
+
+from aplicacao.managers import UsuarioManager
 from dominio.entidades import Usuario
 
 
-class ModeloUsuario(UsuarioBase):
+class ModeloUsuario(AbstractUser):
+    username = None
+    nome = models.CharField(max_length=150)
+    email = models.EmailField(gettext_lazy('email_address'), unique=True)
+
+    objects = UsuarioManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
     @classmethod
     def de_entidade(cls, entidade: Usuario) -> ModeloUsuario:
         return cls(
@@ -31,3 +44,4 @@ class ModeloUsuario(UsuarioBase):
     @ativo.setter
     def ativo(self, ativo: bool) -> None:
         self.is_active = ativo
+
