@@ -18,7 +18,7 @@ class ModeloUsuario(AbstractUser):
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['nome']
 
     @classmethod
     def de_entidade(cls, entidade: Usuario) -> ModeloUsuario:
