@@ -1,19 +1,19 @@
+from collections import OrderedDict
+
 from django.contrib.auth import authenticate
-from knox.serializers import UserSerializer as KnoxUserSerializer
 from rest_framework import serializers
 
 from aplicacao.models import ModeloUsuario
 
 
-class SerializerLogin(KnoxUserSerializer):
-    class Meta:
-        model = ModeloUsuario
-        fields = ('id', 'username', 'password')
-        extra_kwargs = {'password': {'write_only': True}}
+class SerializerLogin(serializers.Serializer):
+    email = serializers.CharField()
+    password = serializers.CharField()
 
-    # TODO: tipar
-    def validate(self, dados):
+    def validate(self, dados: OrderedDict) -> ModeloUsuario:
+        print('ieauheauihouieahiueahiuheauheiauhieua')
         usuario = authenticate(**dados)
-        if usuario and usuario.ativo:
+        if usuario and usuario.is_active:
+            print(type(usuario))
             return usuario
-        return serializers.ValidationError('Credenciais inválidas')
+        raise serializers.ValidationError('Credenciais inválidas')
