@@ -16,13 +16,13 @@ class TestRotaUsuarios(APITestCase):
             'password': '123456'
         }
 
-    def test_post_QUANDO_payload_valido_ENTAO_returna_status_200(self) -> None:
+    def test_post_QUANDO_payload_valido_ENTAO_returna_status_201(self) -> None:
         response = self.client.post(
             path=self.url,
             data=self.payload_valido
         )
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
 
     def test_post_QUANDO_payload_valido_ENTAO_cria_usuario(self) -> None:
         self.client.post(
