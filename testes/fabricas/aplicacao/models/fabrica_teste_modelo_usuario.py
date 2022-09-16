@@ -11,3 +11,4 @@ class FabricaTesteModeloUsuario(factory.Factory):
     nome = factory.Faker('name')
     email = factory.Faker('email')
     is_active = factory.Faker('boolean')
+    ativo = factory.Faker('boolean')

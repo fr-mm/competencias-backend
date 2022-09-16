@@ -44,4 +44,3 @@ class ModeloUsuario(AbstractUser):
     @ativo.setter
     def ativo(self, ativo: bool) -> None:
         self.is_active = ativo
-
