@@ -39,7 +39,7 @@ class TestModeloUsuario(TestCase):
             entidade.ativo
         ]
         atributos_esperados = [
-            UUID(modelo.id),
+            modelo.id,
             modelo.nome,
             modelo.email,
             modelo.ativo

@@ -7,4 +7,4 @@ class FabricaTesteIdDeUsuario(factory.Factory):
     class Meta:
         model = IdDeUsuario
 
-    valor = factory.Faker('uuid4')
+    valor = factory.Faker('random_digit')
