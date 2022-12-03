@@ -3,7 +3,7 @@ from __future__ import annotations
 from dominio.objetos_de_valor.nome_generico import NomeGenerico
 
 
-class NomeDeDocente:
+class NomeTipoDeContratacao:
     __valor: NomeGenerico
 
     def __init__(self, valor: str) -> None:
@@ -17,5 +17,5 @@ class NomeDeDocente:
     def valor(self) -> str:
         return self.__valor.valor
 
-    def __eq__(self, outro: NomeDeDocente) -> bool:
+    def __eq__(self, outro: NomeTipoDeContratacao) -> bool:
         return self.valor == outro.valor
