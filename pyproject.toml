@@ -9,6 +9,7 @@ python = "^3.10.6"
 Django = "^4.1"
 psycopg2-binary = "^2.9.3"
 djangorestframework = "^3.13.1"
+django-cors-headers = "^3.13.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"

@@ -25,7 +25,10 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "mean-numbers-invent-177-183-188-199.loca.lt",
+    "localhost"
+]
 
 
 # Application definition
@@ -37,8 +40,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'corsheaders',
     "rest_framework",
-    "aplicacao"
+    "aplicacao",
 ]
 
 MIDDLEWARE = [
@@ -49,6 +53,12 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'https://fr-mm.github.io',
+    'http://localhost:3000'
 ]
 
 ROOT_URLCONF = "competencias_backend.urls"
