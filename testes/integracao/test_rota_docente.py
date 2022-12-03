@@ -3,9 +3,9 @@ from uuid import UUID, uuid4
 from django.urls import reverse
 from rest_framework.test import APITestCase
 
-from testes.fabricas import FabricaTesteModeloDocente, FabricaTesteIdDeDocente
+from testes.fabricas import FabricaTesteModeloDocente, FabricaTesteId
 from aplicacao.models import ModeloDocente
-from dominio.objetos_de_valor import IdDeDocente
+from dominio.objetos_de_valor import Id
 
 
 class TestRotaDocente(APITestCase):
@@ -15,7 +15,7 @@ class TestRotaDocente(APITestCase):
 
     @staticmethod
     def construir_url_aleatoria() -> str:
-        id_: IdDeDocente = FabricaTesteIdDeDocente.build()
+        id_: Id = FabricaTesteId.build()
         return TestRotaDocente.contruir_url(id_.valor)
 
     def test_get_QUANDO_id_existe_ENTAO_retorna_status_200(self) -> None:

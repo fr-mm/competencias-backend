@@ -2,7 +2,7 @@ from aplicacao.models import ModeloDocente
 from dominio.erros import ErroDocenteNaoEncontrado
 from dominio.repositorios import RepositorioAbstratoDocente
 from dominio.entidades import Docente
-from dominio.objetos_de_valor import IdDeDocente
+from dominio.objetos_de_valor import Id
 
 
 class RepositorioDocente(RepositorioAbstratoDocente):
@@ -10,7 +10,7 @@ class RepositorioDocente(RepositorioAbstratoDocente):
         modelos = ModeloDocente.objects.filter(**kwargs)
         return [modelo.para_entidade() for modelo in modelos]
 
-    def trazer_por_id(self, id_: IdDeDocente) -> Docente:
+    def trazer_por_id(self, id_: Id) -> Docente:
         try:
             modelo = ModeloDocente.objects.get(pk=id_.valor)
             return modelo.para_entidade()

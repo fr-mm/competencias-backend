@@ -3,18 +3,23 @@ from __future__ import annotations
 from uuid import UUID, uuid4
 
 from dominio.erros import ErroAtivarDesativarDocente
-from dominio.objetos_de_valor import NomeDeDocente, IdDeDocente
+from dominio.objetos_de_valor import NomeDeDocente, Id
 
 
 class Docente:
     __nome: NomeDeDocente
-    __id: IdDeDocente
+    __id: Id
+    # TODO: __email: Email
+    # TODO: __telefones: Telefone[]
+    # TODO: __tipo_de_contratacao: TipoDeContratacao
+    # TODO: __unidade_senai: UnidadeSenai
+    # TODO: __competencias: Competencia[]
     __ativo: bool
 
     def __init__(
             self,
             nome: NomeDeDocente,
-            id_: IdDeDocente,
+            id_: Id,
             ativo: bool
     ) -> None:
         self.__nome = nome
@@ -25,7 +30,7 @@ class Docente:
     def construir(cls, nome: str, id_: UUID = uuid4(), ativo: bool = True) -> Docente:
         return cls(
             nome=NomeDeDocente(nome),
-            id_=IdDeDocente(id_),
+            id_=Id(id_),
             ativo=ativo
         )
 
@@ -34,7 +39,7 @@ class Docente:
         return self.__nome
 
     @property
-    def id(self) -> IdDeDocente:
+    def id(self) -> Id:
         return self.__id
 
     @property

@@ -2,7 +2,7 @@ from uuid import UUID
 
 from dominio.otds import OTDDocente
 from dominio.repositorios import RepositorioAbstratoDocente
-from dominio.objetos_de_valor import IdDeDocente
+from dominio.objetos_de_valor import Id
 
 
 class CasoDeUsoTrazerDocente:
@@ -12,6 +12,6 @@ class CasoDeUsoTrazerDocente:
         self.__repositorio_docente = repositorio_docente
 
     def executar(self, id_: UUID) -> OTDDocente:
-        id_de_docente = IdDeDocente(id_)
+        id_de_docente = Id(id_)
         docente = self.__repositorio_docente.trazer_por_id(id_de_docente)
         return OTDDocente.de_entidade(docente)

@@ -1,16 +1,16 @@
 from random import getrandbits
 from unittest import TestCase
 
-from testes.fabricas import FabricaTesteNomeDeDocente, FabricaTesteIdDeDocente, FabricaTesteDocente
+from testes.fabricas import FabricaTesteNomeDeDocente, FabricaTesteId, FabricaTesteDocente
 from dominio.erros import ErroAtivarDesativarDocente
 from dominio.entidades import Docente
-from dominio.objetos_de_valor import IdDeDocente, NomeDeDocente
+from dominio.objetos_de_valor import Id, NomeDeDocente
 
 
 class TestDocente(TestCase):
     def test_construir_QUANDO_id_informado_ENTAO_atribui_id(self) -> None:
         nome = FabricaTesteNomeDeDocente.build().valor
-        id_ = FabricaTesteIdDeDocente.build().valor
+        id_ = FabricaTesteId.build().valor
 
         docente = Docente.construir(
             nome=nome,
@@ -36,7 +36,7 @@ class TestDocente(TestCase):
         self.assertTrue(docente.ativo)
 
     def test_id_QUANDO_chamado_ENTAO_retorna_id_atribuido(self) -> None:
-        id_esperado: IdDeDocente = FabricaTesteIdDeDocente.build()
+        id_esperado: Id = FabricaTesteId.build()
         docente: Docente = FabricaTesteDocente.build(id_=id_esperado)
 
         id_resultante = docente.id

@@ -3,7 +3,7 @@ from unittest import TestCase
 from testes.fabricas import FabricaTesteOTDDocente, FabricaTesteDocente
 from dominio.otds import OTDDocente
 from dominio.entidades import Docente
-from dominio.objetos_de_valor import IdDeDocente, NomeDeDocente
+from dominio.objetos_de_valor import Id, NomeDeDocente
 
 
 class TestOTDDocente(TestCase):
@@ -18,7 +18,7 @@ class TestOTDDocente(TestCase):
             docente.ativo
         ]
         atributos_esperados = [
-            IdDeDocente(otd.id),
+            Id(otd.id),
             NomeDeDocente(otd.nome),
             otd.ativo
         ]
