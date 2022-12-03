@@ -1,3 +1,4 @@
+import re
 from unittest import TestCase
 
 from dominio.erros import ErroNumeroInvalido
