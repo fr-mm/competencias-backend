@@ -1,6 +1,7 @@
-from random import choice
+from random import choice, randint
 from typing import List
 from unittest import TestCase
+from uuid import uuid4, UUID
 
 from dominio.entidades import Modulo
 from dominio.erros import ErroAoAtivarDesativarEntidade
@@ -18,7 +19,7 @@ class TestModulo(TestCase):
         modulo = Modulo.construir(
             id_=id_.valor,
             numero=numero.valor,
-            disciplinas_ids=disciplinas_ids,
+            disciplinas_ids=[id_.valor for id_ in disciplinas_ids],
             ativo=ativo
         )
 
@@ -30,6 +31,15 @@ class TestModulo(TestCase):
         ]
         esperado = [id_, numero, disciplinas_ids, ativo]
         self.assertEqual(atributos, esperado)
+
+    def test_construir_QUANDO_id_nao_informado_ENTAO_gera_novo_id(self) -> None:
+        modulo = Modulo.construir(
+            numero=2,
+            disciplinas_ids=[uuid4() for _ in range(randint(1, 5))],
+            ativo=True
+        )
+
+        self.assertIsInstance(modulo.id.valor, UUID)
 
     def test_ativar_QUANDO_desativado_ENTAO_ativa(self) -> None:
         modulo: Modulo = FabricaTesteModulo.build(ativo=False)

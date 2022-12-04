@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from typing import List
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from dominio.erros import ErroAoAtivarDesativarEntidade
 from dominio.objetos_de_valor import Id, NumeroDeModulo
@@ -28,15 +28,15 @@ class Modulo:
     @classmethod
     def construir(
             cls,
-            id_: UUID,
             numero: int,
-            disciplinas_ids: List[Id],
-            ativo: bool
+            disciplinas_ids: List[UUID],
+            ativo: bool,
+            id_: UUID = uuid4(),
     ) -> Modulo:
         return cls(
             id_=Id(id_),
             numero=NumeroDeModulo(numero),
-            disciplinas_ids=disciplinas_ids,
+            disciplinas_ids=[Id(id_) for id_ in disciplinas_ids],
             ativo=ativo
         )
 

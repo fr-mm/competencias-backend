@@ -2,3 +2,5 @@ from testes.fabricas.dominio.otds.fabrica_teste_otd_docente import FabricaTesteO
 from testes.fabricas.dominio.otds.fabrica_teste_otd_docente_em_criacao import FabricaTesteOTDDocenteEmCriacao
 from testes.fabricas.dominio.otds.fabrica_teste_otd_disciplina import FabricaTesteOTDDisciplina
 from testes.fabricas.dominio.otds.fabrica_teste_otd_disciplina_em_criacao import FabricaTesteOTDDisciplinaEmCriacao
+from testes.fabricas.dominio.otds.fabrica_teste_otd_modulo import FabricaTesteOTDModulo
+from testes.fabricas.dominio.otds.fabrica_teste_otd_modulo_em_criacao import FabricaTesteOTDModuloEmCriacao
