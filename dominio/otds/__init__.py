@@ -1,2 +1,4 @@
 from dominio.otds.otd_docente import OTDDocente
 from dominio.otds.otd_docente_em_criacao import OTDDocenteEmCriacao
+from dominio.otds.otd_disciplina import OTDDisciplina
+from dominio.otds.otd_disciplina_em_criacao import OTDDisciplinaEmCriacao

@@ -1,4 +1,5 @@
 from unittest import TestCase
+from uuid import UUID
 
 from dominio.entidades import Disciplina
 from dominio.erros import ErroAoAtivarDesativarEntidade
@@ -34,6 +35,15 @@ class TestDisciplina(TestCase):
             ativo
         ]
         self.assertEqual(resultado, esperado)
+
+    def test_construir_QUANDO_id_nao_informado_ENTAO_gera_novo_id(self) -> None:
+        disciplina = Disciplina.construir(
+            nome='Foobar',
+            carga_horaria=10,
+            ativo=True
+        )
+
+        self.assertIsInstance(disciplina.id.valor, UUID)
 
     def test_ativar_QUANDO_desativado_ENTAO_ativa(self) -> None:
         disciplina: Disciplina = FabricaTesteDisciplina.build(ativo=False)

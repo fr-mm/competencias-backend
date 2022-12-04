@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from dominio.erros import ErroAoAtivarDesativarEntidade
 from dominio.objetos_de_valor import Id, NomeDeDisciplina, CargaHoraria
@@ -19,7 +19,7 @@ class Disciplina:
         self.__ativo = ativo
 
     @classmethod
-    def construir(cls, id_: UUID, nome: str, carga_horaria: int, ativo: bool) -> Disciplina:
+    def construir(cls, nome: str, carga_horaria: int, ativo: bool, id_: UUID = uuid4()) -> Disciplina:
         return Disciplina(
             id_=Id(id_),
             nome=NomeDeDisciplina(nome),
