@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import List
 from uuid import UUID
 
-from dominio.entidades.modulo import Modulo
 from dominio.erros import ErroAoAtivarDesativarEntidade
 from dominio.objetos_de_valor import Id, NomeDeCurso
 
@@ -11,19 +10,19 @@ from dominio.objetos_de_valor import Id, NomeDeCurso
 class Curso:
     __id: Id
     __nome: NomeDeCurso
-    __modulos: List[Modulo]
+    __modulos_ids: List[Id]
     __ativo: bool
 
     def __init__(
             self,
             id_: Id,
             nome: NomeDeCurso,
-            modulos: List[Modulo],
+            modulos_ids: List[Id],
             ativo: bool
     ) -> None:
         self.__id = id_
         self.__nome = nome
-        self.__modulos = modulos
+        self.__modulos_ids = modulos_ids
         self.__ativo = ativo
 
     @classmethod
@@ -31,13 +30,13 @@ class Curso:
             cls,
             id_: UUID,
             nome: str,
-            modulos: List[Modulo],
+            modulos_ids: List[Id],
             ativo: bool
     ) -> Curso:
         return cls(
             id_=Id(id_),
             nome=NomeDeCurso(nome),
-            modulos=modulos,
+            modulos_ids=modulos_ids,
             ativo=ativo
         )
 
@@ -50,8 +49,8 @@ class Curso:
         return self.__nome
 
     @property
-    def modulos(self) -> List[Modulo]:
-        return self.__modulos
+    def modulos(self) -> List[Id]:
+        return self.__modulos_ids
 
     @property
     def ativo(self) -> bool:

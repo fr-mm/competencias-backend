@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import List
 from uuid import UUID
 
-from dominio.entidades import Disciplina
 from dominio.erros import ErroAoAtivarDesativarEntidade
 from dominio.objetos_de_valor import Id, NumeroDeModulo
 
@@ -11,19 +10,19 @@ from dominio.objetos_de_valor import Id, NumeroDeModulo
 class Modulo:
     __id: Id
     __numero: NumeroDeModulo
-    __disciplinas: List[Disciplina]
+    __disciplinas_ids: List[Id]
     __ativo: bool
 
     def __init__(
             self,
             id_: Id,
             numero: NumeroDeModulo,
-            disciplinas: List[Disciplina],
+            disciplinas_ids: List[Id],
             ativo: bool = True
     ) -> None:
         self.__id = id_
         self.__numero = numero
-        self.__disciplinas = disciplinas
+        self.__disciplinas_ids = disciplinas_ids
         self.__ativo = ativo
 
     @classmethod
@@ -31,13 +30,13 @@ class Modulo:
             cls,
             id_: UUID,
             numero: int,
-            disciplinas: List[Disciplina],
+            disciplinas_ids: List[Id],
             ativo: bool
     ) -> Modulo:
         return cls(
             id_=Id(id_),
             numero=NumeroDeModulo(numero),
-            disciplinas=disciplinas,
+            disciplinas_ids=disciplinas_ids,
             ativo=ativo
         )
 
@@ -50,8 +49,8 @@ class Modulo:
         return self.__numero
 
     @property
-    def disciplinas(self) -> List[Disciplina]:
-        return self.__disciplinas
+    def disciplinas_ids(self) -> List[Id]:
+        return self.__disciplinas_ids
 
     @property
     def ativo(self) -> bool:
