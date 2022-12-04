@@ -3,8 +3,8 @@ from uuid import UUID
 from dominio.erros import ErroDeDominio
 
 
-class ErroAtivarDesativarDocente(ErroDeDominio):
-    def __init__(self, nome_do_docente: str, id_do_docente: UUID, tentou_mudar_ativo_para: bool) -> None:
+class ErroAoAtivarDesativarEntidade(ErroDeDominio):
+    def __init__(self, nome_da_entidade: str, id_da_entidade: UUID, tentou_mudar_ativo_para: bool) -> None:
         if tentou_mudar_ativo_para:
             acao = 'ativar'
             estado = 'ativo'
@@ -12,5 +12,5 @@ class ErroAtivarDesativarDocente(ErroDeDominio):
             acao = 'desativar'
             estado = 'desativado'
 
-        mensagem = f'Impossível {acao} {nome_do_docente} ({id_do_docente}): já estava {estado}'
+        mensagem = f'Impossível {acao} {nome_da_entidade} (id:{id_da_entidade}): já estava {estado}'
         super().__init__(mensagem)
