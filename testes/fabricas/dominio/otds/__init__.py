@@ -4,3 +4,5 @@ from testes.fabricas.dominio.otds.fabrica_teste_otd_disciplina import FabricaTes
 from testes.fabricas.dominio.otds.fabrica_teste_otd_disciplina_em_criacao import FabricaTesteOTDDisciplinaEmCriacao
 from testes.fabricas.dominio.otds.fabrica_teste_otd_modulo import FabricaTesteOTDModulo
 from testes.fabricas.dominio.otds.fabrica_teste_otd_modulo_em_criacao import FabricaTesteOTDModuloEmCriacao
+from testes.fabricas.dominio.otds.fabrica_teste_otd_curso import FabricaTesteOTDCurso
+from testes.fabricas.dominio.otds.fabrica_teste_otd_curso_em_criacao import FabricaTesteOTDCursoEmCriacao

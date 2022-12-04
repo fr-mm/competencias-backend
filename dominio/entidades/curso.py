@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from typing import List
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from dominio.erros import ErroAoAtivarDesativarEntidade
 from dominio.objetos_de_valor import Id, NomeDeCurso
@@ -28,15 +28,15 @@ class Curso:
     @classmethod
     def construir(
             cls,
-            id_: UUID,
             nome: str,
-            modulos_ids: List[Id],
-            ativo: bool
+            modulos_ids: List[UUID],
+            ativo: bool,
+            id_: UUID = uuid4(),
     ) -> Curso:
         return cls(
             id_=Id(id_),
             nome=NomeDeCurso(nome),
-            modulos_ids=modulos_ids,
+            modulos_ids=[Id(id_) for id_ in modulos_ids],
             ativo=ativo
         )
 
@@ -49,7 +49,7 @@ class Curso:
         return self.__nome
 
     @property
-    def modulos(self) -> List[Id]:
+    def modulos_ids(self) -> List[Id]:
         return self.__modulos_ids
 
     @property

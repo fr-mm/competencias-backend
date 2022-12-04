@@ -13,4 +13,4 @@ class FabricaTesteCurso(factory.Factory):
     id_ = factory.SubFactory(FabricaTesteId)
     nome = factory.SubFactory(FabricaTesteNomeDeCurso)
     modulos_ids = factory.List([FabricaTesteId.build() for _ in range(randint(1, 6))])
-    ativo = factory.Faker('bybool')
+    ativo = factory.Faker('pybool')
