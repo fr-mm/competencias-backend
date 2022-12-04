@@ -7,4 +7,4 @@ class FabricaTesteNumeroDeModulo(factory.Factory):
     class Meta:
         model = NumeroDeModulo
 
-    valor = factory.Faker('pyint')
+    valor = factory.Faker('pyint', min_value=1, max_value=20)
