@@ -1,16 +1,17 @@
 from unittest import TestCase
+
 from mockito import mock, unstub, when, verify
 
-from testes.fabricas import FabricaTesteOTDDocente, FabricaTesteDocente
-from dominio.otds import OTDDocente
-from dominio.casos_de_uso import CasoDeUsoEditarDisciplina
+from dominio.casos_de_uso import CasoDeUsoEditarDocente
 from dominio.entidades import Docente
+from dominio.otds import OTDDocente
+from testes.fabricas import FabricaTesteOTDDocente, FabricaTesteDocente
 
 
 class TestCasoDeUsoEditarDocente(TestCase):
     def setUp(self) -> None:
         self.repositorio_docente = mock()
-        self.caso_de_uso = CasoDeUsoEditarDisciplina(
+        self.caso_de_uso = CasoDeUsoEditarDocente(
             repositorio_docente=self.repositorio_docente
         )
 
