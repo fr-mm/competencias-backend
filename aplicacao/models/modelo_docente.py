@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from django.db import models
 
 from aplicacao.models.modelo_unidade_senai import ModeloUnidadeSenai
