@@ -1,8 +1,11 @@
 import json
+from typing import Dict
+
 from django.urls import reverse
 from rest_framework.test import APITestCase
 
-from testes.fabricas import FabricaTesteModeloDocente
+from dominio.entidades import Docente
+from testes.fabricas import FabricaTesteModeloDocente, FabricaTesteDocente, FabricaTesteModeloUnidadeSenai
 from aplicacao.models import ModeloDocente
 
 
@@ -10,10 +13,22 @@ class TestRotaDocentes(APITestCase):
     def setUp(self) -> None:
         self.url = reverse('docentes')
 
-    def test_post_QUANDO_request_contem_somente_nome_ENTAO_retorna_status_201(self) -> None:
-        data = {
-            'nome': 'Nome Válido'
+    @staticmethod
+    def criar_request_data(nome: str = None) -> Dict[str, any]:
+        docente: Docente = FabricaTesteDocente.build()
+        FabricaTesteModeloUnidadeSenai.create(id=docente.unidade_senai_id.valor)
+        return {
+            'id': str(docente.id.valor),
+            'nome': nome or docente.nome.valor,
+            'email': docente.email.valor,
+            'telefones': [telefone.valor for telefone in docente.telefones],
+            'tipo_de_contratacao': docente.tipo_de_contratacao.valor.value,
+            'unidade_senai_id': str(docente.unidade_senai_id.valor),
+            'ativo': docente.ativo
         }
+
+    def test_post_QUANDO_payload_valido_ENTAO_retorna_status_201(self) -> None:
+        data = self.criar_request_data()
 
         response = self.client.post(path=self.url, data=data, format='json')
 
@@ -36,9 +51,7 @@ class TestRotaDocentes(APITestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_post_QUANDO_body_valido_ENTAO_cria_docente_no_banco_de_dados(self) -> None:
-        data = {
-            'nome': 'Nome Válido'
-        }
+        data = self.criar_request_data()
 
         response = self.client.post(path=self.url, data=data, format='json')
 
@@ -49,9 +62,7 @@ class TestRotaDocentes(APITestCase):
         self.assertEqual(moodelo_docente.nome, nome_esperado)
 
     def test_post_QUANDO_body_valido_ENTAO_retorna_json_esperado_com_nome_esperado(self) -> None:
-        data = {
-            'nome': 'Nome Válido'
-        }
+        data = self.criar_request_data()
 
         response = self.client.post(path=self.url, data=data, format='json')
 
@@ -66,7 +77,11 @@ class TestRotaDocentes(APITestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_get_QUANDO_docentes_existem_ENTAO_retorna_json_esperado(self) -> None:
-        modelos: [ModeloDocente] = [FabricaTesteModeloDocente.create(ativo=True) for _ in range(2)]
+        modelo_unidade_senai = FabricaTesteModeloUnidadeSenai.create()
+        modelos: [ModeloDocente] = [FabricaTesteModeloDocente.create(
+            ativo=True,
+            unidade_senai=modelo_unidade_senai
+        ) for _ in range(2)]
         FabricaTesteModeloDocente.create(ativo=False)
 
         response = self.client.get(path=self.url)
@@ -74,10 +89,13 @@ class TestRotaDocentes(APITestCase):
         json_resultante = json.loads(response.content)
         json_esperado = [
             {
-                'id': modelo.id,
+                'id': str(modelo.id),
                 'nome': modelo.nome,
+                'email': modelo.email,
+                'telefones': [],
+                'tipo_de_contratacao': modelo.tipo_de_contratacao,
+                'unidade_senai_id': str(modelo_unidade_senai.id),
                 'ativo': modelo.ativo
             } for modelo in modelos
         ]
         self.assertEqual(json_resultante, json_esperado)
-

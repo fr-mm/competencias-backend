@@ -1,0 +1,1 @@
+from dominio.enums.tipo_de_contratacao_enum import TipoDeContratacaoEnum

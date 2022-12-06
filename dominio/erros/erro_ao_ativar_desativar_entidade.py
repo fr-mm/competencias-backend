@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from dominio.erros import ErroDeDominio
+from dominio.erros.erro_de_dominio import ErroDeDominio
 
 
 class ErroAoAtivarDesativarEntidade(ErroDeDominio):

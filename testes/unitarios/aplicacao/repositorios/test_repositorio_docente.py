@@ -1,14 +1,16 @@
-from uuid import UUID
-
+import pytest
 from django.test import TestCase
 
-from testes.fabricas import FabricaTesteModeloDocente, FabricaTesteDocente, FabricaTesteId
-from aplicacao.models import ModeloDocente
+from aplicacao.models import ModeloDocente, ModeloUnidadeSenai, ModeloTelefone
 from aplicacao.repositorios import RepositorioDocente
+from dominio.entidades import Docente
 from dominio.erros import ErroDocenteNaoEncontrado
-from dominio.objetos_de_valor import Id, NomeDeDocente
+from dominio.objetos_de_valor import Id, NomeDeDocente, Telefone
+from testes.fabricas import FabricaTesteModeloDocente, FabricaTesteDocente, FabricaTesteId, \
+    FabricaTesteModeloUnidadeSenai, FabricaTesteModeloTelefone
 
 
+@pytest.mark.django_db
 class TestRepositorioDocente(TestCase):
     def setUp(self) -> None:
         self.repositorio_docente = RepositorioDocente()
@@ -28,19 +30,46 @@ class TestRepositorioDocente(TestCase):
         docentes = self.repositorio_docente.filtrar(ativo=True)
 
         ids_resultantes = [docente.id.valor for docente in docentes]
-        ids_esperados = [UUID(modelo.id) for modelo in modelos_docentes_ativos]
+        ids_esperados = [modelo.id for modelo in modelos_docentes_ativos]
         self.assertEqual(ids_resultantes, ids_esperados)
 
     def test_salvar_QUANDO_docente_informado_ENTAO_salva_docente(self) -> None:
-        docente = FabricaTesteDocente.build()
+        modelo_unidade_senai: ModeloUnidadeSenai = FabricaTesteModeloUnidadeSenai.create()
+        docente = FabricaTesteDocente.build(unidade_senai_id=Id(modelo_unidade_senai.id))
 
         self.repositorio_docente.salvar(docente)
 
         ModeloDocente.objects.get(pk=docente.id.valor)
 
+    def test_salvar_QUANDO_telefones_mudaram_ENTAO_atualiza_telefones(self) -> None:
+        telefones_novos = ['(11)1111-1111', '(22)2222-2222']
+        modelo_unidade_senai: ModeloUnidadeSenai = FabricaTesteModeloUnidadeSenai.create()
+        docente: Docente = FabricaTesteDocente.build(
+            telefones=[Telefone(telefone) for telefone in telefones_novos],
+            unidade_senai_id=Id(modelo_unidade_senai.id)
+        )
+        modelo_docente = FabricaTesteModeloDocente.create(
+            id=docente.id.valor,
+            nome=docente.nome.valor,
+            email=docente.email.valor,
+            unidade_senai=modelo_unidade_senai,
+            tipo_de_contratacao=docente.tipo_de_contratacao.valor.value,
+            ativo=docente.ativo
+        )
+        FabricaTesteModeloTelefone.create(
+            docente=modelo_docente,
+            numero='(00)0000-0000'
+        )
+
+        self.repositorio_docente.salvar(docente)
+
+        modelos_telefones = ModeloTelefone.objects.filter(docente_id=docente.id.valor)
+        telefones = [modelo.numero for modelo in modelos_telefones]
+        self.assertEqual(telefones, telefones_novos)
+
     def test_trazer_por_id_QUANDO_docente_existe_ENTAO_retorna_docente_com_atributos_esperados(self) -> None:
         modelo: ModeloDocente = FabricaTesteModeloDocente.create()
-        id_do_docente = Id(UUID(modelo.id))
+        id_do_docente = Id(modelo.id)
 
         docente = self.repositorio_docente.trazer_por_id(id_do_docente)
 
@@ -50,7 +79,7 @@ class TestRepositorioDocente(TestCase):
             docente.ativo
         ]
         atributos_esperados = [
-            Id(UUID(modelo.id)),
+            Id(modelo.id),
             NomeDeDocente(modelo.nome),
             modelo.ativo
         ]

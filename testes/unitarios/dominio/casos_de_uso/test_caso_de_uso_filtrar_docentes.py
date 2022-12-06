@@ -27,6 +27,10 @@ class TestCasoDeUsoFiltrarDocentes(TestCase):
             OTDDocente(
                 id=docente.id.valor,
                 nome=docente.nome.valor,
+                email=docente.email.valor,
+                telefones=[telefone.valor for telefone in docente.telefones],
+                tipo_de_contratacao=docente.tipo_de_contratacao.valor.value,
+                unidade_senai_id=docente.unidade_senai_id.valor,
                 ativo=docente.ativo
             ) for docente in docentes
         ]

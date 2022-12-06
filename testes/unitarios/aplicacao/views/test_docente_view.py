@@ -45,11 +45,8 @@ class TestDocenteView(TestCase):
 
     def test_post_QUANDO_docente_encontrado_ENTAO_retorna_status_200(self) -> None:
         docente: Docente = FabricaTesteDocente.build()
-        data = {
-            'id': docente.id.valor,
-            'nome': docente.nome.valor,
-            'ativo': docente.ativo
-        }
+        data = FabricaTesteOTDDocente.build().__dict__
+        print(data)
         request = Request(self.url, data=data)
 
         response = self.docente_view.post(request, docente.id.valor)
@@ -58,11 +55,7 @@ class TestDocenteView(TestCase):
 
     def test_post_QUANDO_docente_nao_encontrado_ENTAO_retorna_status_404(self) -> None:
         otd_docente: OTDDocente = FabricaTesteOTDDocente.build()
-        data = {
-            'id': otd_docente.id,
-            'nome': otd_docente.nome,
-            'ativo': otd_docente.ativo
-        }
+        data = otd_docente.__dict__
         erro_docente_nao_encontrado = ErroDocenteNaoEncontrado(otd_docente.id)
         when(self.container.casos_de_uso.editar_docente).executar(otd_docente).thenRaise(erro_docente_nao_encontrado)
         request = Request(self.url, data=data)
@@ -73,11 +66,7 @@ class TestDocenteView(TestCase):
 
     def test_post_QUANDO_sucesso_ENTAO_retorna_payload_esperado(self) -> None:
         otd_docente: OTDDocente = FabricaTesteOTDDocente.build()
-        data = {
-            'id': otd_docente.id,
-            'nome': otd_docente.nome,
-            'ativo': otd_docente.ativo
-        }
+        data = otd_docente.__dict__
         request = Request(self.url, data=data)
         when(self.container.casos_de_uso.editar_docente).executar(otd_docente).thenReturn(otd_docente)
 

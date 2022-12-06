@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dominio.objetos_de_valor import NumeroMaiorQueZero
+from dominio.objetos_de_valor.numero_maior_que_zero import NumeroMaiorQueZero
 
 
 class CargaHoraria:

@@ -37,6 +37,10 @@ class TestCasoDeUsoCriarDocente(TestCase):
         otd_saida_esperado = OTDDocente(
             id=self.docente.id.valor,
             nome=self.docente.nome.valor,
+            email=self.docente.email.valor,
+            telefones=[telefone.valor for telefone in self.docente.telefones],
+            tipo_de_contratacao=str(self.docente.tipo_de_contratacao.valor.value),
+            unidade_senai_id=self.docente.unidade_senai_id.valor,
             ativo=self.docente.ativo
         )
         self.assertEqual(otd_saida, otd_saida_esperado)

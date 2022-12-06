@@ -1,38 +1,89 @@
-from random import getrandbits
+from random import getrandbits, randint, choice
 from unittest import TestCase
 
-from testes.fabricas import FabricaTesteNomeDeDocente, FabricaTesteId, FabricaTesteDocente
-from dominio.erros import ErroAoAtivarDesativarEntidade
 from dominio.entidades import Docente
+from dominio.erros import ErroAoAtivarDesativarEntidade
 from dominio.objetos_de_valor import Id, NomeDeDocente
+from testes.fabricas import FabricaTesteEmail, \
+    FabricaTesteTelefone, FabricaTesteTipoDeContratacao
+from testes.fabricas import FabricaTesteNomeDeDocente, FabricaTesteId, FabricaTesteDocente
 
 
 class TestDocente(TestCase):
-    def test_construir_QUANDO_id_informado_ENTAO_atribui_id(self) -> None:
-        nome = FabricaTesteNomeDeDocente.build().valor
-        id_ = FabricaTesteId.build().valor
+    def test_construir_QUANDO_atributos_validos_ENTAO_retorna_instancia_com_atributos_esperados(self) -> None:
+        nome = FabricaTesteNomeDeDocente.build()
+        id_ = FabricaTesteId.build()
+        email = FabricaTesteEmail.build()
+        telefones = [FabricaTesteTelefone.build() for _ in range(randint(1, 5))]
+        tipo_de_contratacao = FabricaTesteTipoDeContratacao.build()
+        unidade_senai_id = FabricaTesteId.build()
+        ativo = choice([True, False])
 
         docente = Docente.construir(
-            nome=nome,
-            id_=id_
+            nome=nome.valor,
+            id_=id_.valor,
+            email=email.valor,
+            telefones=[telefone.valor for telefone in telefones],
+            tipo_de_contratacao=tipo_de_contratacao.valor,
+            unidade_senai_id=unidade_senai_id.valor,
+            ativo=ativo
         )
 
-        self.assertEqual(docente.id.valor, id_)
+        atributos = [
+            docente.nome,
+            docente.id,
+            docente.email,
+            docente.telefones,
+            docente.tipo_de_contratacao,
+            docente.unidade_senai_id,
+            docente.ativo
+        ]
+        esperado = [
+            nome,
+            id_,
+            email,
+            telefones,
+            tipo_de_contratacao,
+            unidade_senai_id,
+            ativo
+        ]
+        self.assertEqual(atributos, esperado)
 
     def test_construir_QUANDO_id_nao_informado_ENTAO_atribui_id_gerado_nao_nulo(self) -> None:
-        nome = FabricaTesteNomeDeDocente.build().valor
-
+        nome = FabricaTesteNomeDeDocente.build()
+        email = FabricaTesteEmail.build()
+        telefones = [FabricaTesteTelefone.build() for _ in range(randint(1, 5))]
+        tipo_de_contratacao = FabricaTesteTipoDeContratacao.build()
+        unidade_senai_id = FabricaTesteId.build()
+        ativo = choice([True, False])
         docente = Docente.construir(
-            nome=nome
+            nome=nome.valor,
+            email=email.valor,
+            telefones=[telefone.valor for telefone in telefones],
+            tipo_de_contratacao=tipo_de_contratacao.valor,
+            unidade_senai_id=unidade_senai_id.valor,
+            ativo=ativo
         )
+
         self.assertIsNotNone(docente.id.valor)
 
     def test_construir_QUANDO_ativo_nao_informado_ENTAO_atribui_true(self) -> None:
-        nome = FabricaTesteNomeDeDocente.build().valor
+        nome = FabricaTesteNomeDeDocente.build()
+        id_ = FabricaTesteId.build()
+        email = FabricaTesteEmail.build()
+        telefones = [FabricaTesteTelefone.build() for _ in range(randint(1, 5))]
+        tipo_de_contratacao = FabricaTesteTipoDeContratacao.build()
+        unidade_senai_id = FabricaTesteId.build()
 
         docente = Docente.construir(
-            nome=nome
+            nome=nome.valor,
+            id_=id_.valor,
+            email=email.valor,
+            telefones=[telefone.valor for telefone in telefones],
+            tipo_de_contratacao=tipo_de_contratacao.valor,
+            unidade_senai_id=unidade_senai_id.valor,
         )
+
         self.assertTrue(docente.ativo)
 
     def test_id_QUANDO_chamado_ENTAO_retorna_id_atribuido(self) -> None:

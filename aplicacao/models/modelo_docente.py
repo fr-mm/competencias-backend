@@ -1,27 +1,14 @@
 from __future__ import annotations
 
-from uuid import UUID
 from django.db import models
 
-from dominio.entidades import Docente
+from aplicacao.models.modelo_unidade_senai import ModeloUnidadeSenai
 
 
 class ModeloDocente(models.Model):
     nome = models.CharField(max_length=200)
     id = models.UUIDField(primary_key=True, unique=True)
+    email = models.EmailField()
+    tipo_de_contratacao = models.CharField(max_length=200)
+    unidade_senai = models.ForeignKey(ModeloUnidadeSenai, on_delete=models.CASCADE)
     ativo = models.BooleanField()
-
-    @classmethod
-    def de_entidade(cls, entidade: Docente) -> ModeloDocente:
-        return cls(
-            nome=entidade.nome.valor,
-            id=entidade.id.valor,
-            ativo=entidade.ativo
-        )
-
-    def para_entidade(self) -> Docente:
-        return Docente.construir(
-            nome=str(self.nome),
-            id_=UUID(str(self.id)),
-            ativo=bool(self.ativo)
-        )
