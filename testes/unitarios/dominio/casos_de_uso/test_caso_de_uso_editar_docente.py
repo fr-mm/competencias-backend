@@ -3,14 +3,14 @@ from mockito import mock, unstub, when, verify
 
 from testes.fabricas import FabricaTesteOTDDocente, FabricaTesteDocente
 from dominio.otds import OTDDocente
-from dominio.casos_de_uso import CasoDeUsoEditarDocente
+from dominio.casos_de_uso import CasoDeUsoEditarDisciplina
 from dominio.entidades import Docente
 
 
 class TestCasoDeUsoEditarDocente(TestCase):
     def setUp(self) -> None:
         self.repositorio_docente = mock()
-        self.caso_de_uso = CasoDeUsoEditarDocente(
+        self.caso_de_uso = CasoDeUsoEditarDisciplina(
             repositorio_docente=self.repositorio_docente
         )
 
