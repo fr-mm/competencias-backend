@@ -1,1 +1,2 @@
 from aplicacao.repositorios.repositorio_docente import RepositorioDocente
+from aplicacao.repositorios.repositorio_disciplina import RepositorioDisciplina
