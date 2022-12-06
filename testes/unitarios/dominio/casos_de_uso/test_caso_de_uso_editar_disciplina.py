@@ -11,7 +11,6 @@ from testes.fabricas import FabricaTesteOTDDisciplina, FabricaTesteDisciplina
 class TestCasoDeUsoEditarDisciplina(TestCase):
 
     def setUp(self) -> None:
-        self.disciplina = mock()
         self.repositorio_disciplina = mock()
         self.caso_de_uso = CasoDeUsoEditarDisciplina(
             repositorio_disciplina=self.repositorio_disciplina
