@@ -27,7 +27,7 @@ class TestCasoDeUsoDesativarDisciplina(TestCase):
 
         verify(disciplina).desativar()
 
-    def test_executar_QUANDO_chamado_ENTAO_salva_docente_no_repositorio(self) -> None:
+    def test_executar_QUANDO_chamado_ENTAO_salva_disciplina_no_repositorio(self) -> None:
         disciplina: Disciplina = FabricaTesteDisciplina.build()
         when(self.repositorio_disciplina).trazer_por_id(disciplina.id).thenReturn(disciplina)
         when(disciplina).desativar()
