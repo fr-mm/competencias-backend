@@ -1,11 +1,13 @@
 from unittest import TestCase
 from urllib.request import Request
+from uuid import uuid4
 
 from mockito import mock, unstub, when
 
 from aplicacao.views import DisciplinasView
+from dominio.erros import ErroDisciplinaNaoEncontrada
 from dominio.otds import OTDDisciplina
-from testes.fabricas import FabricaTesteOTDDisciplina, FabricaTesteOTDDisciplinaEmCriacao
+from testes.fabricas import FabricaTesteOTDDisciplina, FabricaTesteOTDDisciplinaEmCriacao, FabricaTesteOTDIds
 
 
 class TestDisciplinasView(TestCase):
@@ -15,7 +17,8 @@ class TestDisciplinasView(TestCase):
         self.container = mock({
             'casos_de_uso': mock({
                 'disciplina': mock({
-                    'criar': mock()
+                    'criar': mock(),
+                    'desativar': mock()
                 })
             })
         })
@@ -44,3 +47,28 @@ class TestDisciplinasView(TestCase):
         esperado = otd_disciplina_criada.__dict__
         esperado['id'] = str(esperado['id'])
         self.assertEqual(response.data, otd_disciplina_criada.__dict__)
+
+    def test_delete_QUANDO_disciplinas_existem_ENTAO_retorna_status_204(self) -> None:
+        otd = FabricaTesteOTDIds.build()
+        request = Request(self.url, data=otd.__dict__)
+
+        response = self.view.delete(request)
+
+        self.assertEqual(response.status_code, 204)
+
+    def test_delete_QUANDO_payload_invalido_ENTAO_retorna_status_400(self) -> None:
+        request = Request(self.url, data={})
+
+        response = self.view.delete(request)
+
+        self.assertEqual(response.status_code, 400)
+
+    def test_delete_QUANDO_disciplinas_nao_existem_ENTAO_retorna_status_404(self) -> None:
+        otd = FabricaTesteOTDIds.build()
+        request = Request(self.url, data=otd.__dict__)
+        erro_disciplina_nao_encontrada = ErroDisciplinaNaoEncontrada(uuid4())
+        when(self.container.casos_de_uso.disciplina.desativar).executar(...).thenRaise(erro_disciplina_nao_encontrada)
+
+        response = self.view.delete(request)
+
+        self.assertEqual(response.status_code, 404)

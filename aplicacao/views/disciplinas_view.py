@@ -4,7 +4,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from aplicacao.container import ContainerDeDependencias, container_de_dependencias
-from aplicacao.serializers import SerializerOTDDisciplinaEmCriacao, SerializerOTDDisciplina
+from aplicacao.otds import OTDIds
+from aplicacao.serializers import SerializerOTDDisciplinaEmCriacao, SerializerOTDDisciplina, SerializerOTDIds
+from dominio.erros import ErroDisciplinaNaoEncontrada
 from dominio.otds import OTDDisciplinaEmCriacao
 
 
@@ -29,3 +31,20 @@ class DisciplinasView(APIView):
             )
         except ValidationError:
             return Response(status=400)
+
+    def delete(self, request: Request) -> Response:
+        try:
+            serializer = SerializerOTDIds(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            otd = OTDIds(**serializer.validated_data)
+            [self.__container.casos_de_uso.disciplina.desativar.executar(id_) for id_ in otd.ids]
+
+            return Response(
+                data=serializer.data,
+                status=204
+            )
+        except ValidationError:
+            return Response(status=400)
+
+        except ErroDisciplinaNaoEncontrada:
+            return Response(status=404)

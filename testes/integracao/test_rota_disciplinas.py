@@ -5,7 +5,7 @@ from rest_framework.test import APITestCase
 
 from aplicacao.models import ModeloDisciplina
 from dominio.otds import OTDDisciplinaEmCriacao
-from testes.fabricas import FabricaTesteOTDDisciplinaEmCriacao
+from testes.fabricas import FabricaTesteOTDDisciplinaEmCriacao, FabricaTesteOTDIds, FabricaTesteModeloDisciplina
 
 
 class TestRotaDisciplinas(APITestCase):
@@ -52,3 +52,13 @@ class TestRotaDisciplinas(APITestCase):
             otd_disciplina_em_ciacao.carga_horaria
         ]
         self.assertEqual(atributos, esperado)
+
+    def test_delete_QUANDO_disciplinas_existem_ENTAO_desativa_disciplinas(self) -> None:
+        modelos = [FabricaTesteModeloDisciplina.create(ativo=True) for _ in range(2)]
+        otd = FabricaTesteOTDIds.build(ids=[modelo.id for modelo in modelos])
+
+        self.client.delete(path=self.url, data=otd.__dict__, format='json')
+
+        resultado = [modelo.ativo for modelo in ModeloDisciplina.objects.all()]
+        esperado = [False for _ in range(len(modelos))]
+        self.assertEqual(resultado, esperado)
