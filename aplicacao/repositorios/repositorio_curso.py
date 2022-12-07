@@ -1,18 +1,14 @@
-from abc import abstractmethod, ABC
-
 from dominio.entidades import Curso
 from dominio.objetos_de_valor import Id
+from dominio.repositorios import RepositorioAbstratoCurso
 
 
-class RepositorioAbstratoCurso(ABC):
-    @abstractmethod
+class RepositorioCurso(RepositorioAbstratoCurso):
     def filtrar(self, **kwargs) -> [Curso]:
         pass
 
-    @abstractmethod
     def trazer_por_id(self, id_: Id) -> Curso:
         pass
 
-    @abstractmethod
     def salvar(self, curso: Curso) -> None:
         pass
