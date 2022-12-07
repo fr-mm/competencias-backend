@@ -36,6 +36,5 @@ class TestCasoDeUsoEditarCurso(TestCase):
         when(self.repositorio_curso).salvar(curso)
 
         otd_saida = self.caso_de_uso.executar(otd_entrada)
-        print(otd_saida)
-        print(otd_entrada)
+        
         self.assertEqual(otd_saida, otd_entrada)
