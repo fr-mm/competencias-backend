@@ -19,6 +19,6 @@ class TestOTDDisciplinaEmCriacao(TestCase):
         atributos_esperados = [
             NomeDeDisciplina(otd.nome),
             CargaHoraria(otd.carga_horaria),
-            otd.ativo
+            True
         ]
         self.assertEqual(atributos_resultantes, atributos_esperados)

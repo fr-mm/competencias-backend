@@ -9,4 +9,3 @@ class FabricaTesteOTDDisciplinaEmCriacao(factory.Factory):
 
     nome = factory.Faker('name')
     carga_horaria = factory.Faker('pyint')
-    ativo = factory.Faker('pybool')
