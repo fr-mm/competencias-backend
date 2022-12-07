@@ -15,8 +15,10 @@ class TestDocentesView(TestCase):
         self.otd_docente: OTDDocente = FabricaTesteOTDDocente.build()
         self.container = mock({
             'casos_de_uso': mock({
-                'criar_docente': mock(),
-                'filtrar_docentes': mock()
+                'docente': mock({
+                    'criar': mock(),
+                    'filtrar': mock()
+                })
             })
         })
         self.docentes_view = DocentesView(self.container)
@@ -34,7 +36,7 @@ class TestDocentesView(TestCase):
         data = otd_docente_em_criacao.__dict__
         request = Request(self.url, data=data)
         otd_docente_criado: OTDDocente = FabricaTesteOTDDocente.build(nome=otd_docente_em_criacao.nome)
-        when(self.container.casos_de_uso.criar_docente).executar(otd_docente_em_criacao).thenReturn(otd_docente_criado)
+        when(self.container.casos_de_uso.docente.criar).executar(otd_docente_em_criacao).thenReturn(otd_docente_criado)
 
         response = self.docentes_view.post(request)
 
@@ -65,7 +67,7 @@ class TestDocentesView(TestCase):
 
     def test_get_QUANDO_request_recebida_ENTAO_retorna_response_com_docentes_ativos(self) -> None:
         otds_docente: [OTDDocente] = [FabricaTesteOTDDocente.build(ativo=True) for _ in range(2)]
-        when(self.container.casos_de_uso.filtrar_docentes).executar(ativo=True).thenReturn(otds_docente)
+        when(self.container.casos_de_uso.docente.filtrar).executar(ativo=True).thenReturn(otds_docente)
         request = Request(self.url)
 
         response = self.docentes_view.get(request)

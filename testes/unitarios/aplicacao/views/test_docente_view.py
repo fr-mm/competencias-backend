@@ -15,9 +15,11 @@ class TestDocenteView(TestCase):
         self.url = f'https://localhost:8000'
         self.container = mock({
             'casos_de_uso': mock({
-                'trazer_docente': mock(),
-                'editar_docente': mock(),
-                'desativar_docente': mock()
+                'docente': mock({
+                    'trazer': mock(),
+                    'editar': mock(),
+                    'desativar': mock()
+                })
             })
         })
         self.docente_view = DocenteView(self.container)
@@ -37,7 +39,7 @@ class TestDocenteView(TestCase):
         request = Request(self.url)
         id_ = uuid4()
         erro_docente_nao_encontrado = ErroDocenteNaoEncontrado(id_)
-        when(self.container.casos_de_uso.trazer_docente).executar(id_).thenRaise(erro_docente_nao_encontrado)
+        when(self.container.casos_de_uso.docente.trazer).executar(id_).thenRaise(erro_docente_nao_encontrado)
 
         response = self.docente_view.get(request, id_)
 
@@ -46,7 +48,6 @@ class TestDocenteView(TestCase):
     def test_post_QUANDO_docente_encontrado_ENTAO_retorna_status_200(self) -> None:
         docente: Docente = FabricaTesteDocente.build()
         data = FabricaTesteOTDDocente.build().__dict__
-        print(data)
         request = Request(self.url, data=data)
 
         response = self.docente_view.post(request, docente.id.valor)
@@ -57,7 +58,7 @@ class TestDocenteView(TestCase):
         otd_docente: OTDDocente = FabricaTesteOTDDocente.build()
         data = otd_docente.__dict__
         erro_docente_nao_encontrado = ErroDocenteNaoEncontrado(otd_docente.id)
-        when(self.container.casos_de_uso.editar_docente).executar(otd_docente).thenRaise(erro_docente_nao_encontrado)
+        when(self.container.casos_de_uso.docente.editar).executar(otd_docente).thenRaise(erro_docente_nao_encontrado)
         request = Request(self.url, data=data)
 
         response = self.docente_view.post(request, otd_docente.id)
@@ -68,7 +69,7 @@ class TestDocenteView(TestCase):
         otd_docente: OTDDocente = FabricaTesteOTDDocente.build()
         data = otd_docente.__dict__
         request = Request(self.url, data=data)
-        when(self.container.casos_de_uso.editar_docente).executar(otd_docente).thenReturn(otd_docente)
+        when(self.container.casos_de_uso.docente.editar).executar(otd_docente).thenReturn(otd_docente)
 
         response = self.docente_view.post(request, otd_docente.id)
 
@@ -88,7 +89,7 @@ class TestDocenteView(TestCase):
         request = Request(self.url)
         id_ = uuid4()
         erro_docente_nao_encontrado = ErroDocenteNaoEncontrado(id_)
-        when(self.container.casos_de_uso.desativar_docente).executar(id_).thenRaise(erro_docente_nao_encontrado)
+        when(self.container.casos_de_uso.docente.desativar).executar(id_).thenRaise(erro_docente_nao_encontrado)
 
         response = self.docente_view.delete(request, id_)
 

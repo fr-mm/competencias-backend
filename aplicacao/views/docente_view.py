@@ -19,7 +19,7 @@ class DocenteView(APIView):
 
     def get(self, _: Request, id_: UUID) -> Response:
         try:
-            otd_docente = self.__container.casos_de_uso.trazer_docente.executar(id_)
+            otd_docente = self.__container.casos_de_uso.docente.trazer.executar(id_)
             serializer_otd_docente = SerializerOTDDocente(otd_docente)
 
             return Response(
@@ -36,7 +36,7 @@ class DocenteView(APIView):
             serializer_otd_docente_entrada = SerializerOTDDocente(data=request.data)
             serializer_otd_docente_entrada.is_valid(raise_exception=True)
             otd_docente_entrada = OTDDocente(**serializer_otd_docente_entrada.validated_data)
-            otd_docente_saida = self.__container.casos_de_uso.editar_docente.executar(otd_docente_entrada)
+            otd_docente_saida = self.__container.casos_de_uso.docente.editar.executar(otd_docente_entrada)
             serializer_otd_docente_saida = SerializerOTDDocente(otd_docente_saida)
 
             return Response(
@@ -50,7 +50,7 @@ class DocenteView(APIView):
 
     def delete(self, _: Request, id_: UUID) -> Response:
         try:
-            self.__container.casos_de_uso.desativar_docente.executar(id_)
+            self.__container.casos_de_uso.docente.desativar.executar(id_)
             return Response(
                 status=200
             )

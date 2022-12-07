@@ -20,7 +20,7 @@ class DocentesView(APIView):
             serializer_otd_docente_em_criacao = SerializerOTDDocenteEmCriacao(data=request.data)
             serializer_otd_docente_em_criacao.is_valid(raise_exception=True)
             otd_docente_em_criacao = OTDDocenteEmCriacao(**serializer_otd_docente_em_criacao.validated_data)
-            otd_docente = self.__container.casos_de_uso.criar_docente.executar(otd_docente_em_criacao)
+            otd_docente = self.__container.casos_de_uso.docente.criar.executar(otd_docente_em_criacao)
             serializer_otd_docente = SerializerOTDDocente(otd_docente)
 
             return Response(
@@ -31,7 +31,7 @@ class DocentesView(APIView):
             return Response(status=400)
 
     def get(self, _: Request) -> Response:
-        otds_docente = self.__container.casos_de_uso.filtrar_docentes.executar(ativo=True)
+        otds_docente = self.__container.casos_de_uso.docente.filtrar.executar(ativo=True)
         serializer_otd_docente = SerializerOTDDocente(otds_docente, many=True)
 
         return Response(
