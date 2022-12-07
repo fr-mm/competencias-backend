@@ -3,7 +3,9 @@ from django.test import TestCase
 
 from aplicacao.models import ModeloDisciplina
 from aplicacao.repositorios import RepositorioDisciplina
-from testes.fabricas import FabricaTesteModeloDisciplina, FabricaTesteDisciplina
+from dominio.erros import ErroDisciplinaNaoEncontrada
+from dominio.objetos_de_valor import Id
+from testes.fabricas import FabricaTesteModeloDisciplina, FabricaTesteDisciplina, FabricaTesteId
 
 
 @pytest.mark.django_db
@@ -37,5 +39,15 @@ class TestRepositorioDisciplina(TestCase):
         ModeloDisciplina.objects.get(pk=disciplina.id.valor)
 
     def test_trazer_por_id_QUANDO_disciplina_existe_ENTAO_retorna_disciplina(self) -> None:
-        modelo_disciplina: ModeloDisciplina
+        modelo_disciplina: ModeloDisciplina = FabricaTesteModeloDisciplina.create()
+        id_ = Id(modelo_disciplina.id)
 
+        disciplina = self.repositorio.trazer_por_id(id_)
+
+        self.assertEqual(disciplina.id, id_)
+
+    def test_trazer_por_id_QUANDO_disciplina_nao_existe_ENTAO_lanca_erro_disciplina_nao_encontrada(self) -> None:
+        id_ = FabricaTesteId.build()
+
+        with self.assertRaises(ErroDisciplinaNaoEncontrada):
+            self.repositorio.trazer_por_id(id_)
