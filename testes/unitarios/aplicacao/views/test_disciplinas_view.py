@@ -41,4 +41,6 @@ class TestDisciplinasView(TestCase):
 
         response = self.view.post(request)
 
+        esperado = otd_disciplina_criada.__dict__
+        esperado['id'] = str(esperado['id'])
         self.assertEqual(response.data, otd_disciplina_criada.__dict__)

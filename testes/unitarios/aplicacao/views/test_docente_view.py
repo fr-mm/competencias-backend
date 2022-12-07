@@ -1,6 +1,6 @@
 from unittest import TestCase
 from urllib.request import Request
-from uuid import uuid4, UUID
+from uuid import uuid4
 from mockito import mock, when, unstub
 
 from aplicacao.views import DocenteView
