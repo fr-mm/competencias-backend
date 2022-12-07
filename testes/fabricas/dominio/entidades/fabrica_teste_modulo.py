@@ -15,4 +15,3 @@ class FabricaTesteModulo(factory.Factory):
     disciplinas_ids = factory.List([
         FabricaTesteId.build() for _ in range(randint(1, 6))
     ])
-    ativo = factory.Faker('pybool')

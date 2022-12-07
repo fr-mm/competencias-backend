@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import List
 from uuid import UUID, uuid4
 
-from dominio.erros import ErroAoAtivarDesativarEntidade
 from dominio.objetos_de_valor import Id, NumeroDeModulo
 
 
@@ -11,33 +10,28 @@ class Modulo:
     __id: Id
     __numero: NumeroDeModulo
     __disciplinas_ids: List[Id]
-    __ativo: bool
 
     def __init__(
             self,
             id_: Id,
             numero: NumeroDeModulo,
             disciplinas_ids: List[Id],
-            ativo: bool = True
     ) -> None:
         self.__id = id_
         self.__numero = numero
         self.__disciplinas_ids = disciplinas_ids
-        self.__ativo = ativo
 
     @classmethod
     def construir(
             cls,
             numero: int,
             disciplinas_ids: List[UUID],
-            ativo: bool,
             id_: UUID = uuid4(),
     ) -> Modulo:
         return cls(
             id_=Id(id_),
             numero=NumeroDeModulo(numero),
             disciplinas_ids=[Id(id_) for id_ in disciplinas_ids],
-            ativo=ativo
         )
 
     @property
@@ -51,22 +45,3 @@ class Modulo:
     @property
     def disciplinas_ids(self) -> List[Id]:
         return self.__disciplinas_ids
-
-    @property
-    def ativo(self) -> bool:
-        return self.__ativo
-
-    def ativar(self) -> None:
-        self.__mudar_ativo_para(True)
-
-    def desativar(self) -> None:
-        self.__mudar_ativo_para(False)
-
-    def __mudar_ativo_para(self, novo_valor: bool) -> None:
-        if self.ativo is novo_valor:
-            raise ErroAoAtivarDesativarEntidade(
-                nome_da_entidade=f'Módulo {self.numero}',
-                id_da_entidade=self.id.valor,
-                tentou_mudar_ativo_para=novo_valor
-            )
-        self.__ativo = novo_valor

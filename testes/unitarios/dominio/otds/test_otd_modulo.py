@@ -16,13 +16,11 @@ class TestOTDModulo(TestCase):
             modulo.id,
             modulo.numero,
             modulo.disciplinas_ids,
-            modulo.ativo
         ]
         atributos_esperados = [
             Id(otd.id),
             NumeroDeModulo(otd.numero),
             [Id(id_) for id_ in otd.disciplinas_ids],
-            otd.ativo
         ]
         self.assertEqual(atributos_resultantes, atributos_esperados)
 
@@ -35,6 +33,5 @@ class TestOTDModulo(TestCase):
             id=modulo.id.valor,
             numero=modulo.numero.valor,
             disciplinas_ids=[id_.valor for id_ in modulo.disciplinas_ids],
-            ativo=otd.ativo
         )
         self.assertEqual(otd, otd_esperado)

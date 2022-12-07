@@ -7,3 +7,5 @@ from dominio.erros.erro_numero_invalido import ErroNumeroInvalido
 from dominio.erros.erro_telefone import ErroTelefone
 from dominio.erros.erro_tipo_de_contratacao import ErroTipoDeContratacao
 from dominio.erros.erro_disciplina_nao_encontrada import ErroDisciplinaNaoEncontrada
+from dominio.erros.erro_curso_nao_encontrado import ErroCursoNaoEncontrado
+from dominio.erros.erro_modulo_nao_encontrado import ErroModuloNaoEncontrado

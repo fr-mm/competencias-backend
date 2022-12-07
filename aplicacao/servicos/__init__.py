@@ -1,2 +1,3 @@
 from aplicacao.servicos.servico_converter_modelo_docente import ServicoConverterModeloDocente
 from aplicacao.servicos.servico_converter_modelo_curso import ServicoConverterModeloCurso
+from aplicacao.servicos.servico_converter_modelo_modulo import ServicoConverterModeloModulo

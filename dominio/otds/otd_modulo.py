@@ -12,7 +12,6 @@ class OTDModulo:
     id: UUID
     numero: int
     disciplinas_ids: List[UUID]
-    ativo: bool
 
     @classmethod
     def de_entidade(cls, modulo: Modulo) -> OTDModulo:
@@ -20,7 +19,6 @@ class OTDModulo:
             id=modulo.id.valor,
             numero=modulo.numero.valor,
             disciplinas_ids=[id_.valor for id_ in modulo.disciplinas_ids],
-            ativo=modulo.ativo
         )
 
     def para_entidade(self) -> Modulo:
@@ -28,6 +26,5 @@ class OTDModulo:
             id_=self.id,
             numero=self.numero,
             disciplinas_ids=self.disciplinas_ids,
-            ativo=self.ativo
         )
 
