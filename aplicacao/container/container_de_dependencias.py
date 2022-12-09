@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 
-from aplicacao.repositorios import RepositorioDocente, RepositorioDisciplina
+from aplicacao.repositorios import RepositorioDocente, RepositorioDisciplina, RepositorioCurso
 from dominio.casos_de_uso import CasoDeUsoCriarDocente, CasoDeUsoFiltrarDocentes, CasoDeUsoTrazerDocente, \
     CasoDeUsoDesativarDocente, CasoDeUsoEditarDisciplina, CasoDeUsoEditarDocente, CasoDeUsoCriarDisciplina, \
-    CasoDeUsoDesativarDisciplina
+    CasoDeUsoDesativarDisciplina, CasoDeUsoCriarCurso, CasoDeUsoEditarCurso, CasoDeUsoDesativarCurso
 
 
 @dataclass(frozen=True, init=False)
@@ -14,9 +14,10 @@ class ContainerBase:
 class Repositorios(ContainerBase):
     docentes = RepositorioDocente()
     disciplinas = RepositorioDisciplina()
+    cursos = RepositorioCurso()
 
 
-class CasoDeUsoDocente(ContainerBase):
+class CasosDeUsoDocente(ContainerBase):
     criar = CasoDeUsoCriarDocente(Repositorios.docentes)
     filtrar = CasoDeUsoFiltrarDocentes(Repositorios.docentes)
     trazer = CasoDeUsoTrazerDocente(Repositorios.docentes)
@@ -24,15 +25,22 @@ class CasoDeUsoDocente(ContainerBase):
     desativar = CasoDeUsoDesativarDocente(Repositorios.docentes)
 
 
-class CasoDeUsoDisciplina(ContainerBase):
+class CasosDeUsoDisciplina(ContainerBase):
     criar = CasoDeUsoCriarDisciplina(Repositorios.disciplinas)
     editar = CasoDeUsoEditarDisciplina(Repositorios.disciplinas)
     desativar = CasoDeUsoDesativarDisciplina(Repositorios.disciplinas)
 
 
+class CasosDeUsoCurso(ContainerBase):
+    criar = CasoDeUsoCriarCurso(Repositorios.cursos)
+    editar = CasoDeUsoEditarCurso(Repositorios.cursos)
+    desativar = CasoDeUsoDesativarCurso(Repositorios.cursos)
+
+
 class CasosDeUso(ContainerBase):
-    docente = CasoDeUsoDocente()
-    disciplina = CasoDeUsoDisciplina()
+    docente = CasosDeUsoDocente()
+    disciplina = CasosDeUsoDisciplina()
+    curso = CasosDeUsoCurso()
 
 
 class ContainerDeDependencias(ContainerBase):

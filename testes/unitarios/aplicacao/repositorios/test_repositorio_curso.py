@@ -5,9 +5,10 @@ from django.test import TestCase
 from aplicacao.models import ModeloModulo, ModeloCurso, ModeloModuloEmCurso
 from aplicacao.repositorios import RepositorioCurso
 from dominio.entidades import Curso
+from dominio.erros import ErroCursoNaoEncontrado
 from dominio.objetos_de_valor import Id
 from testes.fabricas import FabricaTesteModeloModulo, \
-    FabricaTesteCurso, FabricaTesteModeloCurso
+    FabricaTesteCurso, FabricaTesteModeloCurso, FabricaTesteId
 
 
 class TestRepositorioCurso(TestCase):
@@ -42,3 +43,17 @@ class TestRepositorioCurso(TestCase):
         ids_modulos_no_curso = [modulos_no_curso.modulo.id for modulos_no_curso in modulos_no_curso]
         ids_esperadas = [modelo_modulo_existente.id, modelo_modulo_novo.id]
         self.assertEqual(ids_modulos_no_curso, ids_esperadas)
+
+    def test_trazer_por_id_QUANDO_curso_existe_ENTAO_retorna_curso(self) -> None:
+        modelo_curso: ModeloCurso = FabricaTesteModeloCurso.create()
+        id_ = Id(modelo_curso.id)
+
+        curso = self.repositorio.trazer_por_id(id_)
+
+        self.assertEqual(curso.id, id_)
+
+    def test_trazer_por_id_QUANDO_disciplina_nao_existe_ENTAO_lanca_erro_disciplina_nao_encontrada(self) -> None:
+        id_ = FabricaTesteId.build()
+
+        with self.assertRaises(ErroCursoNaoEncontrado):
+            self.repositorio.trazer_por_id(id_)

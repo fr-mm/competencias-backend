@@ -4,6 +4,8 @@ from mockito import mock, unstub, when, verify
 
 from dominio.casos_de_uso import CasoDeUsoEditarCurso
 from dominio.entidades import Curso
+from dominio.erros import ErroCursoNaoEncontrado
+from dominio.objetos_de_valor import Id
 from dominio.otds import OTDCurso
 from testes.fabricas import FabricaTesteOTDCurso, FabricaTesteCurso
 
@@ -28,6 +30,13 @@ class TestCasoDeUsoEditarCurso(TestCase):
         self.caso_de_uso.executar(otd_curso)
 
         verify(self.repositorio_curso).salvar(curso)
+
+    def test_executar_QUANDO_id_nao_existe_ENTAO_lanca_erro_curso_nao_encontrado(self) -> None:
+        otd: OTDCurso = FabricaTesteOTDCurso.build()
+        when(self.repositorio_curso).trazer_por_id(Id(otd.id)).thenRaise(ErroCursoNaoEncontrado(otd.id))
+
+        with self.assertRaises(ErroCursoNaoEncontrado):
+            self.caso_de_uso.executar(otd)
 
     def test_executar_QUANDO_sucesso_ENTAO_retorna_otd_curso_esperado(self) -> None:
         otd_entrada: OTDCurso = FabricaTesteOTDCurso.build()

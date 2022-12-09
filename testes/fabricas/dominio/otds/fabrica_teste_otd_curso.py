@@ -10,7 +10,7 @@ class FabricaTesteOTDCurso(factory.Factory):
     class Meta:
         model = OTDCurso
 
-    id = factory.Faker('uuid4')
+    id = factory.Faker('uuid4', cast_to=None)
     nome = factory.Faker('name')
-    modulos_ids = factory.List([uuid4() for _ in range(randint(1, 6))])
+    modulos_ids = factory.List([factory.Faker('uuid4', cast_to=None) for _ in range(randint(1, 6))])
     ativo = factory.Faker('pybool')

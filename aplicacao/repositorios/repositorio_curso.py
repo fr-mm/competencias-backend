@@ -23,7 +23,7 @@ class RepositorioCurso(RepositorioAbstratoCurso):
     def salvar(self, curso: Curso) -> None:
         modelo_curso = ServicoConverterModeloCurso.de_entidade(curso)
         modelo_curso.save()
-        modulos_em_curso: List[ModeloModuloEmCurso] = ModeloModuloEmCurso.objects.filter(curso_id=curso.id.valor)
+        modulos_em_curso: List[ModeloModuloEmCurso] = ModeloModuloEmCurso.objects.filter(curso=modelo_curso)
         self.__remover_modulos_apagados(
             curso=curso,
             modulos_em_curso=modulos_em_curso

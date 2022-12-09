@@ -3,3 +3,4 @@ from aplicacao.serializers.serializer_otd_docente import SerializerOTDDocente
 from aplicacao.serializers.serializer_otd_disciplina import SerializerOTDDisciplina
 from aplicacao.serializers.serializer_otd_disciplina_em_criacao import SerializerOTDDisciplinaEmCriacao
 from aplicacao.serializers.serializer_otd_ids import SerializerOTDIds
+from aplicacao.serializers.serializer_otd_curso import SerializerOTDCurso
