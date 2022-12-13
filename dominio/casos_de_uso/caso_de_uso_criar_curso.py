@@ -1,4 +1,4 @@
-from dominio.otds import OTDCursoEmCriacao, OTDCurso
+from dominio.otds import OTDCursoEmCriacao, OTDCursoSaida
 from dominio.repositorios import RepositorioAbstratoCurso
 
 
@@ -8,7 +8,7 @@ class CasoDeUsoCriarCurso:
     def __init__(self, repositorio_curso: RepositorioAbstratoCurso) -> None:
         self.__repositorio_curso = repositorio_curso
 
-    def executar(self, otd_curso_em_criacao: OTDCursoEmCriacao) -> OTDCurso:
+    def executar(self, otd_curso_em_criacao: OTDCursoEmCriacao) -> OTDCursoSaida:
         curso = otd_curso_em_criacao.para_entidade()
         self.__repositorio_curso.salvar(curso)
-        return OTDCurso.de_entidade(curso)
+        return OTDCursoSaida.de_entidade(curso)

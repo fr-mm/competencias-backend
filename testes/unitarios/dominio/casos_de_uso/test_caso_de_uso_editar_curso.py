@@ -6,8 +6,8 @@ from dominio.casos_de_uso import CasoDeUsoEditarCurso
 from dominio.entidades import Curso
 from dominio.erros import ErroCursoNaoEncontrado
 from dominio.objetos_de_valor import Id
-from dominio.otds import OTDCurso
-from testes.fabricas import FabricaTesteOTDCurso, FabricaTesteCurso
+from dominio.otds import OTDCursoSaida, OTDCursoEntrada
+from testes.fabricas import FabricaTesteOTDCursoEntrada, FabricaTesteCurso
 
 
 class TestCasoDeUsoEditarCurso(TestCase):
@@ -22,9 +22,9 @@ class TestCasoDeUsoEditarCurso(TestCase):
         unstub()
 
     def test_executar_QUANDO_id_existe_ENTAO_salva_curso_no_repositorio(self) -> None:
-        otd_curso: OTDCurso = FabricaTesteOTDCurso.build()
+        otd_curso: OTDCursoEntrada = FabricaTesteOTDCursoEntrada.build()
         curso: Curso = FabricaTesteCurso.build()
-        when(OTDCurso).para_entidade().thenReturn(curso)
+        when(OTDCursoEntrada).para_entidade().thenReturn(curso)
         when(self.repositorio_curso).salvar(curso)
 
         self.caso_de_uso.executar(otd_curso)
@@ -32,18 +32,19 @@ class TestCasoDeUsoEditarCurso(TestCase):
         verify(self.repositorio_curso).salvar(curso)
 
     def test_executar_QUANDO_id_nao_existe_ENTAO_lanca_erro_curso_nao_encontrado(self) -> None:
-        otd: OTDCurso = FabricaTesteOTDCurso.build()
+        otd: OTDCursoEntrada = FabricaTesteOTDCursoEntrada.build()
         when(self.repositorio_curso).trazer_por_id(Id(otd.id)).thenRaise(ErroCursoNaoEncontrado(otd.id))
 
         with self.assertRaises(ErroCursoNaoEncontrado):
             self.caso_de_uso.executar(otd)
 
     def test_executar_QUANDO_sucesso_ENTAO_retorna_otd_curso_esperado(self) -> None:
-        otd_entrada: OTDCurso = FabricaTesteOTDCurso.build()
+        otd_entrada: OTDCursoEntrada = FabricaTesteOTDCursoEntrada.build()
         curso: Curso = FabricaTesteCurso.build()
-        when(OTDCurso).para_entidade().thenReturn(curso)
+        when(OTDCursoEntrada).para_entidade().thenReturn(curso)
         when(self.repositorio_curso).salvar(curso)
 
         otd_saida = self.caso_de_uso.executar(otd_entrada)
-        
-        self.assertEqual(otd_saida, otd_entrada)
+
+        esperado = OTDCursoSaida.de_entidade(curso)
+        self.assertEqual(otd_saida, esperado)

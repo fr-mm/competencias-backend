@@ -9,7 +9,7 @@ from dominio.repositorios import RepositorioAbstratoModulo
 
 class RepositorioModulo(RepositorioAbstratoModulo):
     def trazer_por_curso(self, curso: Curso) -> List[Modulo]:
-        modelos: List[ModeloModulo] = [ModeloModulo.objects.get(pk=modulo_id.valor) for modulo_id in curso.modulos_ids]
+        modelos: List[ModeloModulo] = [ModeloModulo.objects.get(pk=modulo_id.valor) for modulo_id in curso.modulos]
         return [ServicoConverterModeloModulo.para_entidade(modelo) for modelo in modelos]
 
     def deletar(self, modulo: Modulo) -> None:

@@ -26,8 +26,10 @@ class Modulo:
             cls,
             numero: int,
             disciplinas_ids: List[UUID],
-            id_: UUID = uuid4(),
+            id_: UUID = None,
     ) -> Modulo:
+        if id_ is None:
+            id_ = uuid4()
         return cls(
             id_=Id(id_),
             numero=NumeroDeModulo(numero),

@@ -1,15 +1,19 @@
 from django.test import TestCase
+from mockito import mock, when, unstub
 
 from aplicacao.models import ModeloModulo, ModeloCurso
-from aplicacao.servicos import ServicoConverterModeloCurso
+from aplicacao.servicos import ServicoConverterModeloCurso, ServicoConverterModeloModulo
 from dominio.entidades import Curso
 from testes.fabricas import FabricaTesteModeloModulo, FabricaTesteCurso, FabricaTesteModeloCurso, \
     FabricaTesteModeloModuloEmCurso
 
 
 class TestServicoConverterModeloCurso(TestCase):
+    def tearDown(self) -> None:
+        unstub()
+
     def test_de_entidade_QUANDO_entidade_fornecida_ENTAO_retorna_modelo_com_atributos_esperados(self) -> None:
-        curso: Curso = FabricaTesteCurso.build(modulos_ids=[])
+        curso: Curso = FabricaTesteCurso.build(modulos=[])
 
         modelo_curso = ServicoConverterModeloCurso.de_entidade(curso)
 
@@ -29,19 +33,21 @@ class TestServicoConverterModeloCurso(TestCase):
         modelo_curso: ModeloCurso = FabricaTesteModeloCurso.create()
         modelo_modulo: ModeloModulo = FabricaTesteModeloModulo.create()
         FabricaTesteModeloModuloEmCurso.create(modulo=modelo_modulo, curso=modelo_curso)
+        modulo_mock = mock()
+        when(ServicoConverterModeloModulo).para_entidade(modelo_modulo).thenReturn(modulo_mock)
 
         curso = ServicoConverterModeloCurso.para_entidade(modelo_curso)
 
         atributos_resultantes = [
             curso.id.valor,
             curso.nome.valor,
-            [modulo_id.valor for modulo_id in curso.modulos_ids],
+            curso.modulos,
             curso.ativo
         ]
         atributos_esperados = [
             modelo_curso.id,
             modelo_curso.nome,
-            [modelo_modulo.id],
+            [modulo_mock],
             modelo_curso.ativo
         ]
         self.assertEqual(atributos_resultantes, atributos_esperados)

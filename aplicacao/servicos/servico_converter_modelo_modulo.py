@@ -12,7 +12,7 @@ class ServicoConverterModeloModulo:
 
     @staticmethod
     def para_entidade(modelo: ModeloModulo) -> Modulo:
-        disciplinas_em_modulo = ModeloDisciplinaEmModulo.objects.filter(modulo_id=modelo.id)
+        disciplinas_em_modulo = ModeloDisciplinaEmModulo.objects.filter(modulo=modelo)
         return Modulo.construir(
             id_=modelo.id,
             numero=modelo.numero,

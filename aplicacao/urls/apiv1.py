@@ -7,5 +7,5 @@ urlpatterns = [
     path('docentes/<uuid:id_>/', DocenteView.as_view(), name='docente'),
     path('disciplinas/', DisciplinasView.as_view(), name='disciplinas'),
     path('disciplina/<uuid:id_>', DisciplinaView.as_view(), name='disciplina'),
-    path('cursp/<uuid:id_>', CursoView.as_view(), name='curso')
+    path('curso/<uuid:id_>', CursoView.as_view(), name='curso')
 ]

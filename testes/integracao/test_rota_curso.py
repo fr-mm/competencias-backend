@@ -5,11 +5,12 @@ from uuid import UUID
 from django.urls import reverse
 from rest_framework.test import APITestCase
 
-from aplicacao.models import ModeloCurso, ModeloModulo, ModeloModuloEmCurso
+from aplicacao.models import ModeloCurso, ModeloModulo, ModeloModuloEmCurso, ModeloDisciplina, ModeloDisciplinaEmModulo
 from dominio.objetos_de_valor import Id
-from dominio.otds import OTDCurso
-from testes.fabricas import FabricaTesteId, FabricaTesteModeloCurso, FabricaTesteOTDCurso, FabricaTesteModeloModulo, \
-    FabricaTesteModeloModuloEmCurso
+from dominio.otds import OTDCursoEntrada, OTDModuloEmCriacao
+from testes.fabricas import FabricaTesteId, FabricaTesteModeloCurso, FabricaTesteOTDCursoEntrada, \
+    FabricaTesteModeloModulo, \
+    FabricaTesteModeloModuloEmCurso, FabricaTesteModeloDisciplina, FabricaTesteModeloDisciplinaEmModulo
 
 
 class TestRotaCurso(APITestCase):
@@ -23,16 +24,22 @@ class TestRotaCurso(APITestCase):
         return TestRotaCurso.contruir_url(id_.valor)
 
     @staticmethod
-    def otd_para_request_data(otd: OTDCurso) -> Dict[str, any]:
+    def otd_para_request_data(otd: OTDCursoEntrada) -> Dict[str, any]:
+        modulos = []
+        for otd_modulo in otd.modulos:
+            modulo = otd_modulo.__dict__
+            modulo['disciplinas_ids'] = [str(id_) for id_ in modulo['disciplinas_ids']]
+            modulos.append(modulo)
+
         return {
             'id': str(otd.id),
             'nome': otd.nome,
-            'modulos_ids': [str(id_) for id_ in otd.modulos_ids],
+            'modulos': modulos,
             'ativo': otd.ativo
         }
 
     def test_post_QUANDO_id_existe_ENTAO_retorna_status_200(self) -> None:
-        otd_entrada: OTDCurso = FabricaTesteOTDCurso.build(ativo=True, modulos_ids=[])
+        otd_entrada: OTDCursoEntrada = FabricaTesteOTDCursoEntrada.build(ativo=True, modulos=[])
         modelo: ModeloCurso = FabricaTesteModeloCurso.create(
             id=otd_entrada.id,
             ativo=otd_entrada.ativo
@@ -53,11 +60,11 @@ class TestRotaCurso(APITestCase):
         modelo_antes: ModeloCurso = FabricaTesteModeloCurso.create(
             ativo=True
         )
-        otd_entrada: OTDCurso = FabricaTesteOTDCurso.build(
+        otd_entrada: OTDCursoEntrada = FabricaTesteOTDCursoEntrada.build(
             id=modelo_antes.id,
             nome=nome_novo,
             ativo=True,
-            modulos_ids=[]
+            modulos=[]
         )
         data = self.otd_para_request_data(otd_entrada)
         url = self.contruir_url(id_=modelo_antes.id)
@@ -72,38 +79,63 @@ class TestRotaCurso(APITestCase):
         self.assertEqual(modelo_depois.nome, nome_novo)
 
     def test_post_QUANDO_modulos_diferente_ENTAO_altera_no_banco_de_dados(self) -> None:
-        modulo_existente: ModeloModulo = FabricaTesteModeloModulo.create()
-        modulo_a_ser_deletado: ModeloModulo = FabricaTesteModeloModulo.create()
-        modulo_novo: ModeloModulo = FabricaTesteModeloModulo.create()
-        curso: ModeloCurso = FabricaTesteModeloCurso.create(
+        modulo_existente: ModeloModulo = FabricaTesteModeloModulo.create(numero=1)
+        modulo_a_ser_deletado: ModeloModulo = FabricaTesteModeloModulo.create(numero=2)
+        disciplinas: [ModeloDisciplina] = [FabricaTesteModeloDisciplina.create() for _ in range(3)]
+        modelo_curso: ModeloCurso = FabricaTesteModeloCurso.create(
             ativo=True
         )
-        modulo_em_curso_existente = FabricaTesteModeloModuloEmCurso.create(
-            curso=curso,
+        FabricaTesteModeloModuloEmCurso.create(
+            curso=modelo_curso,
             modulo=modulo_existente
         )
-        modulo_em_curso_a_ser_deletado = FabricaTesteModeloModuloEmCurso.create(
-            curso=curso,
+        FabricaTesteModeloModuloEmCurso.create(
+            curso=modelo_curso,
             modulo=modulo_a_ser_deletado
         )
-        otd_entrada: OTDCurso = FabricaTesteOTDCurso.build(
-            id=curso.id,
-            nome=curso.nome,
-            modulos_ids=[modulo_existente.id, modulo_novo.id],
-            ativo=True,
+        FabricaTesteModeloDisciplinaEmModulo.create(
+            modulo=modulo_existente,
+            disciplina=disciplinas[0]
         )
-        data = self.otd_para_request_data(otd_entrada)
-        url = self.contruir_url(id_=curso.id)
+        nome_novo = 'Nome novo'
+        otd_entrada = OTDCursoEntrada(
+            id=modelo_curso.id,
+            nome=nome_novo,
+            modulos=[
+                OTDModuloEmCriacao(
+                    numero=modulo_existente.numero,
+                    disciplinas_ids=[disciplinas[1].id, disciplinas[2].id]
+                ),
+                OTDModuloEmCriacao(
+                    numero=3,
+                    disciplinas_ids=[]
+                )
+            ],
+            ativo=modelo_curso.ativo
+        )
+        request_data = self.otd_para_request_data(otd_entrada)
+        url = self.contruir_url(id_=modelo_curso.id)
 
         self.client.post(
             path=url,
-            data=json.dumps(data),
+            data=json.dumps(request_data),
             content_type='application/json'
         )
 
-        print('exi', modulo_existente.id)
-        print('del', modulo_a_ser_deletado.id)
-        print('nov', modulo_novo.id)
-        resultado = [modelo.modulo.id for modelo in ModeloModuloEmCurso.objects.all()]
-        esperado = [modulo.id for modulo in [modulo_existente, modulo_novo]]
+        curso_depois: ModeloCurso = ModeloCurso.objects.get(pk=modelo_curso.id)
+        modulos_em_curso = [modulo_em_curso.modulo.id for modulo_em_curso in ModeloModuloEmCurso.objects.filter(curso=curso_depois)]
+        modulos = [ModeloModulo.objects.get(pk=id_) for id_ in modulos_em_curso]
+        modulo_1 = [modulo for modulo in modulos if modulo.numero == 1][0]
+        resultado = {
+            'nome': curso_depois.nome,
+            'modulos': len(ModeloModuloEmCurso.objects.filter(curso=curso_depois)),
+            'disciplinas_em_modulo_1': [
+                disciplina_em_modulo.disciplina.id for disciplina_em_modulo in ModeloDisciplinaEmModulo.objects.filter(modulo=modulo_1)
+            ]
+        }
+        esperado = {
+            'nome': nome_novo,
+            'modulos': 2,
+            'disciplinas_em_modulo_1': [disciplinas[1].id, disciplinas[2].id]
+        }
         self.assertEqual(resultado, esperado)
