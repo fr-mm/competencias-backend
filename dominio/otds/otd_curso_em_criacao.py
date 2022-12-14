@@ -11,11 +11,10 @@ from dominio.otds import OTDModuloEmCriacao
 class OTDCursoEmCriacao:
     nome: str
     modulos: List[OTDModuloEmCriacao]
-    ativo: bool
 
     def para_entidade(self) -> Curso:
         return Curso.construir(
             nome=self.nome,
             modulos=[otd.para_entidade() for otd in self.modulos],
-            ativo=self.ativo
+            ativo=True
         )

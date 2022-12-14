@@ -6,3 +6,4 @@ from aplicacao.serializers.serializer_otd_ids import SerializerOTDIds
 from aplicacao.serializers.serializer_otd_curso import SerializerOTDCurso
 from aplicacao.serializers.serializer_otd_modulo import SerializerOTDModulo
 from aplicacao.serializers.serializer_otd_modulo_em_criacao import SerializerOTDModuloEmCriacao
+from aplicacao.serializers.serializer_otd_curso_em_criacao import SerializerOTDCursoEmCriacao
