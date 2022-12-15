@@ -6,3 +6,4 @@ from testes.fabricas.aplicacao.models.fabrica_teste_modelo_curso import FabricaT
 from testes.fabricas.aplicacao.models.fabrica_teste_modelo_modulo import FabricaTesteModeloModulo
 from testes.fabricas.aplicacao.models.fabrica_teste_modelo_modulo_em_curso import FabricaTesteModeloModuloEmCurso
 from testes.fabricas.aplicacao.models.fabrica_teste_modelo_disciplina_em_modulo import FabricaTesteModeloDisciplinaEmModulo
+from testes.fabricas.aplicacao.models.fabrica_teste_modelo_competencia import FabricaTesteModeloCompetencia

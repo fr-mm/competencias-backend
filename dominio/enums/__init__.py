@@ -1,1 +1,2 @@
 from dominio.enums.tipo_de_contratacao_enum import TipoDeContratacaoEnum
+from dominio.enums.nivel_de_competencia_enum import NivelDeCompetenciaEnum

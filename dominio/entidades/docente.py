@@ -15,7 +15,6 @@ class Docente:
     __telefones: List[Telefone]
     __tipo_de_contratacao: TipoDeContratacao
     __unidade_senai_id: Id
-    # TODO: __competencias: Competencia[]
     __ativo: bool
 
     def __init__(

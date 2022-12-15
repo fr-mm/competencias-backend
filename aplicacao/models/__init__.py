@@ -6,3 +6,4 @@ from aplicacao.models.modelo_modulo import ModeloModulo
 from aplicacao.models.modelo_curso import ModeloCurso
 from aplicacao.models.modelo_disciplina_em_modulo import ModeloDisciplinaEmModulo
 from aplicacao.models.modelo_modulo_em_curso import ModeloModuloEmCurso
+from aplicacao.models.modelo_competencia import ModeloCompetencia
