@@ -8,3 +8,4 @@ from dominio.otds.otd_curso_saida import OTDCursoSaida
 from dominio.otds.otd_curso_em_criacao import OTDCursoEmCriacao
 from dominio.otds.otd_curso_entrada import OTDCursoEntrada
 from dominio.otds.otd_competencia import OTDCompetencia
+from dominio.otds.otd_caso_de_uso_editar_competencias import OTDCasoDeUsoEditarCompetencias

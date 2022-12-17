@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 
-from aplicacao.repositorios import RepositorioDocente, RepositorioDisciplina, RepositorioCurso
+from aplicacao.repositorios import RepositorioDocente, RepositorioDisciplina, RepositorioCurso, RepositorioCompetencia
 from dominio.casos_de_uso import CasoDeUsoCriarDocente, CasoDeUsoFiltrarDocentes, CasoDeUsoTrazerDocente, \
     CasoDeUsoDesativarDocente, CasoDeUsoEditarDisciplina, CasoDeUsoEditarDocente, CasoDeUsoCriarDisciplina, \
-    CasoDeUsoDesativarDisciplina, CasoDeUsoCriarCurso, CasoDeUsoEditarCurso, CasoDeUsoDesativarCurso
+    CasoDeUsoDesativarDisciplina, CasoDeUsoCriarCurso, CasoDeUsoEditarCurso, CasoDeUsoDesativarCurso, \
+    CasoDeUsoEditarCompetencias
 
 
 @dataclass(frozen=True, init=False)
@@ -15,6 +16,7 @@ class Repositorios(ContainerBase):
     docentes = RepositorioDocente()
     disciplinas = RepositorioDisciplina()
     cursos = RepositorioCurso()
+    competencias = RepositorioCompetencia()
 
 
 class CasosDeUsoDocente(ContainerBase):
@@ -37,10 +39,15 @@ class CasosDeUsoCurso(ContainerBase):
     desativar = CasoDeUsoDesativarCurso(Repositorios.cursos)
 
 
+class CasosDeUsoCompetencias(ContainerBase):
+    editar = CasoDeUsoEditarCompetencias(Repositorios.competencias)
+
+
 class CasosDeUso(ContainerBase):
     docente = CasosDeUsoDocente()
     disciplina = CasosDeUsoDisciplina()
     curso = CasosDeUsoCurso()
+    competencia = CasosDeUsoCompetencias()
 
 
 class ContainerDeDependencias(ContainerBase):

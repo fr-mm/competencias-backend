@@ -25,7 +25,7 @@ class TestRepositorioCompetencia(TestCase):
             ) for disciplina in disciplinas
         ]
 
-        self.repositorio.salvar(competencias[0], competencias[1])
+        self.repositorio.salvar([competencias[0], competencias[1]])
 
         modelos: List[ModeloCompetencia] = ModeloCompetencia.objects.all()
         resultado = {

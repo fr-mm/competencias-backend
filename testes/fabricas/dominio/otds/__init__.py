@@ -7,3 +7,5 @@ from testes.fabricas.dominio.otds.fabrica_teste_otd_modulo_em_criacao import Fab
 from testes.fabricas.dominio.otds.fabrica_teste_otd_curso_entrada import FabricaTesteOTDCursoEntrada
 from testes.fabricas.dominio.otds.fabrica_teste_otd_curso_em_criacao import FabricaTesteOTDCursoEmCriacao
 from testes.fabricas.dominio.otds.fabrica_teste_otd_curso_saida import FabricaTesteOTDCursoSaida
+from testes.fabricas.dominio.otds.fabrica_test_otd_competencia import FabricaTesteOTDCompetencia
+from testes.fabricas.dominio.otds.fabrica_teste_otd_caso_de_uso_editar_competencias import FabricaTesteOTDCasoDeUsoEditarCompetencias

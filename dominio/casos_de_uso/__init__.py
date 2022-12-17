@@ -9,3 +9,4 @@ from dominio.casos_de_uso.caso_de_uso_desativar_disciplina import CasoDeUsoDesat
 from dominio.casos_de_uso.caso_de_uso_criar_curso import CasoDeUsoCriarCurso
 from dominio.casos_de_uso.caso_de_uso_editar_curso import CasoDeUsoEditarCurso
 from dominio.casos_de_uso.caso_de_uso_desativar_curso import CasoDeUsoDesativarCurso
+from dominio.casos_de_uso.caso_de_uso_editar_competencias import CasoDeUsoEditarCompetencias

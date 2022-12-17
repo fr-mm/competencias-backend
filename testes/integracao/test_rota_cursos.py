@@ -5,9 +5,8 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 
 from aplicacao.models import ModeloCurso, ModeloModulo, ModeloModuloEmCurso, ModeloDisciplinaEmModulo, ModeloDisciplina
-from dominio.entidades import Disciplina
 from dominio.otds import OTDCursoEmCriacao, OTDModuloEmCriacao
-from testes.fabricas import FabricaTesteOTDCursoEmCriacao, FabricaTesteDisciplina, FabricaTesteModeloDisciplina
+from testes.fabricas import FabricaTesteOTDCursoEmCriacao, FabricaTesteModeloDisciplina
 
 
 class TestRotaCurso(APITestCase):

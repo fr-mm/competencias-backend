@@ -7,7 +7,7 @@ from dominio.repositorios import RepositorioAbstratoCompetencia
 
 
 class RepositorioCompetencia(RepositorioAbstratoCompetencia):
-    def salvar(self, *competencias) -> None:
+    def salvar(self, competencias: List[Competencia]) -> None:
         for competencia in competencias:
             ModeloCompetencia.de_entidade(competencia).save()
 
